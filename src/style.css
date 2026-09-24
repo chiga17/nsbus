@@ -30,6 +30,34 @@ body,
   z-index: 500;
 }
 
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 8px 14px;
+  background: #fff;
+  border-bottom: 1px solid #e8d5c4;
+  z-index: 500;
+  font-size: 13px;
+}
+
+.filters label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--c, #333);
+  font-weight: 600;
+}
+
+.filters button {
+  border: 1px solid #e8d5c4;
+  background: #fff8f1;
+  border-radius: 6px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
 .muted {
   color: #6b5b4f;
   font-size: 13px;

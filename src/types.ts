@@ -11,6 +11,7 @@ export type DayType = 'workday' | 'saturday' | 'sunday'
 export type Line = {
   id: string
   name: string
+  route: string
   source: string
   tripSeconds: number
   shape: [number, number][]

@@ -68,7 +68,7 @@ export function vehiclesAt(
   const tripMs = line.tripSeconds * 1000
   const out: Vehicle[] = []
 
-  for (const hhmm of line.departures[dayType(now)]) {
+  for (const hhmm of line.departures[dayType(now)] ?? line.departures.workday) {
     const elapsed = now.getTime() - parseToday(hhmm, now).getTime()
     if (elapsed < 0 || elapsed >= tripMs) continue
 

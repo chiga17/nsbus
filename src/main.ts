@@ -1,28 +1,56 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import line4A from './data/4A.json'
-import line4B from './data/4B.json'
+import rawLines from './data/lines.json'
 import { dayType, shapeDistances, vehiclesAt } from './simulate.ts'
 import './style.css'
 import type { Line } from './types.ts'
 
-const COLORS: Record<string, string> = { '4A': '#c45c26', '4B': '#2d6a8e' }
+const PALETTE = [
+  '#c45c26',
+  '#2d6a8e',
+  '#3d7a4a',
+  '#8b3a62',
+  '#6b5ea8',
+  '#b45309',
+  '#0f766e',
+  '#b91c1c',
+  '#1d4ed8',
+  '#4d7c0f',
+]
 
-const lines = [line4A as Line, line4B as Line].map((line) => ({
+function colorFor(id: string): string {
+  let h = 0
+  for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  return PALETTE[h % PALETTE.length]
+}
+
+const allLines = (rawLines as unknown as Line[]).map((line, i) => ({
   line,
   cumulative: shapeDistances(line),
-  color: COLORS[line.id],
+  color: colorFor(line.id),
+  index: i,
 }))
+
+const enabled = new Set(allLines.map((row) => row.line.id))
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header class="bar">
     <div>
       <strong>nsbus</strong>
-      <span class="muted">JGSP Novi Sad · line 4</span>
+      <span class="muted">JGSP Novi Sad · gradski</span>
     </div>
     <div id="status" class="muted"></div>
     <span class="muted warn">simulated from timetable, not GPS</span>
   </header>
+  <div class="filters">
+    <button type="button" id="toggle-all">all</button>
+    ${allLines
+      .map(
+        ({ line, color }) =>
+          `<label style="--c:${color}"><input type="checkbox" data-line="${line.id}" checked> ${line.id}</label>`,
+      )
+      .join('')}
+  </div>
   <div id="map"></div>
 `
 
@@ -30,36 +58,26 @@ const map = L.map('map')
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
-  attribution: '&copy; OpenStreetMap · route &amp; schedule: JGSP Novi Sad',
+  attribution: '&copy; OpenStreetMap · JGSP Novi Sad',
 }).addTo(map)
 
 const bounds = L.latLngBounds([])
+const routes = new Map<string, L.Polyline>()
 
-for (const { line, color } of lines) {
+for (const { line, color } of allLines) {
   const route = L.polyline(line.shape, {
     color,
-    weight: 5,
-    opacity: 0.75,
+    weight: 4,
+    opacity: 0.55,
   }).addTo(map)
+  routes.set(line.id, route)
   bounds.extend(route.getBounds())
-
-  for (const stop of line.stops) {
-    L.circleMarker([stop.lat, stop.lon], {
-      radius: 4,
-      color,
-      fillColor: '#fff',
-      fillOpacity: 1,
-      weight: 2,
-    })
-      .bindTooltip(`${line.id} · ${stop.name}`)
-      .addTo(map)
-  }
 }
 
-map.fitBounds(bounds.pad(0.08))
+map.fitBounds(bounds.pad(0.06))
 
 const icons = new Map(
-  lines.map(({ line, color }) => [
+  allLines.map(({ line, color }) => [
     line.id,
     L.divIcon({
       className: 'bus-marker',
@@ -73,20 +91,22 @@ const icons = new Map(
 const markers = new Map<string, L.Marker>()
 const statusEl = document.querySelector('#status')!
 
+function visibleRows() {
+  return allLines.filter((row) => enabled.has(row.line.id))
+}
+
 function tick() {
   const now = new Date()
   const seen = new Set<string>()
   let count = 0
 
-  for (const { line, cumulative } of lines) {
+  for (const { line, cumulative } of visibleRows()) {
     for (const v of vehiclesAt(line, cumulative, now)) {
       seen.add(v.id)
       count++
-
-      const popup = `<strong>${v.lineId}</strong> departed ${v.departedAt}
-        <br>${v.lastStop} → ${v.nextStop}
+      const popup = `<strong>${v.lineId}</strong> ${line.route}
+        <br>left ${v.departedAt} · ${v.lastStop} → ${v.nextStop}
         <br><small>${Math.round(v.progress * 100)}% of the route</small>`
-
       const marker = markers.get(v.id)
       if (marker) {
         marker.setLatLng([v.lat, v.lon])
@@ -109,8 +129,37 @@ function tick() {
     }
   }
 
-  statusEl.textContent = `${dayType(now)} · ${count} bus(es) en route · ${now.toLocaleTimeString('sr-RS')}`
+  statusEl.textContent = `${dayType(now)} · ${count} bus(es) · ${visibleRows().length}/${allLines.length} lines · ${now.toLocaleTimeString('sr-RS')}`
 }
+
+function syncRoutes() {
+  for (const { line } of allLines) {
+    const route = routes.get(line.id)
+    if (!route) continue
+    if (enabled.has(line.id)) route.addTo(map)
+    else route.remove()
+  }
+  tick()
+}
+
+document.querySelectorAll<HTMLInputElement>('input[data-line]').forEach((input) => {
+  input.addEventListener('change', () => {
+    const id = input.dataset.line!
+    if (input.checked) enabled.add(id)
+    else enabled.delete(id)
+    syncRoutes()
+  })
+})
+
+document.querySelector('#toggle-all')!.addEventListener('click', () => {
+  const allOn = enabled.size === allLines.length
+  enabled.clear()
+  document.querySelectorAll<HTMLInputElement>('input[data-line]').forEach((input) => {
+    input.checked = !allOn
+    if (!allOn) enabled.add(input.dataset.line!)
+  })
+  syncRoutes()
+})
 
 tick()
 setInterval(tick, 1000)
