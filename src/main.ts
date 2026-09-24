@@ -24,14 +24,11 @@ function colorFor(id: string): string {
   return PALETTE[h % PALETTE.length]
 }
 
-const allLines = (rawLines as unknown as Line[]).map((line, i) => ({
+const lines = (rawLines as unknown as Line[]).map((line) => ({
   line,
   cumulative: shapeDistances(line),
   color: colorFor(line.id),
-  index: i,
 }))
-
-const enabled = new Set(allLines.map((row) => row.line.id))
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header class="bar">
@@ -42,15 +39,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <div id="status" class="muted"></div>
     <span class="muted warn">simulated from timetable, not GPS</span>
   </header>
-  <div class="filters">
-    <button type="button" id="toggle-all">all</button>
-    ${allLines
-      .map(
-        ({ line, color }) =>
-          `<label style="--c:${color}"><input type="checkbox" data-line="${line.id}" checked> ${line.id}</label>`,
-      )
-      .join('')}
-  </div>
   <div id="map"></div>
 `
 
@@ -62,22 +50,69 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map)
 
 const bounds = L.latLngBounds([])
-const routes = new Map<string, L.Polyline>()
-
-for (const { line, color } of allLines) {
-  const route = L.polyline(line.shape, {
-    color,
-    weight: 4,
-    opacity: 0.55,
-  }).addTo(map)
-  routes.set(line.id, route)
-  bounds.extend(route.getBounds())
+for (const { line } of lines) {
+  for (const point of line.shape) bounds.extend(point)
 }
-
 map.fitBounds(bounds.pad(0.06))
 
+// Every stop of every line, drawn once even when several lines share it.
+const stopLayer = L.layerGroup().addTo(map)
+const stopMarkers: L.CircleMarker[] = []
+const drawnStops = new Set<string>()
+
+/** circleMarker radius is in pixels, so grow it as the user zooms in. */
+function stopRadius(zoom: number): number {
+  return Math.min(9, Math.max(3, Math.round(zoom) - 9))
+}
+
+for (const { line } of lines) {
+  for (const stop of line.stops) {
+    const key = `${stop.lat.toFixed(5)},${stop.lon.toFixed(5)}`
+    if (drawnStops.has(key)) continue
+    drawnStops.add(key)
+    const marker = L.circleMarker([stop.lat, stop.lon], {
+      radius: stopRadius(map.getZoom()),
+      color: '#41505f',
+      weight: 2,
+      fillColor: '#fff',
+      fillOpacity: 1,
+    })
+      .bindTooltip(stop.name)
+      .addTo(stopLayer)
+    stopMarkers.push(marker)
+  }
+}
+
+map.on('zoomend', () => {
+  const radius = stopRadius(map.getZoom())
+  for (const marker of stopMarkers) marker.setRadius(radius)
+})
+
+const routes = new Map<string, L.Polyline>()
+const shown = new Set<string>()
+
+function toggleRoute(id: string) {
+  if (shown.has(id)) {
+    routes.get(id)?.remove()
+    shown.delete(id)
+    return
+  }
+  let route = routes.get(id)
+  if (!route) {
+    const row = lines.find((r) => r.line.id === id)!
+    route = L.polyline(row.line.shape, {
+      color: row.color,
+      weight: 5,
+      opacity: 0.85,
+    })
+    routes.set(id, route)
+  }
+  route.addTo(map)
+  shown.add(id)
+}
+
 const icons = new Map(
-  allLines.map(({ line, color }) => [
+  lines.map(({ line, color }) => [
     line.id,
     L.divIcon({
       className: 'bus-marker',
@@ -91,33 +126,29 @@ const icons = new Map(
 const markers = new Map<string, L.Marker>()
 const statusEl = document.querySelector('#status')!
 
-function visibleRows() {
-  return allLines.filter((row) => enabled.has(row.line.id))
-}
-
 function tick() {
   const now = new Date()
   const seen = new Set<string>()
   let count = 0
 
-  for (const { line, cumulative } of visibleRows()) {
+  for (const { line, cumulative } of lines) {
     for (const v of vehiclesAt(line, cumulative, now)) {
       seen.add(v.id)
       count++
       const popup = `<strong>${v.lineId}</strong> ${line.route}
         <br>left ${v.departedAt} · ${v.lastStop} → ${v.nextStop}
-        <br><small>${Math.round(v.progress * 100)}% of the route</small>`
+        <br><small>${Math.round(v.progress * 100)}% of the route · click the bus to toggle its line</small>`
+
       const marker = markers.get(v.id)
       if (marker) {
         marker.setLatLng([v.lat, v.lon])
         marker.setPopupContent(popup)
       } else {
-        markers.set(
-          v.id,
-          L.marker([v.lat, v.lon], { icon: icons.get(v.lineId) })
-            .bindPopup(popup)
-            .addTo(map),
-        )
+        const created = L.marker([v.lat, v.lon], { icon: icons.get(v.lineId) })
+          .bindPopup(popup)
+          .addTo(map)
+        created.on('click', () => toggleRoute(v.lineId))
+        markers.set(v.id, created)
       }
     }
   }
@@ -129,37 +160,8 @@ function tick() {
     }
   }
 
-  statusEl.textContent = `${dayType(now)} · ${count} bus(es) · ${visibleRows().length}/${allLines.length} lines · ${now.toLocaleTimeString('sr-RS')}`
+  statusEl.textContent = `${dayType(now)} · ${count} bus(es) · ${shown.size} line(s) shown · ${now.toLocaleTimeString('sr-RS')}`
 }
-
-function syncRoutes() {
-  for (const { line } of allLines) {
-    const route = routes.get(line.id)
-    if (!route) continue
-    if (enabled.has(line.id)) route.addTo(map)
-    else route.remove()
-  }
-  tick()
-}
-
-document.querySelectorAll<HTMLInputElement>('input[data-line]').forEach((input) => {
-  input.addEventListener('change', () => {
-    const id = input.dataset.line!
-    if (input.checked) enabled.add(id)
-    else enabled.delete(id)
-    syncRoutes()
-  })
-})
-
-document.querySelector('#toggle-all')!.addEventListener('click', () => {
-  const allOn = enabled.size === allLines.length
-  enabled.clear()
-  document.querySelectorAll<HTMLInputElement>('input[data-line]').forEach((input) => {
-    input.checked = !allOn
-    if (!allOn) enabled.add(input.dataset.line!)
-  })
-  syncRoutes()
-})
 
 tick()
 setInterval(tick, 1000)
