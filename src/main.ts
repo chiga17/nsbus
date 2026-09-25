@@ -184,6 +184,7 @@ function renderPanel(now: Date) {
 
   const rows = arrivalsAtStop(
     lines.map((row) => row.line),
+    selected.name,
     selected.lat,
     selected.lon,
     now,

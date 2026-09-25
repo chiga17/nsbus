@@ -1,4 +1,4 @@
-import type { Arrival, DayType, Line, Vehicle } from './types.ts'
+import type { Arrival, DayType, Line, Stop, Vehicle } from './types.ts'
 
 export function dayType(now: Date): DayType {
   const day = now.getDay()
@@ -95,8 +95,14 @@ export function vehiclesAt(
   return out
 }
 
-function near(lat1: number, lon1: number, lat2: number, lon2: number): boolean {
-  return metres([lat1, lon1], [lat2, lon2]) < 60
+/**
+ * Both directions of a street have their own pole, sometimes under 60 m apart
+ * (Žarka Zrenjanina: "Opština" and "Izvršno Veće" are 58 m). Distance alone would
+ * merge them and list buses going the other way, so the name has to agree too.
+ */
+function samePole(stop: Stop, name: string, lat: number, lon: number): boolean {
+  if (stop.name.trim().toLowerCase() !== name.trim().toLowerCase()) return false
+  return metres([stop.lat, stop.lon], [lat, lon]) < 80
 }
 
 function timesFor(line: Line, now: Date): string[] {
@@ -109,6 +115,7 @@ function timesFor(line: Line, now: Date): string[] {
  */
 export function arrivalsAtStop(
   lines: Line[],
+  name: string,
   lat: number,
   lon: number,
   now: Date,
@@ -117,7 +124,7 @@ export function arrivalsAtStop(
   const out: Arrival[] = []
 
   for (const line of lines) {
-    const served = line.stops.filter((s) => near(s.lat, s.lon, lat, lon))
+    const served = line.stops.filter((s) => samePole(s, name, lat, lon))
     if (!served.length) continue
 
     const first = line.stops[0].along
