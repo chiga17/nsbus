@@ -31,7 +31,7 @@ STOP_ORDERS_MD_PATH = ROOT / "STOP_ORDERS.md"
 BASE = "http://www.gspns.rs"
 UA = "nsbus-pet-project/0.1"
 CTX = ssl._create_unverified_context()
-SPEED_MPS = 18 * 1000 / 3600  # ~18 km/h
+SPEED_MPS = 16 * 1000 / 3600  # ~16 km/h (schedule sim; tune vs street)
 
 
 def get(path: str, params: dict[str, str] | None = None) -> str:
