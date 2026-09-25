@@ -209,26 +209,100 @@ def order_along_route(stops: list[dict], points: list[list[float]]) -> list[dict
     return sorted(stops, key=lambda s: s["along"])
 
 
+# Timetable waypoints name districts; stops name the street there.
+LANDMARKS = {
+    "ZELEZNICKA": ("ZELEZNICKA", "JASE TOMICA"),
+    "LIMAN": ("NARODNOG FRONTA", "LIMAN"),
+    "CENTAR": ("USPENSKA", "ZARKA ZRENJANINA"),
+    "DETELINARA": ("JANKA CMELIKA", "OBLACICA RADA"),
+    "TELEP": ("SENTELEKI", "FEJES"),
+    "BOLNICA": ("HAJDUK VELJKOVA", "BOLNICA"),
+}
+
+
+# Words that appear in half the stop names and so pin down nothing.
+GENERIC = {
+    "PUT",
+    "ULICA",
+    "NASELJE",
+    "STANICA",
+    "ZONA",
+    "SKOLA",
+    "OSNOVNA",
+    "BULEVAR",
+    "TRG",
+    "OKRETNICA",
+    "NOVI",
+    "SAD",
+}
+
+
+def waypoint_keywords(waypoint: str) -> list[str]:
+    out: list[str] = []
+    for token in fold(waypoint).split():
+        if len(token) < 3 or token in GENERIC:
+            continue
+        out.extend(LANDMARKS.get(token, (token,)))
+    return out
+
+
+def same_word(a: str, b: str) -> bool:
+    """Serbian endings differ between a district and its street (Avijatičarsko/-ska)."""
+    if a == b:
+        return True
+    shared = 0
+    for x, y in zip(a, b):
+        if x != y:
+            break
+        shared += 1
+    return shared >= 6
+
+
+def stop_matches(stop_name: str, keywords: list[str]) -> bool:
+    folded = fold(stop_name)
+    words = folded.split()
+    for keyword in keywords:
+        if " " in keyword:
+            if keyword in folded:
+                return True
+        elif any(same_word(keyword, word) for word in words):
+            return True
+    return False
+
+
 def orient(points: list[list[float]], stops: list[dict], route: str) -> tuple[list[list[float]], list[dict]]:
-    """Reverse the shape if the timetable start terminus sits nearer the end."""
-    start, end = ends(route)
+    """Reverse the shape when the route's waypoints run backwards along it.
+
+    Uses every waypoint, not just the termini, because loop lines such as 7A/7B
+    start and finish at the same terminus and are only told apart by the middle.
+    """
     if not stops:
         return points, stops
 
-    def mean_along(word: str) -> float | None:
-        hits = [s for s in stops if word and word in fold(s["name"])]
+    length = max(stops[-1]["along"], 1.0)
+
+    def mean_along(keywords: list[str]) -> float | None:
+        hits = [s["along"] for s in stops if stop_matches(s["name"], keywords)]
         if not hits:
             return None
-        return sum(s["along"] for s in hits) / len(hits)
+        # Matches in two different parts of town (Futoška vs Futoški put) prove nothing.
+        if max(hits) - min(hits) > 0.3 * length:
+            return None
+        return sum(hits) / len(hits)
 
-    a0, a1 = mean_along(start), mean_along(end)
+    parts = [p for p in re.split(r"\s*[-–]\s*", route) if fold(p)]
+    if len(parts) > 2 and fold(parts[0]) == fold(parts[-1]):
+        parts = parts[1:-1]  # a loop: only the middle says which way round it goes
+
+    positions = [m for p in parts if (m := mean_along(waypoint_keywords(p))) is not None]
+
     should_reverse = False
-    if a0 is not None and a1 is not None:
-        should_reverse = a0 > a1
-    elif a1 is not None:
-        should_reverse = a1 < (stops[0]["along"] + stops[-1]["along"]) / 2
-    elif a0 is not None:
-        should_reverse = a0 > (stops[0]["along"] + stops[-1]["along"]) / 2
+    if len(positions) >= 2:
+        steps = sum(
+            1 if b > a else -1 if b < a else 0
+            for a, b in zip(positions, positions[1:])
+        )
+        should_reverse = steps < 0
 
     if should_reverse:
         points = list(reversed(points))
