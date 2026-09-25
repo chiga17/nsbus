@@ -1,0 +1,5476 @@
+[
+  {
+    "line": "1A",
+    "route": "KLISA - CENTAR - LIMAN I",
+    "mrezaId": "232",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Evrope - Okretnica",
+        "lat": 45.30128,
+        "lon": 19.807564,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Proleterska - Drage Garašanin",
+        "lat": 45.301786862,
+        "lon": 19.8140267639,
+        "distanceFromStartMeters": 507.5
+      },
+      {
+        "sequence": 3,
+        "name": "Proleterska - Zatvor",
+        "lat": 45.3030527389,
+        "lon": 19.819219952,
+        "distanceFromStartMeters": 909.9
+      },
+      {
+        "sequence": 4,
+        "name": "Proleterska 157",
+        "lat": 45.303117,
+        "lon": 19.823915,
+        "distanceFromStartMeters": 1584.2
+      },
+      {
+        "sequence": 5,
+        "name": "Sentandrejski Put - Zmajevački Put",
+        "lat": 45.3025717506,
+        "lon": 19.8247023774,
+        "distanceFromStartMeters": 1659.8
+      },
+      {
+        "sequence": 6,
+        "name": "Sentandrejski Put - Savska",
+        "lat": 45.2997652739,
+        "lon": 19.8226695053,
+        "distanceFromStartMeters": 2006.5
+      },
+      {
+        "sequence": 7,
+        "name": "Sentandrejski Put - Velebitska",
+        "lat": 45.295793932,
+        "lon": 19.8223251106,
+        "distanceFromStartMeters": 2410.4
+      },
+      {
+        "sequence": 8,
+        "name": "Sentandrejski Put - Paje Radosavljevića",
+        "lat": 45.2916390663,
+        "lon": 19.8237880279,
+        "distanceFromStartMeters": 2910.6
+      },
+      {
+        "sequence": 9,
+        "name": "Sentandrejski Put - Ritska",
+        "lat": 45.2888681125,
+        "lon": 19.8247619009,
+        "distanceFromStartMeters": 3203.5
+      },
+      {
+        "sequence": 10,
+        "name": "Sentandrejski Put - Otokara Keršovanija",
+        "lat": 45.28628095,
+        "lon": 19.8256640401,
+        "distanceFromStartMeters": 3504.4
+      },
+      {
+        "sequence": 11,
+        "name": "Sentandrejski Put - Most Kanal Dtd",
+        "lat": 45.2828585422,
+        "lon": 19.8268347377,
+        "distanceFromStartMeters": 4001.4
+      },
+      {
+        "sequence": 12,
+        "name": "Sentandrejski Put - Benzinska Pumpa",
+        "lat": 45.2713036839,
+        "lon": 19.8308548777,
+        "distanceFromStartMeters": 5342.0
+      },
+      {
+        "sequence": 13,
+        "name": "Kisačka - Partizanska",
+        "lat": 45.2687779267,
+        "lon": 19.8317437287,
+        "distanceFromStartMeters": 5572.8
+      },
+      {
+        "sequence": 14,
+        "name": "Kisačka - Bulevar Jaše Tomića",
+        "lat": 45.2656954001,
+        "lon": 19.8354809218,
+        "distanceFromStartMeters": 6021.9
+      },
+      {
+        "sequence": 15,
+        "name": "Kisačka - Bulevar Kralja Petra Prvog",
+        "lat": 45.2623699914,
+        "lon": 19.8401023551,
+        "distanceFromStartMeters": 6718.6
+      },
+      {
+        "sequence": 16,
+        "name": "Kisačka - Vuka Karadžića",
+        "lat": 45.2609612857,
+        "lon": 19.8420940143,
+        "distanceFromStartMeters": 6786.5
+      },
+      {
+        "sequence": 17,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255203707,
+        "lon": 19.8416504854,
+        "distanceFromStartMeters": 7427.3
+      },
+      {
+        "sequence": 18,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253337,
+        "lon": 19.844187,
+        "distanceFromStartMeters": 7745.2
+      },
+      {
+        "sequence": 19,
+        "name": "Žarka Zrenjanina - Opština",
+        "lat": 45.2524025428,
+        "lon": 19.8471827488,
+        "distanceFromStartMeters": 8221.2
+      },
+      {
+        "sequence": 20,
+        "name": "Bulevar Cara Lazara - Urbis",
+        "lat": 45.2474414598,
+        "lon": 19.8488525074,
+        "distanceFromStartMeters": 8741.4
+      },
+      {
+        "sequence": 21,
+        "name": "Fruškogorska - Narodnog Fronta",
+        "lat": 45.2420582997,
+        "lon": 19.8475310279,
+        "distanceFromStartMeters": 9371.6
+      },
+      {
+        "sequence": 22,
+        "name": "Štrand - Okretnica",
+        "lat": 45.2386999087,
+        "lon": 19.84777609,
+        "distanceFromStartMeters": 9779.1
+      }
+    ]
+  },
+  {
+    "line": "1B",
+    "route": "LIMAN I - CENTAR - KLISA",
+    "mrezaId": "233",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Štrand - Okretnica",
+        "lat": 45.239001,
+        "lon": 19.848256,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Fruškogorska - Doktora Ilije Đuričića",
+        "lat": 45.2429842112,
+        "lon": 19.847528317,
+        "distanceFromStartMeters": 403.7
+      },
+      {
+        "sequence": 3,
+        "name": "Stražilovska - Urbis",
+        "lat": 45.2481301777,
+        "lon": 19.8492059684,
+        "distanceFromStartMeters": 1085.8
+      },
+      {
+        "sequence": 4,
+        "name": "Žarka Zrenjanina - Izvršno Veće",
+        "lat": 45.2528535063,
+        "lon": 19.8475593745,
+        "distanceFromStartMeters": 1706.9
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253519,
+        "lon": 19.844141,
+        "distanceFromStartMeters": 2001.4
+      },
+      {
+        "sequence": 6,
+        "name": "Uspenska - Pozorišni Trg",
+        "lat": 45.255185246,
+        "lon": 19.8419960985,
+        "distanceFromStartMeters": 2335.5
+      },
+      {
+        "sequence": 7,
+        "name": "Kisačka - Temerinska",
+        "lat": 45.2608711975,
+        "lon": 19.8423966225,
+        "distanceFromStartMeters": 2973.4
+      },
+      {
+        "sequence": 8,
+        "name": "Kisačka - Dositejeva",
+        "lat": 45.2632551971,
+        "lon": 19.8390209306,
+        "distanceFromStartMeters": 3268.4
+      },
+      {
+        "sequence": 9,
+        "name": "Kisačka - Podvožnjak",
+        "lat": 45.2665045391,
+        "lon": 19.834665763,
+        "distanceFromStartMeters": 3820.3
+      },
+      {
+        "sequence": 10,
+        "name": "Sentandrejski Put - Partizanska",
+        "lat": 45.2699357528,
+        "lon": 19.8315959987,
+        "distanceFromStartMeters": 4218.3
+      },
+      {
+        "sequence": 11,
+        "name": "Sentandrejski Put - Teodora Mandića",
+        "lat": 45.2737069812,
+        "lon": 19.830315176,
+        "distanceFromStartMeters": 4684.0
+      },
+      {
+        "sequence": 12,
+        "name": "Sentandrejski Put - Primorska",
+        "lat": 45.2848260115,
+        "lon": 19.8263159471,
+        "distanceFromStartMeters": 6052.7
+      },
+      {
+        "sequence": 13,
+        "name": "Sentandrejski Put - Otokara Keršovanija",
+        "lat": 45.2872651434,
+        "lon": 19.825474462,
+        "distanceFromStartMeters": 6253.5
+      },
+      {
+        "sequence": 14,
+        "name": "Sentandrejski Put - Sportska Hala",
+        "lat": 45.2898775272,
+        "lon": 19.8245477965,
+        "distanceFromStartMeters": 6618.8
+      },
+      {
+        "sequence": 15,
+        "name": "Sentandrejski Put - Paje Radosavljevića",
+        "lat": 45.2922920477,
+        "lon": 19.8237043193,
+        "distanceFromStartMeters": 6910.7
+      },
+      {
+        "sequence": 16,
+        "name": "Sentandrejski Put - Velebitska",
+        "lat": 45.2953893559,
+        "lon": 19.8226166593,
+        "distanceFromStartMeters": 7254.8
+      },
+      {
+        "sequence": 17,
+        "name": "Sentandrejski Put - Savska",
+        "lat": 45.2993746126,
+        "lon": 19.8226514651,
+        "distanceFromStartMeters": 7669.3
+      },
+      {
+        "sequence": 18,
+        "name": "Sentandrejski Put - Zmajevački Put",
+        "lat": 45.3025717506,
+        "lon": 19.8247023774,
+        "distanceFromStartMeters": 8155.5
+      },
+      {
+        "sequence": 19,
+        "name": "Proleterska - Iveco",
+        "lat": 45.303126713,
+        "lon": 19.8240177931,
+        "distanceFromStartMeters": 8285.4
+      },
+      {
+        "sequence": 20,
+        "name": "Proleterska - Zatvor",
+        "lat": 45.3026601998,
+        "lon": 19.8183800667,
+        "distanceFromStartMeters": 8952.7
+      },
+      {
+        "sequence": 21,
+        "name": "Proleterska - Drage Garašanin",
+        "lat": 45.3018931203,
+        "lon": 19.8143882272,
+        "distanceFromStartMeters": 9268.4
+      },
+      {
+        "sequence": 22,
+        "name": "Bulevar Evrope - Okretnica",
+        "lat": 45.30128,
+        "lon": 19.807564,
+        "distanceFromStartMeters": 9833.9
+      }
+    ]
+  },
+  {
+    "line": "2A",
+    "route": "CENTAR - NOVO NASELJE",
+    "mrezaId": "3",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255083741,
+        "lon": 19.8416138869,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Futoška - Bulevar Oslobođenja",
+        "lat": 45.2515776887,
+        "lon": 19.836036584,
+        "distanceFromStartMeters": 664.8
+      },
+      {
+        "sequence": 3,
+        "name": "Futoška - Branislava Nušića",
+        "lat": 45.2496536022,
+        "lon": 19.8321411697,
+        "distanceFromStartMeters": 1010.7
+      },
+      {
+        "sequence": 4,
+        "name": "Futoška - Jodna Banja",
+        "lat": 45.2492337673,
+        "lon": 19.8289089911,
+        "distanceFromStartMeters": 1320.0
+      },
+      {
+        "sequence": 5,
+        "name": "Futoška - Bolnica",
+        "lat": 45.2494278377,
+        "lon": 19.8238348508,
+        "distanceFromStartMeters": 1693.7
+      },
+      {
+        "sequence": 6,
+        "name": "Futoška - Bulevar Evrope",
+        "lat": 45.2485623853,
+        "lon": 19.815564749,
+        "distanceFromStartMeters": 2369.5
+      },
+      {
+        "sequence": 7,
+        "name": "Futoška - Jugoalat",
+        "lat": 45.2478325873,
+        "lon": 19.810052585,
+        "distanceFromStartMeters": 2901.9
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Slobodana Jovanovića - Futoški Put",
+        "lat": 45.2482734052,
+        "lon": 19.8075067499,
+        "distanceFromStartMeters": 3088.6
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Slobodana Jovanovića - Branislava Borote",
+        "lat": 45.2515983077,
+        "lon": 19.8053597388,
+        "distanceFromStartMeters": 3513.8
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Jovana Dučića - Bulevar Slobodana Jovanovića",
+        "lat": 45.2529483166,
+        "lon": 19.8031021067,
+        "distanceFromStartMeters": 3707.4
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Bate Brkića - Bulevar Jovana Dučića",
+        "lat": 45.250093,
+        "lon": 19.797603,
+        "distanceFromStartMeters": 4309.1
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Bate Brkića - Satelitska Pijaca",
+        "lat": 45.248178,
+        "lon": 19.799015,
+        "distanceFromStartMeters": 4593.2
+      },
+      {
+        "sequence": 13,
+        "name": "Futoški Put - Satelitska Pijaca",
+        "lat": 45.2461119679,
+        "lon": 19.7998632846,
+        "distanceFromStartMeters": 4872.2
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Kneza Miloša - Futoški Put",
+        "lat": 45.245098379,
+        "lon": 19.7946648286,
+        "distanceFromStartMeters": 5333.8
+      },
+      {
+        "sequence": 15,
+        "name": "Bulevar Kneza Miloša - Garaža Gsp-A",
+        "lat": 45.2472193464,
+        "lon": 19.7933548666,
+        "distanceFromStartMeters": 5884.4
+      },
+      {
+        "sequence": 16,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489713023,
+        "lon": 19.7915144259,
+        "distanceFromStartMeters": 5884.4
+      },
+      {
+        "sequence": 17,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.248251,
+        "lon": 19.786933,
+        "distanceFromStartMeters": 6326.1
+      }
+    ]
+  },
+  {
+    "line": "2B",
+    "route": "NOVO NASELJE - CENTAR",
+    "mrezaId": "4",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.247888,
+        "lon": 19.787416,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Kneza Miloša - Garaža Gsp-A",
+        "lat": 45.2470681807,
+        "lon": 19.793176626,
+        "distanceFromStartMeters": 395.5
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489224745,
+        "lon": 19.791754249,
+        "distanceFromStartMeters": 395.5
+      },
+      {
+        "sequence": 4,
+        "name": "Futoški Put - Bulevar Patrijarha Pavla",
+        "lat": 45.2445958159,
+        "lon": 19.79550631,
+        "distanceFromStartMeters": 942.7
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Bate Brkića - Futoški Put",
+        "lat": 45.24662,
+        "lon": 19.800352,
+        "distanceFromStartMeters": 1421.8
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Bate Brkića - Anđe Ranković",
+        "lat": 45.248044,
+        "lon": 19.79943,
+        "distanceFromStartMeters": 1421.8
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Jovana Dučića - Bate Brkića",
+        "lat": 45.2511237051,
+        "lon": 19.7983862612,
+        "distanceFromStartMeters": 2012.8
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Jovana Dučića - Robna Kuća",
+        "lat": 45.2523770585,
+        "lon": 19.8018919417,
+        "distanceFromStartMeters": 2497.3
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Slobodana Jovanovića - Dom Zdravlja",
+        "lat": 45.2510355315,
+        "lon": 19.8056491406,
+        "distanceFromStartMeters": 2718.0
+      },
+      {
+        "sequence": 10,
+        "name": "Futoški Put - Vršačka",
+        "lat": 45.247517576,
+        "lon": 19.8083415635,
+        "distanceFromStartMeters": 3228.3
+      },
+      {
+        "sequence": 11,
+        "name": "Futoška - Higijenski Zavod",
+        "lat": 45.2488161894,
+        "lon": 19.8177958089,
+        "distanceFromStartMeters": 4028.8
+      },
+      {
+        "sequence": 12,
+        "name": "Futoška - Cara Dušana",
+        "lat": 45.2491656314,
+        "lon": 19.8252968807,
+        "distanceFromStartMeters": 4658.2
+      },
+      {
+        "sequence": 13,
+        "name": "Futoška - Antona Čehova",
+        "lat": 45.2490835157,
+        "lon": 19.8300215701,
+        "distanceFromStartMeters": 5100.3
+      },
+      {
+        "sequence": 14,
+        "name": "Futoška - Braće Ribnikar",
+        "lat": 45.2498730986,
+        "lon": 19.8331936901,
+        "distanceFromStartMeters": 5314.1
+      },
+      {
+        "sequence": 15,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 5727.3
+      },
+      {
+        "sequence": 16,
+        "name": "Uspenska - Pozorišni Trg",
+        "lat": 45.2548499029,
+        "lon": 19.8422463011,
+        "distanceFromStartMeters": 6217.5
+      }
+    ]
+  },
+  {
+    "line": "3A",
+    "route": "PETROVARADIN - CENTAR - DETELINARA",
+    "mrezaId": "5",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Petrovaradin - Okretnica",
+        "lat": 45.2360062995,
+        "lon": 19.8878906109,
+        "distanceFromStartMeters": 18.4
+      },
+      {
+        "sequence": 2,
+        "name": "Petrovaradin - Železnička Stanica",
+        "lat": 45.2396101516,
+        "lon": 19.8853872807,
+        "distanceFromStartMeters": 569.7
+      },
+      {
+        "sequence": 3,
+        "name": "Preradovićeva - Božidar Adžije",
+        "lat": 45.2439233024,
+        "lon": 19.8814113961,
+        "distanceFromStartMeters": 1093.9
+      },
+      {
+        "sequence": 4,
+        "name": "Preradovićeva - Marina Držića",
+        "lat": 45.2464017138,
+        "lon": 19.87968712,
+        "distanceFromStartMeters": 1362.2
+      },
+      {
+        "sequence": 5,
+        "name": "Preradovićeva - Reljkovićeva",
+        "lat": 45.2496755784,
+        "lon": 19.8757045697,
+        "distanceFromStartMeters": 1859.7
+      },
+      {
+        "sequence": 6,
+        "name": "Preradovićeva - Šenoina",
+        "lat": 45.251431704,
+        "lon": 19.8732154355,
+        "distanceFromStartMeters": 2134.4
+      },
+      {
+        "sequence": 7,
+        "name": "Preradovićeva - Lovački Dom",
+        "lat": 45.2526031657,
+        "lon": 19.8689433116,
+        "distanceFromStartMeters": 2475.4
+      },
+      {
+        "sequence": 8,
+        "name": "Beogradska - Vladimira Nazora",
+        "lat": 45.2548163902,
+        "lon": 19.8623634945,
+        "distanceFromStartMeters": 3111.2
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Mihajla Pupina - Dunavski Park",
+        "lat": 45.2542020579,
+        "lon": 19.8519122087,
+        "distanceFromStartMeters": 3927.0
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253519,
+        "lon": 19.844141,
+        "distanceFromStartMeters": 4547.2
+      },
+      {
+        "sequence": 11,
+        "name": "Uspenska - Pozorišni Trg",
+        "lat": 45.255185246,
+        "lon": 19.8419960985,
+        "distanceFromStartMeters": 4828.1
+      },
+      {
+        "sequence": 12,
+        "name": "Vojvode Bojovića - Socijalno",
+        "lat": 45.2588786887,
+        "lon": 19.8375257882,
+        "distanceFromStartMeters": 5496.4
+      },
+      {
+        "sequence": 13,
+        "name": "Bulevar Kralja Petra Prvog - Bulevar Oslobođenja",
+        "lat": 45.2605767651,
+        "lon": 19.8314132035,
+        "distanceFromStartMeters": 6132.0
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Kralja Petra Prvog - Groblje",
+        "lat": 45.2595168963,
+        "lon": 19.8263471168,
+        "distanceFromStartMeters": 6530.4
+      },
+      {
+        "sequence": 15,
+        "name": "Rumenačka - Dom Zdravlja",
+        "lat": 45.260450059,
+        "lon": 19.8213763649,
+        "distanceFromStartMeters": 7030.8
+      },
+      {
+        "sequence": 16,
+        "name": "Rumenačka - Bulevar Jaše Tomića",
+        "lat": 45.2633439588,
+        "lon": 19.8182127414,
+        "distanceFromStartMeters": 7388.7
+      },
+      {
+        "sequence": 17,
+        "name": "Kornelija Stankovića - Filipa Filipovića",
+        "lat": 45.2634661042,
+        "lon": 19.8156966528,
+        "distanceFromStartMeters": 7671.6
+      },
+      {
+        "sequence": 18,
+        "name": "Milenka Grčića - Banatska",
+        "lat": 45.2640112807,
+        "lon": 19.8111852139,
+        "distanceFromStartMeters": 8240.0
+      },
+      {
+        "sequence": 19,
+        "name": "Oblačića Rada - Janka Čmelika",
+        "lat": 45.265188,
+        "lon": 19.808222,
+        "distanceFromStartMeters": 8636.4
+      }
+    ]
+  },
+  {
+    "line": "3B",
+    "route": "DETELINARA - CENTAR - PETROVARADIN",
+    "mrezaId": "6",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Janka Čmelika - Oblačića Rada",
+        "lat": 45.2649285714,
+        "lon": 19.8083164398,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Janka Čmelika - Dečije Obdanište",
+        "lat": 45.2618134201,
+        "lon": 19.8104375633,
+        "distanceFromStartMeters": 401.6
+      },
+      {
+        "sequence": 3,
+        "name": "Kornelija Stankovića - Ilije Birčanina",
+        "lat": 45.2620111469,
+        "lon": 19.8135399393,
+        "distanceFromStartMeters": 741.0
+      },
+      {
+        "sequence": 4,
+        "name": "Rumenačka - Kornelija Stankovića",
+        "lat": 45.2636389127,
+        "lon": 19.8174016008,
+        "distanceFromStartMeters": 1150.7
+      },
+      {
+        "sequence": 5,
+        "name": "Rumenačka - Abc Samoposluga",
+        "lat": 45.2609008436,
+        "lon": 19.8204896166,
+        "distanceFromStartMeters": 1534.8
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Kralja Petra Prvog - Sajam",
+        "lat": 45.2591224024,
+        "lon": 19.8244448578,
+        "distanceFromStartMeters": 1955.4
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Kralja Petra Prvog - Mašinska Škola",
+        "lat": 45.259428265,
+        "lon": 19.8274393446,
+        "distanceFromStartMeters": 2196.2
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Kralja Petra Prvog - Bulevar Oslobođenja",
+        "lat": 45.2607697725,
+        "lon": 19.8329179672,
+        "distanceFromStartMeters": 2633.2
+      },
+      {
+        "sequence": 9,
+        "name": "Vojvode Bojovića - Osnovna Škola Ivo Lola Ribar",
+        "lat": 45.2588985768,
+        "lon": 19.8371378326,
+        "distanceFromStartMeters": 3096.4
+      },
+      {
+        "sequence": 10,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255203707,
+        "lon": 19.8416504854,
+        "distanceFromStartMeters": 3800.9
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253337,
+        "lon": 19.844187,
+        "distanceFromStartMeters": 4117.0
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Mihajla Pupina - Sonje Marinković",
+        "lat": 45.254153,
+        "lon": 19.852979,
+        "distanceFromStartMeters": 4827.4
+      },
+      {
+        "sequence": 13,
+        "name": "Beogradska - Lisinskog",
+        "lat": 45.2547734365,
+        "lon": 19.8620128358,
+        "distanceFromStartMeters": 5510.7
+      },
+      {
+        "sequence": 14,
+        "name": "Preradovićeva - Lovački Dom",
+        "lat": 45.2525866389,
+        "lon": 19.8678103709,
+        "distanceFromStartMeters": 6055.7
+      },
+      {
+        "sequence": 15,
+        "name": "Preradovićeva - Osnovna Škola Jovan Dučić",
+        "lat": 45.2516407374,
+        "lon": 19.8727083512,
+        "distanceFromStartMeters": 6461.8
+      },
+      {
+        "sequence": 16,
+        "name": "Preradovićeva - Reljkovićeva",
+        "lat": 45.2488033781,
+        "lon": 19.876524398,
+        "distanceFromStartMeters": 6907.5
+      },
+      {
+        "sequence": 17,
+        "name": "Preradovićeva - Marina Držića",
+        "lat": 45.2455157784,
+        "lon": 19.8801002749,
+        "distanceFromStartMeters": 7366.2
+      },
+      {
+        "sequence": 18,
+        "name": "Preradovićeva - Račkog",
+        "lat": 45.241791669,
+        "lon": 19.8830977084,
+        "distanceFromStartMeters": 7855.5
+      },
+      {
+        "sequence": 19,
+        "name": "Petrovaradin - Železnička Stanica",
+        "lat": 45.2389365212,
+        "lon": 19.8857439999,
+        "distanceFromStartMeters": 8220.3
+      },
+      {
+        "sequence": 20,
+        "name": "Petrovaradin - Okretnica",
+        "lat": 45.2360062995,
+        "lon": 19.8878906109,
+        "distanceFromStartMeters": 8601.8
+      }
+    ]
+  },
+  {
+    "line": "3AA",
+    "route": "ZEL.STANICA - POBEDA",
+    "mrezaId": "241",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Oslobođenja - Bulevar Jaše Tomića",
+        "lat": 45.263325649,
+        "lon": 19.8304838937,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 368.1
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 1000.6
+      },
+      {
+        "sequence": 4,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 1408.9
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253337,
+        "lon": 19.844187,
+        "distanceFromStartMeters": 2028.1
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Mihajla Pupina - Sonje Marinković",
+        "lat": 45.254153,
+        "lon": 19.852979,
+        "distanceFromStartMeters": 2993.8
+      },
+      {
+        "sequence": 7,
+        "name": "Beogradska - Lisinskog",
+        "lat": 45.2547734365,
+        "lon": 19.8620128358,
+        "distanceFromStartMeters": 3486.1
+      },
+      {
+        "sequence": 8,
+        "name": "Preradovićeva - Lovački Dom",
+        "lat": 45.2525866389,
+        "lon": 19.8678103709,
+        "distanceFromStartMeters": 3971.4
+      },
+      {
+        "sequence": 9,
+        "name": "Preradovićeva - Osnovna Škola Jovan Dučić",
+        "lat": 45.2516407374,
+        "lon": 19.8727083512,
+        "distanceFromStartMeters": 4420.1
+      },
+      {
+        "sequence": 10,
+        "name": "Pobeda",
+        "lat": 45.253667,
+        "lon": 19.881576,
+        "distanceFromStartMeters": 5758.0
+      }
+    ]
+  },
+  {
+    "line": "3BA",
+    "route": "PETROVARADIN (O.S.\"J.DUCIC\") - PUCKAROS",
+    "mrezaId": "261",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Preradovićeva - Osnovna Škola Jovan Dučić",
+        "lat": 45.2516407374,
+        "lon": 19.8727083512,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Preradovićeva - Račkog",
+        "lat": 45.241791669,
+        "lon": 19.8830977084,
+        "distanceFromStartMeters": 1445.2
+      },
+      {
+        "sequence": 3,
+        "name": "Petrovaradin - Železnička Stanica",
+        "lat": 45.2389365212,
+        "lon": 19.8857439999,
+        "distanceFromStartMeters": 1872.1
+      },
+      {
+        "sequence": 4,
+        "name": "Tekije - Benzinska Pumpa",
+        "lat": 45.2312570434,
+        "lon": 19.8936378798,
+        "distanceFromStartMeters": 2802.3
+      },
+      {
+        "sequence": 5,
+        "name": "Breza - Tome Maretića",
+        "lat": 45.22373,
+        "lon": 19.894552,
+        "distanceFromStartMeters": 3766.6
+      }
+    ]
+  },
+  {
+    "line": "3BB",
+    "route": "PUCKAROS - PETROVARADIN (O.S.\"J.DUCIC\")",
+    "mrezaId": "262",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Breza - Tome Maretića",
+        "lat": 45.22373,
+        "lon": 19.894552,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Breza - Pavla Ristića",
+        "lat": 45.221418,
+        "lon": 19.896569,
+        "distanceFromStartMeters": 274.2
+      },
+      {
+        "sequence": 3,
+        "name": "Tekije 2 - Vinogradi",
+        "lat": 45.2225249456,
+        "lon": 19.9009328712,
+        "distanceFromStartMeters": 796.3
+      },
+      {
+        "sequence": 4,
+        "name": "Tekije - Navip",
+        "lat": 45.2332483189,
+        "lon": 19.8914101033,
+        "distanceFromStartMeters": 2197.8
+      },
+      {
+        "sequence": 5,
+        "name": "Petrovaradin - Železnička Stanica",
+        "lat": 45.2396101516,
+        "lon": 19.8853872807,
+        "distanceFromStartMeters": 3063.9
+      },
+      {
+        "sequence": 6,
+        "name": "Preradovićeva - Šenoina",
+        "lat": 45.251431704,
+        "lon": 19.8732154355,
+        "distanceFromStartMeters": 4713.3
+      }
+    ]
+  },
+  {
+    "line": "4A",
+    "route": "LIMAN IV - CENTAR - Z.STANICA (RUMEN.PUT)",
+    "mrezaId": "7",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Narodnog Fronta - Okretnica",
+        "lat": 45.2371046813,
+        "lon": 19.8262756442,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Narodnog Fronta - Ive Andrića",
+        "lat": 45.2373436138,
+        "lon": 19.8276347235,
+        "distanceFromStartMeters": 207.2
+      },
+      {
+        "sequence": 3,
+        "name": "Narodnog Fronta - Balzakova",
+        "lat": 45.2388659784,
+        "lon": 19.833210388,
+        "distanceFromStartMeters": 751.6
+      },
+      {
+        "sequence": 4,
+        "name": "Narodnog Fronta - Šekspirova",
+        "lat": 45.2403689153,
+        "lon": 19.8384767147,
+        "distanceFromStartMeters": 1090.6
+      },
+      {
+        "sequence": 5,
+        "name": "Narodnog Fronta - Bulevar Oslobođenja",
+        "lat": 45.2417640206,
+        "lon": 19.843435786,
+        "distanceFromStartMeters": 1430.0
+      },
+      {
+        "sequence": 6,
+        "name": "Fruškogorska - Doktora Ilije Đuričića",
+        "lat": 45.2429842112,
+        "lon": 19.847528317,
+        "distanceFromStartMeters": 1824.8
+      },
+      {
+        "sequence": 7,
+        "name": "Stražilovska - Urbis",
+        "lat": 45.2481301777,
+        "lon": 19.8492059684,
+        "distanceFromStartMeters": 2550.9
+      },
+      {
+        "sequence": 8,
+        "name": "Žarka Zrenjanina - Izvršno Veće",
+        "lat": 45.2528535063,
+        "lon": 19.8475593745,
+        "distanceFromStartMeters": 3089.4
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253519,
+        "lon": 19.844141,
+        "distanceFromStartMeters": 3466.9
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2525198464,
+        "lon": 19.8368000824,
+        "distanceFromStartMeters": 4131.9
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 4639.1
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2613766166,
+        "lon": 19.8318492939,
+        "distanceFromStartMeters": 5259.8
+      },
+      {
+        "sequence": 13,
+        "name": "Železnička Stanica - Dolasci",
+        "lat": 45.2650202834,
+        "lon": 19.830132455,
+        "distanceFromStartMeters": 5659.0
+      }
+    ]
+  },
+  {
+    "line": "4B",
+    "route": "Z.STANICA (RUMEN.PUT) - CENTAR - LIMAN IV",
+    "mrezaId": "8",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Oslobođenja - Bulevar Jaše Tomića",
+        "lat": 45.263325649,
+        "lon": 19.8304838937,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 394.2
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 1060.0
+      },
+      {
+        "sequence": 4,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 1458.8
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253337,
+        "lon": 19.844187,
+        "distanceFromStartMeters": 2060.9
+      },
+      {
+        "sequence": 6,
+        "name": "Žarka Zrenjanina - Opština",
+        "lat": 45.2524025428,
+        "lon": 19.8471827488,
+        "distanceFromStartMeters": 2447.7
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Cara Lazara - Urbis",
+        "lat": 45.2474414598,
+        "lon": 19.8488525074,
+        "distanceFromStartMeters": 3078.6
+      },
+      {
+        "sequence": 8,
+        "name": "Narodnog Fronta - Fruškogorska",
+        "lat": 45.2424582038,
+        "lon": 19.8467941518,
+        "distanceFromStartMeters": 3737.0
+      },
+      {
+        "sequence": 9,
+        "name": "Narodnog Fronta - Bulevar Oslobođenja",
+        "lat": 45.2414328005,
+        "lon": 19.8415475397,
+        "distanceFromStartMeters": 4152.1
+      },
+      {
+        "sequence": 10,
+        "name": "Narodnog Fronta - Šekspirova",
+        "lat": 45.2400602044,
+        "lon": 19.8370412179,
+        "distanceFromStartMeters": 4512.0
+      },
+      {
+        "sequence": 11,
+        "name": "Narodnog Fronta - Balzakova",
+        "lat": 45.23861537,
+        "lon": 19.8316359129,
+        "distanceFromStartMeters": 4960.0
+      },
+      {
+        "sequence": 12,
+        "name": "Narodnog Fronta - Ive Andrića",
+        "lat": 45.2374119519,
+        "lon": 19.8273963747,
+        "distanceFromStartMeters": 5321.0
+      },
+      {
+        "sequence": 13,
+        "name": "Narodnog Fronta - Okretnica",
+        "lat": 45.2371046813,
+        "lon": 19.8262756442,
+        "distanceFromStartMeters": 5433.7
+      }
+    ]
+  },
+  {
+    "line": "5A",
+    "route": "TEMERINSKI PUT - CENTAR - AVIJATIČAR.NASELJE",
+    "mrezaId": "9",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Temerinski Put - Nadvožnjak - Okretnica",
+        "lat": 45.3023192227,
+        "lon": 19.8302754549,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Temerinski Put - Savska",
+        "lat": 45.2993083361,
+        "lon": 19.8304360891,
+        "distanceFromStartMeters": 325.1
+      },
+      {
+        "sequence": 3,
+        "name": "Temerinski Put - Velebitska",
+        "lat": 45.2957648457,
+        "lon": 19.8304491318,
+        "distanceFromStartMeters": 651.0
+      },
+      {
+        "sequence": 4,
+        "name": "Temerinski Put - Paje Radosavljeva",
+        "lat": 45.2933241684,
+        "lon": 19.8304941804,
+        "distanceFromStartMeters": 1302.6
+      },
+      {
+        "sequence": 5,
+        "name": "Temerinski Put - Majke Jugovića",
+        "lat": 45.2906889242,
+        "lon": 19.8305011638,
+        "distanceFromStartMeters": 1302.6
+      },
+      {
+        "sequence": 6,
+        "name": "Temerinski Put - Otokara Keršovanija",
+        "lat": 45.2880777199,
+        "lon": 19.8317289762,
+        "distanceFromStartMeters": 1535.9
+      },
+      {
+        "sequence": 7,
+        "name": "Temerinska - Najlon Pijaca",
+        "lat": 45.2828756397,
+        "lon": 19.8346922664,
+        "distanceFromStartMeters": 2210.6
+      },
+      {
+        "sequence": 8,
+        "name": "Temerinska - Vidovdansko Naselje",
+        "lat": 45.2802317297,
+        "lon": 19.8363835969,
+        "distanceFromStartMeters": 2412.8
+      },
+      {
+        "sequence": 9,
+        "name": "Temerinska - Šajkaška",
+        "lat": 45.2725760616,
+        "lon": 19.8411205686,
+        "distanceFromStartMeters": 3368.1
+      },
+      {
+        "sequence": 10,
+        "name": "Temerinska - Partizanska",
+        "lat": 45.2696690854,
+        "lon": 19.8421271396,
+        "distanceFromStartMeters": 3853.6
+      },
+      {
+        "sequence": 11,
+        "name": "Temerinska - Koste Šokice",
+        "lat": 45.2673052212,
+        "lon": 19.8430703993,
+        "distanceFromStartMeters": 4063.8
+      },
+      {
+        "sequence": 12,
+        "name": "Temerinska - Pijaca",
+        "lat": 45.2621466908,
+        "lon": 19.8435652321,
+        "distanceFromStartMeters": 4648.9
+      },
+      {
+        "sequence": 13,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.2554480126,
+        "lon": 19.8414877223,
+        "distanceFromStartMeters": 5452.8
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2525198464,
+        "lon": 19.8368000824,
+        "distanceFromStartMeters": 6088.9
+      },
+      {
+        "sequence": 15,
+        "name": "Novosadskog Sajma - Bulevar Oslobođenja",
+        "lat": 45.2551283388,
+        "lon": 19.8339511487,
+        "distanceFromStartMeters": 6439.8
+      },
+      {
+        "sequence": 16,
+        "name": "Novosadskog Sajma - Osnovna Škola Petefi Šandor",
+        "lat": 45.2547426103,
+        "lon": 19.8300945566,
+        "distanceFromStartMeters": 6973.4
+      },
+      {
+        "sequence": 17,
+        "name": "Hajduk Veljkova - Novosadskog Sajma",
+        "lat": 45.2545639152,
+        "lon": 19.8244393678,
+        "distanceFromStartMeters": 7300.7
+      },
+      {
+        "sequence": 18,
+        "name": "Rumenačka - Dom Zdravlja",
+        "lat": 45.260450059,
+        "lon": 19.8213763649,
+        "distanceFromStartMeters": 7924.0
+      },
+      {
+        "sequence": 19,
+        "name": "Rumenačka - Bulevar Jaše Tomića",
+        "lat": 45.2633439588,
+        "lon": 19.8182127414,
+        "distanceFromStartMeters": 8423.3
+      },
+      {
+        "sequence": 20,
+        "name": "Rumenačka - Radničko Igralište",
+        "lat": 45.2660444179,
+        "lon": 19.8148147237,
+        "distanceFromStartMeters": 8941.4
+      },
+      {
+        "sequence": 21,
+        "name": "Rumenački Put - Benzinska Pumpa",
+        "lat": 45.2681204351,
+        "lon": 19.8121474846,
+        "distanceFromStartMeters": 9107.9
+      },
+      {
+        "sequence": 22,
+        "name": "Avijatičarska - Rumenački Put",
+        "lat": 45.2704064001,
+        "lon": 19.80785211,
+        "distanceFromStartMeters": 9632.4
+      },
+      {
+        "sequence": 23,
+        "name": "Avijatičarska - Kasarna - Okretnica",
+        "lat": 45.2664847055,
+        "lon": 19.8051343851,
+        "distanceFromStartMeters": 10166.4
+      }
+    ]
+  },
+  {
+    "line": "5B",
+    "route": "AVIJATIČAR.NASELJE - CENTAR - TEMERINSKI PUT",
+    "mrezaId": "10",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Avijatičarska - Kasarna - Okretnica",
+        "lat": 45.2664847055,
+        "lon": 19.8051343851,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Rumenački Put - Avijatičarska",
+        "lat": 45.2702133075,
+        "lon": 19.8089150153,
+        "distanceFromStartMeters": 564.0
+      },
+      {
+        "sequence": 3,
+        "name": "Rumenačka - Policijska Stanica",
+        "lat": 45.2670846403,
+        "lon": 19.8130603695,
+        "distanceFromStartMeters": 1208.3
+      },
+      {
+        "sequence": 4,
+        "name": "Rumenačka - Kornelija Stankovića",
+        "lat": 45.2636389127,
+        "lon": 19.8174016008,
+        "distanceFromStartMeters": 1633.5
+      },
+      {
+        "sequence": 5,
+        "name": "Rumenačka - Abc Samoposluga",
+        "lat": 45.2609008436,
+        "lon": 19.8204896166,
+        "distanceFromStartMeters": 1995.3
+      },
+      {
+        "sequence": 6,
+        "name": "Hajduk Veljkova - Sajam",
+        "lat": 45.2569093044,
+        "lon": 19.8241177466,
+        "distanceFromStartMeters": 2488.0
+      },
+      {
+        "sequence": 7,
+        "name": "Novosadskog Sajma - Bazeni",
+        "lat": 45.2541117451,
+        "lon": 19.8248078801,
+        "distanceFromStartMeters": 2882.7
+      },
+      {
+        "sequence": 8,
+        "name": "Novosadskog Sajma - Osnovna Škola Petefi Šandor",
+        "lat": 45.2547956381,
+        "lon": 19.8309370182,
+        "distanceFromStartMeters": 3407.1
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 3816.6
+      },
+      {
+        "sequence": 10,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 4140.4
+      },
+      {
+        "sequence": 11,
+        "name": "Uspenska - Uspenska Crkva",
+        "lat": 45.2554755764,
+        "lon": 19.8418302098,
+        "distanceFromStartMeters": 4729.2
+      },
+      {
+        "sequence": 12,
+        "name": "Temerinska - Trg Marije Trandafil",
+        "lat": 45.2610079188,
+        "lon": 19.8431916148,
+        "distanceFromStartMeters": 5360.4
+      },
+      {
+        "sequence": 13,
+        "name": "Temerinska - Gundulićeva",
+        "lat": 45.264154136,
+        "lon": 19.8438347072,
+        "distanceFromStartMeters": 5694.9
+      },
+      {
+        "sequence": 14,
+        "name": "Temerinska - Patrijarha Čarnojevića",
+        "lat": 45.2669400366,
+        "lon": 19.8433774932,
+        "distanceFromStartMeters": 6093.6
+      },
+      {
+        "sequence": 15,
+        "name": "Temerinska - Put Šajkaškog Odreda",
+        "lat": 45.2710086836,
+        "lon": 19.8419173482,
+        "distanceFromStartMeters": 6614.6
+      },
+      {
+        "sequence": 16,
+        "name": "Temerinska - Most Kanal Dtd",
+        "lat": 45.2733137159,
+        "lon": 19.8410463411,
+        "distanceFromStartMeters": 6814.5
+      },
+      {
+        "sequence": 17,
+        "name": "Temerinska - Vidovdansko Naselje",
+        "lat": 45.2809013055,
+        "lon": 19.8361991299,
+        "distanceFromStartMeters": 7664.4
+      },
+      {
+        "sequence": 18,
+        "name": "Temerinska - Najlon Pijaca",
+        "lat": 45.2835133286,
+        "lon": 19.8345314956,
+        "distanceFromStartMeters": 8006.3
+      },
+      {
+        "sequence": 19,
+        "name": "Temerinski Put - Otokara Keršovanija",
+        "lat": 45.2887458333,
+        "lon": 19.8316979215,
+        "distanceFromStartMeters": 8578.2
+      },
+      {
+        "sequence": 20,
+        "name": "Temerinski Put - Majke Jugovića",
+        "lat": 45.2910920332,
+        "lon": 19.8307752397,
+        "distanceFromStartMeters": 8877.4
+      },
+      {
+        "sequence": 21,
+        "name": "Temerinski Put - Paje Radosavljevića",
+        "lat": 45.2941004442,
+        "lon": 19.8307538038,
+        "distanceFromStartMeters": 9156.5
+      },
+      {
+        "sequence": 22,
+        "name": "Temerinski Put - Dečanska",
+        "lat": 45.2964910099,
+        "lon": 19.830743315,
+        "distanceFromStartMeters": 9849.2
+      },
+      {
+        "sequence": 23,
+        "name": "Temerinski Put - Savska",
+        "lat": 45.3002863203,
+        "lon": 19.8305569794,
+        "distanceFromStartMeters": 9880.6
+      },
+      {
+        "sequence": 24,
+        "name": "Temerinski Put - Nadvožnjak - Okretnica",
+        "lat": 45.3023192227,
+        "lon": 19.8302754549,
+        "distanceFromStartMeters": 10158.8
+      }
+    ]
+  },
+  {
+    "line": "6A",
+    "route": "PODBARA - CENTAR - ADICE",
+    "mrezaId": "11",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Filipa Višnjića - Terminal",
+        "lat": 45.265255,
+        "lon": 19.850381,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Filipa Višnjića - Trg Save Vukosavljeva",
+        "lat": 45.264263,
+        "lon": 19.850972,
+        "distanceFromStartMeters": 35.9
+      },
+      {
+        "sequence": 3,
+        "name": "Filipa Višnjića 5",
+        "lat": 45.262246,
+        "lon": 19.851754,
+        "distanceFromStartMeters": 335.5
+      },
+      {
+        "sequence": 4,
+        "name": "Beogradski Kej - Marka Miljanova",
+        "lat": 45.2608772309,
+        "lon": 19.8557970812,
+        "distanceFromStartMeters": 826.3
+      },
+      {
+        "sequence": 5,
+        "name": "Beogradski Kej - Miloša Bajića",
+        "lat": 45.2575567077,
+        "lon": 19.8546271049,
+        "distanceFromStartMeters": 1209.2
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Mihajla Pupina - Dunavski Park",
+        "lat": 45.2542020579,
+        "lon": 19.8519122087,
+        "distanceFromStartMeters": 1763.8
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253519,
+        "lon": 19.844141,
+        "distanceFromStartMeters": 2357.1
+      },
+      {
+        "sequence": 8,
+        "name": "Futoška - Bulevar Oslobođenja",
+        "lat": 45.2515776887,
+        "lon": 19.836036584,
+        "distanceFromStartMeters": 3130.7
+      },
+      {
+        "sequence": 9,
+        "name": "Futoška - Branislava Nušića",
+        "lat": 45.2496536022,
+        "lon": 19.8321411697,
+        "distanceFromStartMeters": 3505.6
+      },
+      {
+        "sequence": 10,
+        "name": "Futoška - Jodna Banja",
+        "lat": 45.2492337673,
+        "lon": 19.8289089911,
+        "distanceFromStartMeters": 3775.0
+      },
+      {
+        "sequence": 11,
+        "name": "Futoška - Bolnica",
+        "lat": 45.2494278377,
+        "lon": 19.8238348508,
+        "distanceFromStartMeters": 4133.8
+      },
+      {
+        "sequence": 12,
+        "name": "Futoška - Bulevar Evrope",
+        "lat": 45.2485623853,
+        "lon": 19.815564749,
+        "distanceFromStartMeters": 4814.8
+      },
+      {
+        "sequence": 13,
+        "name": "Futoška - Jugoalat",
+        "lat": 45.2478325873,
+        "lon": 19.810052585,
+        "distanceFromStartMeters": 5225.9
+      },
+      {
+        "sequence": 14,
+        "name": "Vršačka - Dom Zdravlja",
+        "lat": 45.2446632301,
+        "lon": 19.809183123,
+        "distanceFromStartMeters": 5827.7
+      },
+      {
+        "sequence": 15,
+        "name": "Vršačka - Adi Endrea",
+        "lat": 45.2418383087,
+        "lon": 19.8108398895,
+        "distanceFromStartMeters": 6155.5
+      },
+      {
+        "sequence": 16,
+        "name": "Feješ Klare - Bulevar Patrijarha Pavla",
+        "lat": 45.2403907599,
+        "lon": 19.811146825,
+        "distanceFromStartMeters": 6301.6
+      },
+      {
+        "sequence": 17,
+        "name": "Ćirila I Metodija - Šarplaninska",
+        "lat": 45.2383877496,
+        "lon": 19.808189521,
+        "distanceFromStartMeters": 6782.3
+      },
+      {
+        "sequence": 18,
+        "name": "Ćirila I Metodija - Varga Đule",
+        "lat": 45.2391202342,
+        "lon": 19.8008255822,
+        "distanceFromStartMeters": 7367.7
+      },
+      {
+        "sequence": 19,
+        "name": "Branka Ćopića 42",
+        "lat": 45.2356763766,
+        "lon": 19.7971920511,
+        "distanceFromStartMeters": 7878.9
+      },
+      {
+        "sequence": 20,
+        "name": "Branka Ćopića - Jesenjinova",
+        "lat": 45.2336724229,
+        "lon": 19.7917712223,
+        "distanceFromStartMeters": 8352.8
+      },
+      {
+        "sequence": 21,
+        "name": "Branka Ćopića - Sime Šolaje",
+        "lat": 45.2330428141,
+        "lon": 19.7869691233,
+        "distanceFromStartMeters": 8762.6
+      },
+      {
+        "sequence": 22,
+        "name": "Banjalučka - Branka Ćopića",
+        "lat": 45.2330981747,
+        "lon": 19.7845240714,
+        "distanceFromStartMeters": 8944.5
+      },
+      {
+        "sequence": 23,
+        "name": "Smederevska - Banjalučka",
+        "lat": 45.2344242907,
+        "lon": 19.7847028632,
+        "distanceFromStartMeters": 9162.1
+      }
+    ]
+  },
+  {
+    "line": "6B",
+    "route": "ADICE - CENTAR - PODBARA",
+    "mrezaId": "12",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Smederevska - Banjalučka",
+        "lat": 45.2344242907,
+        "lon": 19.7847028632,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Sime Šolaje - Žikice Jovanovića",
+        "lat": 45.2332075399,
+        "lon": 19.787184434,
+        "distanceFromStartMeters": 350.1
+      },
+      {
+        "sequence": 3,
+        "name": "Branka Ćopića - Slavujeva",
+        "lat": 45.2336631693,
+        "lon": 19.7921001728,
+        "distanceFromStartMeters": 755.5
+      },
+      {
+        "sequence": 4,
+        "name": "Branka Ćopića - Desanke Maksimović",
+        "lat": 45.2359280235,
+        "lon": 19.7976007162,
+        "distanceFromStartMeters": 1233.2
+      },
+      {
+        "sequence": 5,
+        "name": "Ćirila I Metodija - Gorana Kovačića",
+        "lat": 45.2390614549,
+        "lon": 19.8008702781,
+        "distanceFromStartMeters": 1711.9
+      },
+      {
+        "sequence": 6,
+        "name": "Ćirila I Metodija - Osnovna Škola Jožef Atila",
+        "lat": 45.2383549843,
+        "lon": 19.8079954948,
+        "distanceFromStartMeters": 2346.2
+      },
+      {
+        "sequence": 7,
+        "name": "Feješ Klare - Pravoslavna Crkva",
+        "lat": 45.23855347,
+        "lon": 19.8108903063,
+        "distanceFromStartMeters": 2602.6
+      },
+      {
+        "sequence": 8,
+        "name": "Vršačka - Adi Endrea",
+        "lat": 45.2416663419,
+        "lon": 19.8110232713,
+        "distanceFromStartMeters": 2911.3
+      },
+      {
+        "sequence": 9,
+        "name": "Vršačka - Jovana Popovića",
+        "lat": 45.2443433814,
+        "lon": 19.8094435931,
+        "distanceFromStartMeters": 3237.8
+      },
+      {
+        "sequence": 10,
+        "name": "Futoški Put - Vršačka",
+        "lat": 45.247517576,
+        "lon": 19.8083415635,
+        "distanceFromStartMeters": 3672.8
+      },
+      {
+        "sequence": 11,
+        "name": "Futoška - Higijenski Zavod",
+        "lat": 45.2488161894,
+        "lon": 19.8177958089,
+        "distanceFromStartMeters": 4438.5
+      },
+      {
+        "sequence": 12,
+        "name": "Futoška - Cara Dušana",
+        "lat": 45.2491656314,
+        "lon": 19.8252968807,
+        "distanceFromStartMeters": 5016.1
+      },
+      {
+        "sequence": 13,
+        "name": "Futoška - Antona Čehova",
+        "lat": 45.2490835157,
+        "lon": 19.8300215701,
+        "distanceFromStartMeters": 5391.7
+      },
+      {
+        "sequence": 14,
+        "name": "Futoška - Braće Ribnikar",
+        "lat": 45.2498730986,
+        "lon": 19.8331936901,
+        "distanceFromStartMeters": 5631.1
+      },
+      {
+        "sequence": 15,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 6099.3
+      },
+      {
+        "sequence": 16,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253337,
+        "lon": 19.844187,
+        "distanceFromStartMeters": 6700.2
+      },
+      {
+        "sequence": 17,
+        "name": "Bulevar Mihajla Pupina - Sonje Marinković",
+        "lat": 45.254153,
+        "lon": 19.852979,
+        "distanceFromStartMeters": 7377.9
+      },
+      {
+        "sequence": 18,
+        "name": "Beogradski Kej - Kapetanija",
+        "lat": 45.2576645565,
+        "lon": 19.8548476045,
+        "distanceFromStartMeters": 8083.1
+      },
+      {
+        "sequence": 19,
+        "name": "Beogradski Kej - Marka Miljanova",
+        "lat": 45.2615406229,
+        "lon": 19.856432882,
+        "distanceFromStartMeters": 8548.3
+      },
+      {
+        "sequence": 20,
+        "name": "Filipa Višnjića - Terminal",
+        "lat": 45.265255,
+        "lon": 19.850381,
+        "distanceFromStartMeters": 9616.7
+      }
+    ]
+  },
+  {
+    "line": "6AA",
+    "route": "ADICE - VETERNIK (O.S.MARIJA TRANDAFIL)",
+    "mrezaId": "234",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Smederevska - Banjalučka",
+        "lat": 45.2344242907,
+        "lon": 19.7847028632,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Sime Šolaje - Žikice Jovanovića",
+        "lat": 45.2332075399,
+        "lon": 19.787184434,
+        "distanceFromStartMeters": 343.5
+      },
+      {
+        "sequence": 3,
+        "name": "Veternička - Kragujevačka",
+        "lat": 45.2332893269,
+        "lon": 19.7794237447,
+        "distanceFromStartMeters": 1056.1
+      },
+      {
+        "sequence": 4,
+        "name": "Veternička - Marije Bursać",
+        "lat": 45.2386233532,
+        "lon": 19.7750049886,
+        "distanceFromStartMeters": 1692.7
+      },
+      {
+        "sequence": 5,
+        "name": "Dunavska - Paunova",
+        "lat": 45.2425409433,
+        "lon": 19.76871362,
+        "distanceFromStartMeters": 2365.5
+      },
+      {
+        "sequence": 6,
+        "name": "Veternička - Fešter Osnovna Škola",
+        "lat": 45.2426337,
+        "lon": 19.7680254,
+        "distanceFromStartMeters": 2447.9
+      }
+    ]
+  },
+  {
+    "line": "6AB",
+    "route": "VETERNIK (O.S.MARIJA TRANDAFIL) - ADICE",
+    "mrezaId": "235",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Veternička - Fešter Osnovna Škola",
+        "lat": 45.2426337,
+        "lon": 19.7680254,
+        "distanceFromStartMeters": 11.4
+      },
+      {
+        "sequence": 2,
+        "name": "Dunavska - Paunova",
+        "lat": 45.2425428937,
+        "lon": 19.7685548371,
+        "distanceFromStartMeters": 11.4
+      },
+      {
+        "sequence": 3,
+        "name": "Veternička - Marije Bursać",
+        "lat": 45.2380520756,
+        "lon": 19.7753639279,
+        "distanceFromStartMeters": 763.5
+      },
+      {
+        "sequence": 4,
+        "name": "Veternička - Kragujevačka",
+        "lat": 45.2328708892,
+        "lon": 19.7797236528,
+        "distanceFromStartMeters": 1479.2
+      },
+      {
+        "sequence": 5,
+        "name": "Banjalučka - Branka Ćopića",
+        "lat": 45.2330981747,
+        "lon": 19.7845240714,
+        "distanceFromStartMeters": 1902.9
+      },
+      {
+        "sequence": 6,
+        "name": "Smederevska - Banjalučka",
+        "lat": 45.2344242907,
+        "lon": 19.7847028632,
+        "distanceFromStartMeters": 2137.7
+      }
+    ]
+  },
+  {
+    "line": "7A",
+    "route": "N.NASELJE - Z.STAN - F.PIJA - LIMAN4 - N.NASELJE",
+    "mrezaId": "13",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.247888,
+        "lon": 19.787416,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489713023,
+        "lon": 19.7915144259,
+        "distanceFromStartMeters": 343.5
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489224745,
+        "lon": 19.791754249,
+        "distanceFromStartMeters": 343.5
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Jovana Dučića - Bate Brkića",
+        "lat": 45.2511237051,
+        "lon": 19.7983862612,
+        "distanceFromStartMeters": 927.2
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Jovana Dučića - Robna Kuća",
+        "lat": 45.2523770585,
+        "lon": 19.8018919417,
+        "distanceFromStartMeters": 1192.7
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Slobodana Jovanovića - Todora Toze Jovanovića",
+        "lat": 45.2556482515,
+        "lon": 19.8026436487,
+        "distanceFromStartMeters": 1736.4
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Vojvode Stepe - Bulevar Slobodana Jovanovića",
+        "lat": 45.2579092564,
+        "lon": 19.8022341912,
+        "distanceFromStartMeters": 2005.1
+      },
+      {
+        "sequence": 8,
+        "name": "Kornelija Stankovića - Bulevar Evrope",
+        "lat": 45.2604662935,
+        "lon": 19.8096845247,
+        "distanceFromStartMeters": 2796.5
+      },
+      {
+        "sequence": 9,
+        "name": "Kornelija Stankovića - Ilije Birčanina",
+        "lat": 45.2620111469,
+        "lon": 19.8135399393,
+        "distanceFromStartMeters": 3107.3
+      },
+      {
+        "sequence": 10,
+        "name": "Rumenačka - Kornelija Stankovića",
+        "lat": 45.2636389127,
+        "lon": 19.8174016008,
+        "distanceFromStartMeters": 3549.5
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Jaše Tomića - Pariske Komune",
+        "lat": 45.2637816804,
+        "lon": 19.8246328903,
+        "distanceFromStartMeters": 4166.4
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 4590.8
+      },
+      {
+        "sequence": 13,
+        "name": "Bulevar Oslobođenja - Bulevar Jaše Tomića",
+        "lat": 45.263325649,
+        "lon": 19.8304838937,
+        "distanceFromStartMeters": 4590.8
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Oslobođenja - Futoška",
+        "lat": 45.2514514442,
+        "lon": 19.8370753816,
+        "distanceFromStartMeters": 5923.8
+      },
+      {
+        "sequence": 15,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 5923.8
+      },
+      {
+        "sequence": 16,
+        "name": "Bulevar Oslobođenja - Braće Ribnikar",
+        "lat": 45.2475207776,
+        "lon": 19.8392619075,
+        "distanceFromStartMeters": 6590.7
+      },
+      {
+        "sequence": 17,
+        "name": "Bulevar Oslobođenja - Bulevar Cara Lazara",
+        "lat": 45.2434304122,
+        "lon": 19.8414842753,
+        "distanceFromStartMeters": 7112.1
+      },
+      {
+        "sequence": 18,
+        "name": "Narodnog Fronta - Bulevar Oslobođenja",
+        "lat": 45.2414328005,
+        "lon": 19.8415475397,
+        "distanceFromStartMeters": 7264.0
+      },
+      {
+        "sequence": 19,
+        "name": "Narodnog Fronta - Šekspirova",
+        "lat": 45.2400602044,
+        "lon": 19.8370412179,
+        "distanceFromStartMeters": 7930.3
+      },
+      {
+        "sequence": 20,
+        "name": "Narodnog Fronta - Balzakova",
+        "lat": 45.23861537,
+        "lon": 19.8316359129,
+        "distanceFromStartMeters": 8262.3
+      },
+      {
+        "sequence": 21,
+        "name": "Narodnog Fronta - Ive Andrića",
+        "lat": 45.2374119519,
+        "lon": 19.8273963747,
+        "distanceFromStartMeters": 8509.3
+      },
+      {
+        "sequence": 22,
+        "name": "Bulevar Patrijarha Pavla - Bulevar Evrope",
+        "lat": 45.23977,
+        "lon": 19.821792,
+        "distanceFromStartMeters": 9186.2
+      },
+      {
+        "sequence": 23,
+        "name": "Bulevar Patrijarha Pavla - Subotička",
+        "lat": 45.240393,
+        "lon": 19.815733,
+        "distanceFromStartMeters": 9475.3
+      },
+      {
+        "sequence": 24,
+        "name": "Bulevar Patrijarha Pavla - Vršačka",
+        "lat": 45.2408800594,
+        "lon": 19.8107038207,
+        "distanceFromStartMeters": 10642.7
+      },
+      {
+        "sequence": 25,
+        "name": "Bulevar Patrijarha Pavla - Ilirska",
+        "lat": 45.2413029105,
+        "lon": 19.8064595317,
+        "distanceFromStartMeters": 10642.7
+      },
+      {
+        "sequence": 26,
+        "name": "Bulevar Patrijarha Pavla - Ilariona Ruvarca",
+        "lat": 45.2417062369,
+        "lon": 19.8023266636,
+        "distanceFromStartMeters": 10642.7
+      },
+      {
+        "sequence": 27,
+        "name": "Bulevar Patrijarha Pavla - Drvarska",
+        "lat": 45.2420787039,
+        "lon": 19.7984549409,
+        "distanceFromStartMeters": 11036.0
+      },
+      {
+        "sequence": 28,
+        "name": "Bulevar Kneza Miloša - Futoški Put",
+        "lat": 45.245098379,
+        "lon": 19.7946648286,
+        "distanceFromStartMeters": 11257.6
+      },
+      {
+        "sequence": 29,
+        "name": "Bulevar Kneza Miloša - Garaža Gsp-A",
+        "lat": 45.2472193464,
+        "lon": 19.7933548666,
+        "distanceFromStartMeters": 11893.8
+      },
+      {
+        "sequence": 30,
+        "name": "Bulevar Jovana Dučića - Igralište",
+        "lat": 45.2495765937,
+        "lon": 19.7936823203,
+        "distanceFromStartMeters": 12057.6
+      },
+      {
+        "sequence": 31,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.248251,
+        "lon": 19.786933,
+        "distanceFromStartMeters": 12497.1
+      }
+    ]
+  },
+  {
+    "line": "7B",
+    "route": "N.NASELJE - LIMAN4 - F.PIJA - Z.STAN - N.NASELJE",
+    "mrezaId": "14",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489713023,
+        "lon": 19.7915144259,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Kneza Miloša - Bulevar Jovana Dučića",
+        "lat": 45.2487632498,
+        "lon": 19.7921260989,
+        "distanceFromStartMeters": 36.9
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Kneza Miloša - Garaža Gsp-A",
+        "lat": 45.2470681807,
+        "lon": 19.793176626,
+        "distanceFromStartMeters": 216.6
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Patrijarha Pavla - Futoški Put",
+        "lat": 45.2440339225,
+        "lon": 19.795029964,
+        "distanceFromStartMeters": 597.4
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Patrijarha Pavla - Drvarska",
+        "lat": 45.2417500565,
+        "lon": 19.7996161438,
+        "distanceFromStartMeters": 940.2
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Patrijarha Pavla - Prvomajska",
+        "lat": 45.2413580417,
+        "lon": 19.8036125161,
+        "distanceFromStartMeters": 1406.1
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Patrijarha Pavla - Senteleki Kornela",
+        "lat": 45.2409610249,
+        "lon": 19.8076663846,
+        "distanceFromStartMeters": 1874.8
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Patrijarha Pavla - Feješ Klare",
+        "lat": 45.240548,
+        "lon": 19.81195,
+        "distanceFromStartMeters": 1874.8
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Patrijarha Pavla - Jožef Atile",
+        "lat": 45.240038,
+        "lon": 19.816809,
+        "distanceFromStartMeters": 2669.9
+      },
+      {
+        "sequence": 10,
+        "name": "Ive Andrića - Bulevar Evrope",
+        "lat": 45.2394232209,
+        "lon": 19.8253580867,
+        "distanceFromStartMeters": 3150.4
+      },
+      {
+        "sequence": 11,
+        "name": "Narodnog Fronta - Ive Andrića",
+        "lat": 45.2373436138,
+        "lon": 19.8276347235,
+        "distanceFromStartMeters": 3610.4
+      },
+      {
+        "sequence": 12,
+        "name": "Narodnog Fronta - Balzakova",
+        "lat": 45.2388659784,
+        "lon": 19.833210388,
+        "distanceFromStartMeters": 4024.5
+      },
+      {
+        "sequence": 13,
+        "name": "Narodnog Fronta - Šekspirova",
+        "lat": 45.2403689153,
+        "lon": 19.8384767147,
+        "distanceFromStartMeters": 4476.7
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Oslobođenja - Narodnog Fronta",
+        "lat": 45.2421433047,
+        "lon": 19.8425582061,
+        "distanceFromStartMeters": 4905.0
+      },
+      {
+        "sequence": 15,
+        "name": "Bulevar Oslobođenja - Bulevar Cara Lazara",
+        "lat": 45.2444754031,
+        "lon": 19.8412524923,
+        "distanceFromStartMeters": 5174.4
+      },
+      {
+        "sequence": 16,
+        "name": "Bulevar Oslobođenja - Maksima Gorkog",
+        "lat": 45.2485327883,
+        "lon": 19.8390130044,
+        "distanceFromStartMeters": 5673.2
+      },
+      {
+        "sequence": 17,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2525198464,
+        "lon": 19.8368000824,
+        "distanceFromStartMeters": 6130.2
+      },
+      {
+        "sequence": 18,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 6562.1
+      },
+      {
+        "sequence": 19,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2613766166,
+        "lon": 19.8318492939,
+        "distanceFromStartMeters": 7267.2
+      },
+      {
+        "sequence": 20,
+        "name": "Bulevar Jaše Tomića - Železnička Stanica",
+        "lat": 45.2640665923,
+        "lon": 19.8291811843,
+        "distanceFromStartMeters": 7637.5
+      },
+      {
+        "sequence": 21,
+        "name": "Bulevar Jaše Tomića - Železnički Park",
+        "lat": 45.2640771252,
+        "lon": 19.8231059398,
+        "distanceFromStartMeters": 8094.2
+      },
+      {
+        "sequence": 22,
+        "name": "Rumenačka - Bulevar Jaše Tomića",
+        "lat": 45.2633439588,
+        "lon": 19.8182127414,
+        "distanceFromStartMeters": 8532.9
+      },
+      {
+        "sequence": 23,
+        "name": "Kornelija Stankovića - Filipa Filipovića",
+        "lat": 45.2634661042,
+        "lon": 19.8156966528,
+        "distanceFromStartMeters": 8809.0
+      },
+      {
+        "sequence": 24,
+        "name": "Kornelija Stankovića - Milenka Grčića",
+        "lat": 45.2616253594,
+        "lon": 19.8122424682,
+        "distanceFromStartMeters": 9160.7
+      },
+      {
+        "sequence": 25,
+        "name": "Bulevar Vojvode Stepe - Bulevar Evrope",
+        "lat": 45.260028,
+        "lon": 19.807755,
+        "distanceFromStartMeters": 9526.6
+      },
+      {
+        "sequence": 26,
+        "name": "Bulevar Slobodana Jovanovića - Bulevar Vojvode Stepe",
+        "lat": 45.2569890699,
+        "lon": 19.8015188427,
+        "distanceFromStartMeters": 10269.2
+      },
+      {
+        "sequence": 27,
+        "name": "Bulevar Jovana Dučića - Bulevar Slobodana Jovanovića",
+        "lat": 45.2529483166,
+        "lon": 19.8031021067,
+        "distanceFromStartMeters": 10755.5
+      },
+      {
+        "sequence": 28,
+        "name": "Bulevar Jovana Dučića - Braće Dronjak",
+        "lat": 45.2513539058,
+        "lon": 19.7983752275,
+        "distanceFromStartMeters": 11170.0
+      },
+      {
+        "sequence": 29,
+        "name": "Bulevar Jovana Dučića - Igralište",
+        "lat": 45.2500788277,
+        "lon": 19.7947978105,
+        "distanceFromStartMeters": 11497.4
+      },
+      {
+        "sequence": 30,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.247888,
+        "lon": 19.787416,
+        "distanceFromStartMeters": 12076.1
+      },
+      {
+        "sequence": 31,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.248251,
+        "lon": 19.786933,
+        "distanceFromStartMeters": 12152.3
+      }
+    ]
+  },
+  {
+    "line": "8A",
+    "route": "NOVO NASELJE - CENTAR - LIMAN I",
+    "mrezaId": "15",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.247888,
+        "lon": 19.787416,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489224745,
+        "lon": 19.791754249,
+        "distanceFromStartMeters": 410.9
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Kneza Miloša - Dušana Danilovića",
+        "lat": 45.2503985655,
+        "lon": 19.7913833451,
+        "distanceFromStartMeters": 683.8
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Vojvode Stepe - Bulevar Kneza Miloša",
+        "lat": 45.2537969106,
+        "lon": 19.7903530914,
+        "distanceFromStartMeters": 957.0
+      },
+      {
+        "sequence": 5,
+        "name": "Bate Brkića - Gerontološki Centar",
+        "lat": 45.2536751535,
+        "lon": 19.7953286658,
+        "distanceFromStartMeters": 1659.5
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Jovana Dučića - Robna Kuća",
+        "lat": 45.2523770585,
+        "lon": 19.8018919417,
+        "distanceFromStartMeters": 1933.4
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Jovana Dučića - Bate Brkića",
+        "lat": 45.2511237051,
+        "lon": 19.7983862612,
+        "distanceFromStartMeters": 1933.4
+      },
+      {
+        "sequence": 8,
+        "name": "Raše Radujkova - Vladike Ćirića",
+        "lat": 45.2542051645,
+        "lon": 19.8072929653,
+        "distanceFromStartMeters": 3180.1
+      },
+      {
+        "sequence": 9,
+        "name": "Hadži Ruvimova - Janka Čmelika",
+        "lat": 45.256618567,
+        "lon": 19.8145474244,
+        "distanceFromStartMeters": 3381.0
+      },
+      {
+        "sequence": 10,
+        "name": "Hadži Ruvimova - Ilije Birčanina",
+        "lat": 45.2578100769,
+        "lon": 19.8180260671,
+        "distanceFromStartMeters": 3779.8
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Kralja Petra Prvog - Sajam",
+        "lat": 45.2591224024,
+        "lon": 19.8244448578,
+        "distanceFromStartMeters": 4254.6
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Kralja Petra Prvog - Mašinska Škola",
+        "lat": 45.259428265,
+        "lon": 19.8274393446,
+        "distanceFromStartMeters": 4531.7
+      },
+      {
+        "sequence": 13,
+        "name": "Bulevar Kralja Petra Prvog - Bulevar Oslobođenja",
+        "lat": 45.2607697725,
+        "lon": 19.8329179672,
+        "distanceFromStartMeters": 5019.5
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Kralja Petra Prvog - Dom Zdravlja Zmaj Ognjena Vuka",
+        "lat": 45.2618165848,
+        "lon": 19.836097904,
+        "distanceFromStartMeters": 5263.7
+      },
+      {
+        "sequence": 15,
+        "name": "Kisačka - Bulevar Kralja Petra Prvog",
+        "lat": 45.2623699914,
+        "lon": 19.8401023551,
+        "distanceFromStartMeters": 5615.6
+      },
+      {
+        "sequence": 16,
+        "name": "Kisačka - Vuka Karadžića",
+        "lat": 45.2609612857,
+        "lon": 19.8420940143,
+        "distanceFromStartMeters": 5798.7
+      },
+      {
+        "sequence": 17,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255203707,
+        "lon": 19.8416504854,
+        "distanceFromStartMeters": 6500.2
+      },
+      {
+        "sequence": 18,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253337,
+        "lon": 19.844187,
+        "distanceFromStartMeters": 6777.2
+      },
+      {
+        "sequence": 19,
+        "name": "Žarka Zrenjanina - Opština",
+        "lat": 45.2524025428,
+        "lon": 19.8471827488,
+        "distanceFromStartMeters": 7200.4
+      },
+      {
+        "sequence": 20,
+        "name": "Bulevar Cara Lazara - Urbis",
+        "lat": 45.2474414598,
+        "lon": 19.8488525074,
+        "distanceFromStartMeters": 7822.0
+      },
+      {
+        "sequence": 21,
+        "name": "Fruškogorska - Narodnog Fronta",
+        "lat": 45.2420582997,
+        "lon": 19.8475310279,
+        "distanceFromStartMeters": 8397.7
+      },
+      {
+        "sequence": 22,
+        "name": "Štrand - Okretnica",
+        "lat": 45.2386999087,
+        "lon": 19.84777609,
+        "distanceFromStartMeters": 8825.1
+      }
+    ]
+  },
+  {
+    "line": "8B",
+    "route": "LIMAN I - CENTAR - NOVO NASELJE",
+    "mrezaId": "16",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Štrand - Okretnica",
+        "lat": 45.239001,
+        "lon": 19.848256,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Fruškogorska - Doktora Ilije Đuričića",
+        "lat": 45.2429842112,
+        "lon": 19.847528317,
+        "distanceFromStartMeters": 489.0
+      },
+      {
+        "sequence": 3,
+        "name": "Stražilovska - Urbis",
+        "lat": 45.2481301777,
+        "lon": 19.8492059684,
+        "distanceFromStartMeters": 1067.1
+      },
+      {
+        "sequence": 4,
+        "name": "Žarka Zrenjanina - Izvršno Veće",
+        "lat": 45.2528535063,
+        "lon": 19.8475593745,
+        "distanceFromStartMeters": 1612.2
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253519,
+        "lon": 19.844141,
+        "distanceFromStartMeters": 1995.3
+      },
+      {
+        "sequence": 6,
+        "name": "Uspenska - Pozorišni Trg",
+        "lat": 45.255185246,
+        "lon": 19.8419960985,
+        "distanceFromStartMeters": 2302.7
+      },
+      {
+        "sequence": 7,
+        "name": "Kisačka - Temerinska",
+        "lat": 45.2608711975,
+        "lon": 19.8423966225,
+        "distanceFromStartMeters": 2940.3
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Kralja Petra Prvog - Kisačka",
+        "lat": 45.2626605142,
+        "lon": 19.8390400612,
+        "distanceFromStartMeters": 3297.8
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Kralja Petra Prvog - Kraljevića Marka",
+        "lat": 45.2616127597,
+        "lon": 19.8351798744,
+        "distanceFromStartMeters": 3608.0
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Kralja Petra Prvog - Bulevar Oslobođenja",
+        "lat": 45.2605767651,
+        "lon": 19.8314132035,
+        "distanceFromStartMeters": 3951.0
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Kralja Petra Prvog - Groblje",
+        "lat": 45.2595168963,
+        "lon": 19.8263471168,
+        "distanceFromStartMeters": 4356.7
+      },
+      {
+        "sequence": 12,
+        "name": "Braće Popović - Rumenačka",
+        "lat": 45.2590354052,
+        "lon": 19.821789798,
+        "distanceFromStartMeters": 4708.2
+      },
+      {
+        "sequence": 13,
+        "name": "Hadži Ruvimova - Ilije Birčanina",
+        "lat": 45.2576529346,
+        "lon": 19.81692892,
+        "distanceFromStartMeters": 5145.7
+      },
+      {
+        "sequence": 14,
+        "name": "Hadži Ruvimova - Janka Čmelika",
+        "lat": 45.2565030038,
+        "lon": 19.8135561249,
+        "distanceFromStartMeters": 5442.2
+      },
+      {
+        "sequence": 15,
+        "name": "Raše Radujkova - Stojana Novakovića",
+        "lat": 45.2540476132,
+        "lon": 19.8064282878,
+        "distanceFromStartMeters": 6032.4
+      },
+      {
+        "sequence": 16,
+        "name": "Bulevar Jovana Dučića - Bulevar Slobodana Jovanovića",
+        "lat": 45.2529483166,
+        "lon": 19.8031021067,
+        "distanceFromStartMeters": 6328.4
+      },
+      {
+        "sequence": 17,
+        "name": "Bulevar Jovana Dučića - Braće Dronjak",
+        "lat": 45.2513539058,
+        "lon": 19.7983752275,
+        "distanceFromStartMeters": 6701.2
+      },
+      {
+        "sequence": 18,
+        "name": "Bate Brkića - Gerontološki Centar",
+        "lat": 45.2543785923,
+        "lon": 19.7950461743,
+        "distanceFromStartMeters": 7243.1
+      },
+      {
+        "sequence": 19,
+        "name": "Bulevar Kneza Miloša - Mileve Marić",
+        "lat": 45.2518458292,
+        "lon": 19.7902083832,
+        "distanceFromStartMeters": 8030.5
+      },
+      {
+        "sequence": 20,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489713023,
+        "lon": 19.7915144259,
+        "distanceFromStartMeters": 8396.3
+      },
+      {
+        "sequence": 21,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.248251,
+        "lon": 19.786933,
+        "distanceFromStartMeters": 8788.9
+      }
+    ]
+  },
+  {
+    "line": "9A",
+    "route": "NOVO NASELJE - LIMAN - PETROVARADIN",
+    "mrezaId": "17",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.247888,
+        "lon": 19.787416,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489224745,
+        "lon": 19.791754249,
+        "distanceFromStartMeters": 369.6
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Jovana Dučića - Igralište",
+        "lat": 45.2495765937,
+        "lon": 19.7936823203,
+        "distanceFromStartMeters": 561.4
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Jovana Dučića - Bate Brkića",
+        "lat": 45.2511237051,
+        "lon": 19.7983862612,
+        "distanceFromStartMeters": 968.1
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Jovana Dučića - Robna Kuća",
+        "lat": 45.2523770585,
+        "lon": 19.8018919417,
+        "distanceFromStartMeters": 1234.5
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Slobodana Jovanovića - Dom Zdravlja",
+        "lat": 45.2510355315,
+        "lon": 19.8056491406,
+        "distanceFromStartMeters": 1660.2
+      },
+      {
+        "sequence": 7,
+        "name": "Futoški Put - Vršačka",
+        "lat": 45.247517576,
+        "lon": 19.8083415635,
+        "distanceFromStartMeters": 2144.1
+      },
+      {
+        "sequence": 8,
+        "name": "Futoška - Higijenski Zavod",
+        "lat": 45.2488161894,
+        "lon": 19.8177958089,
+        "distanceFromStartMeters": 2965.7
+      },
+      {
+        "sequence": 9,
+        "name": "Cara Dušana - Futoška",
+        "lat": 45.2487841683,
+        "lon": 19.8247020319,
+        "distanceFromStartMeters": 3500.2
+      },
+      {
+        "sequence": 10,
+        "name": "Cara Dušana - Medicinska Škola",
+        "lat": 45.2436192236,
+        "lon": 19.8250937953,
+        "distanceFromStartMeters": 4086.5
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Cara Lazara - Ive Andrića",
+        "lat": 45.2399480828,
+        "lon": 19.8258641034,
+        "distanceFromStartMeters": 4544.0
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Cara Lazara - Dom Zdravlja",
+        "lat": 45.241465683,
+        "lon": 19.8317379566,
+        "distanceFromStartMeters": 5085.0
+      },
+      {
+        "sequence": 13,
+        "name": "Bulevar Cara Lazara - Šekspirova",
+        "lat": 45.2426706144,
+        "lon": 19.8371533191,
+        "distanceFromStartMeters": 5470.3
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Cara Lazara - Bulevar Oslobođenja",
+        "lat": 45.2440216217,
+        "lon": 19.8424535024,
+        "distanceFromStartMeters": 5865.8
+      },
+      {
+        "sequence": 15,
+        "name": "Stražilovska - Urbis",
+        "lat": 45.2481301777,
+        "lon": 19.8492059684,
+        "distanceFromStartMeters": 6742.7
+      },
+      {
+        "sequence": 16,
+        "name": "Žarka Zrenjanina - Izvršno Veće",
+        "lat": 45.2528535063,
+        "lon": 19.8475593745,
+        "distanceFromStartMeters": 7226.0
+      },
+      {
+        "sequence": 17,
+        "name": "Bulevar Mihajla Pupina - Sonje Marinković",
+        "lat": 45.254153,
+        "lon": 19.852979,
+        "distanceFromStartMeters": 7784.4
+      },
+      {
+        "sequence": 18,
+        "name": "Beogradska - Lisinskog",
+        "lat": 45.2547734365,
+        "lon": 19.8620128358,
+        "distanceFromStartMeters": 8441.2
+      },
+      {
+        "sequence": 19,
+        "name": "Preradovićeva - Lovački Dom",
+        "lat": 45.2525866389,
+        "lon": 19.8678103709,
+        "distanceFromStartMeters": 8986.4
+      },
+      {
+        "sequence": 20,
+        "name": "Preradovićeva - Osnovna Škola Jovan Dučić",
+        "lat": 45.2516407374,
+        "lon": 19.8727083512,
+        "distanceFromStartMeters": 9389.5
+      },
+      {
+        "sequence": 21,
+        "name": "Preradovićeva - Reljkovićeva",
+        "lat": 45.2488033781,
+        "lon": 19.876524398,
+        "distanceFromStartMeters": 9790.4
+      },
+      {
+        "sequence": 22,
+        "name": "Preradovićeva - Marina Držića",
+        "lat": 45.2455157784,
+        "lon": 19.8801002749,
+        "distanceFromStartMeters": 10270.1
+      },
+      {
+        "sequence": 23,
+        "name": "Preradovićeva - Račkog",
+        "lat": 45.241791669,
+        "lon": 19.8830977084,
+        "distanceFromStartMeters": 10802.0
+      },
+      {
+        "sequence": 24,
+        "name": "Petrovaradin - Železnička Stanica",
+        "lat": 45.2389365212,
+        "lon": 19.8857439999,
+        "distanceFromStartMeters": 11081.1
+      },
+      {
+        "sequence": 25,
+        "name": "Petrovaradin - Okretnica",
+        "lat": 45.2360062995,
+        "lon": 19.8878906109,
+        "distanceFromStartMeters": 11535.3
+      }
+    ]
+  },
+  {
+    "line": "9B",
+    "route": "PETROVARADIN - LIMAN - NOVO NASELJE",
+    "mrezaId": "18",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Petrovaradin - Okretnica",
+        "lat": 45.2360062995,
+        "lon": 19.8878906109,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Petrovaradin - Železnička Stanica",
+        "lat": 45.2396101516,
+        "lon": 19.8853872807,
+        "distanceFromStartMeters": 639.7
+      },
+      {
+        "sequence": 3,
+        "name": "Preradovićeva - Božidar Adžije",
+        "lat": 45.2439233024,
+        "lon": 19.8814113961,
+        "distanceFromStartMeters": 1028.0
+      },
+      {
+        "sequence": 4,
+        "name": "Preradovićeva - Marina Držića",
+        "lat": 45.2464017138,
+        "lon": 19.87968712,
+        "distanceFromStartMeters": 1333.1
+      },
+      {
+        "sequence": 5,
+        "name": "Preradovićeva - Reljkovićeva",
+        "lat": 45.2496755784,
+        "lon": 19.8757045697,
+        "distanceFromStartMeters": 1800.5
+      },
+      {
+        "sequence": 6,
+        "name": "Preradovićeva - Šenoina",
+        "lat": 45.251431704,
+        "lon": 19.8732154355,
+        "distanceFromStartMeters": 2100.1
+      },
+      {
+        "sequence": 7,
+        "name": "Preradovićeva - Lovački Dom",
+        "lat": 45.2526031657,
+        "lon": 19.8689433116,
+        "distanceFromStartMeters": 2536.3
+      },
+      {
+        "sequence": 8,
+        "name": "Beogradska - Vladimira Nazora",
+        "lat": 45.2548163902,
+        "lon": 19.8623634945,
+        "distanceFromStartMeters": 3076.3
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Mihajla Pupina - Dunavski Park",
+        "lat": 45.2542020579,
+        "lon": 19.8519122087,
+        "distanceFromStartMeters": 3892.4
+      },
+      {
+        "sequence": 10,
+        "name": "Žarka Zrenjanina - Opština",
+        "lat": 45.2524025428,
+        "lon": 19.8471827488,
+        "distanceFromStartMeters": 4378.1
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Cara Lazara - Urbis",
+        "lat": 45.2474414598,
+        "lon": 19.8488525074,
+        "distanceFromStartMeters": 4991.8
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Cara Lazara - Bulevar Oslobođenja",
+        "lat": 45.2437760634,
+        "lon": 19.8407575757,
+        "distanceFromStartMeters": 5810.2
+      },
+      {
+        "sequence": 13,
+        "name": "Bulevar Cara Lazara - Puškinova",
+        "lat": 45.2425681438,
+        "lon": 19.8359820245,
+        "distanceFromStartMeters": 6229.6
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Cara Lazara - Dom Zdravlja",
+        "lat": 45.2413137447,
+        "lon": 19.8302794061,
+        "distanceFromStartMeters": 6629.7
+      },
+      {
+        "sequence": 15,
+        "name": "Cara Dušana - Bulevar Cara Lazara",
+        "lat": 45.2403667659,
+        "lon": 19.8253952094,
+        "distanceFromStartMeters": 7061.1
+      },
+      {
+        "sequence": 16,
+        "name": "Cara Dušana - Medicinska Škola",
+        "lat": 45.2442691715,
+        "lon": 19.8252026974,
+        "distanceFromStartMeters": 7526.7
+      },
+      {
+        "sequence": 17,
+        "name": "Futoška - Bolnica",
+        "lat": 45.2494278377,
+        "lon": 19.8238348508,
+        "distanceFromStartMeters": 8180.9
+      },
+      {
+        "sequence": 18,
+        "name": "Futoška - Bulevar Evrope",
+        "lat": 45.2485623853,
+        "lon": 19.815564749,
+        "distanceFromStartMeters": 8828.0
+      },
+      {
+        "sequence": 19,
+        "name": "Futoška - Jugoalat",
+        "lat": 45.2478325873,
+        "lon": 19.810052585,
+        "distanceFromStartMeters": 9306.0
+      },
+      {
+        "sequence": 20,
+        "name": "Bulevar Slobodana Jovanovića - Futoški Put",
+        "lat": 45.2482734052,
+        "lon": 19.8075067499,
+        "distanceFromStartMeters": 9553.2
+      },
+      {
+        "sequence": 21,
+        "name": "Bulevar Slobodana Jovanovića - Branislava Borote",
+        "lat": 45.2515983077,
+        "lon": 19.8053597388,
+        "distanceFromStartMeters": 9931.9
+      },
+      {
+        "sequence": 22,
+        "name": "Bulevar Jovana Dučića - Bulevar Slobodana Jovanovića",
+        "lat": 45.2529483166,
+        "lon": 19.8031021067,
+        "distanceFromStartMeters": 10239.5
+      },
+      {
+        "sequence": 23,
+        "name": "Bulevar Jovana Dučića - Braće Dronjak",
+        "lat": 45.2513539058,
+        "lon": 19.7983752275,
+        "distanceFromStartMeters": 10661.0
+      },
+      {
+        "sequence": 24,
+        "name": "Bulevar Jovana Dučića - Igralište",
+        "lat": 45.2500788277,
+        "lon": 19.7947978105,
+        "distanceFromStartMeters": 10970.5
+      },
+      {
+        "sequence": 25,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489713023,
+        "lon": 19.7915144259,
+        "distanceFromStartMeters": 11225.0
+      },
+      {
+        "sequence": 26,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.248251,
+        "lon": 19.786933,
+        "distanceFromStartMeters": 11636.8
+      }
+    ]
+  },
+  {
+    "line": "10ALA",
+    "route": "CENTAR - INDUST.ZONA JUG",
+    "mrezaId": "296",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.2550293771,
+        "lon": 19.8414070119,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2528681592,
+        "lon": 19.8366307617,
+        "distanceFromStartMeters": 601.6
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 1325.3
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2613766166,
+        "lon": 19.8318492939,
+        "distanceFromStartMeters": 2049.7
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Jaše Tomića - Železnička Stanica",
+        "lat": 45.2640665923,
+        "lon": 19.8291811843,
+        "distanceFromStartMeters": 2142.5
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Jaše Tomića - Železnički Park",
+        "lat": 45.2640771252,
+        "lon": 19.8231059398,
+        "distanceFromStartMeters": 2665.4
+      },
+      {
+        "sequence": 7,
+        "name": "Industrijska - Rumenačka",
+        "lat": 45.2644189465,
+        "lon": 19.8177497604,
+        "distanceFromStartMeters": 3191.0
+      },
+      {
+        "sequence": 8,
+        "name": "Industrijska - Benzinska Pumpa",
+        "lat": 45.2689087832,
+        "lon": 19.8239098396,
+        "distanceFromStartMeters": 3986.4
+      },
+      {
+        "sequence": 9,
+        "name": "Put Novosadskog Partizanskog Odreda - Novkabel",
+        "lat": 45.2722670532,
+        "lon": 19.8214602068,
+        "distanceFromStartMeters": 4446.9
+      },
+      {
+        "sequence": 10,
+        "name": "Put Novosadskog Partizanskog Odreda - Motins",
+        "lat": 45.2740884561,
+        "lon": 19.8139766836,
+        "distanceFromStartMeters": 5283.0
+      },
+      {
+        "sequence": 11,
+        "name": "Put Novosadskog Partizanskog Odreda - Standard",
+        "lat": 45.276429415,
+        "lon": 19.8084575794,
+        "distanceFromStartMeters": 5647.8
+      },
+      {
+        "sequence": 12,
+        "name": "Put Novosadskog Partizanskog Odreda - Albus",
+        "lat": 45.278889,
+        "lon": 19.806465,
+        "distanceFromStartMeters": 6111.4
+      }
+    ]
+  },
+  {
+    "line": "10ALB",
+    "route": "INDUST.ZONA JUG - CENTAR",
+    "mrezaId": "297",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Put Novosadskog Partizanskog Odreda - Albus",
+        "lat": 45.278426388,
+        "lon": 19.8072955438,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Put Novosadskog Partizanskog Odreda - Standard",
+        "lat": 45.275420703,
+        "lon": 19.8099757982,
+        "distanceFromStartMeters": 572.8
+      },
+      {
+        "sequence": 3,
+        "name": "Put Novosadskog Partizanskog Odreda - Motins",
+        "lat": 45.2735286309,
+        "lon": 19.8159097058,
+        "distanceFromStartMeters": 1295.4
+      },
+      {
+        "sequence": 4,
+        "name": "Novkabel - Metro Cash & Carry",
+        "lat": 45.2725323349,
+        "lon": 19.8198678228,
+        "distanceFromStartMeters": 1295.4
+      },
+      {
+        "sequence": 5,
+        "name": "Industrijska - Limprodukt",
+        "lat": 45.271510041,
+        "lon": 19.8236627755,
+        "distanceFromStartMeters": 1777.0
+      },
+      {
+        "sequence": 6,
+        "name": "Industrijska - Benzinska Pumpa",
+        "lat": 45.2679796459,
+        "lon": 19.8235299233,
+        "distanceFromStartMeters": 2103.9
+      },
+      {
+        "sequence": 7,
+        "name": "Rumenačka - Kornelija Stankovića",
+        "lat": 45.2636389127,
+        "lon": 19.8174016008,
+        "distanceFromStartMeters": 2824.3
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Jaše Tomića - Pariske Komune",
+        "lat": 45.2637816804,
+        "lon": 19.8246328903,
+        "distanceFromStartMeters": 3584.4
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Oslobođenja - Bulevar Jaše Tomića",
+        "lat": 45.263325649,
+        "lon": 19.8304838937,
+        "distanceFromStartMeters": 3980.7
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 4694.5
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 5439.1
+      },
+      {
+        "sequence": 12,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 5577.0
+      },
+      {
+        "sequence": 13,
+        "name": "Uspenska - Pozorišni Trg",
+        "lat": 45.2548499029,
+        "lon": 19.8422463011,
+        "distanceFromStartMeters": 6054.9
+      }
+    ]
+  },
+  {
+    "line": "11A",
+    "route": "Z.STANICA - BOLNICA - LIMAN - Z.STANICA",
+    "mrezaId": "21",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Jaše Tomića - Železnička Stanica",
+        "lat": 45.2640665923,
+        "lon": 19.8291811843,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Jaše Tomića - Železnički Park",
+        "lat": 45.2640771252,
+        "lon": 19.8231059398,
+        "distanceFromStartMeters": 538.9
+      },
+      {
+        "sequence": 3,
+        "name": "Rumenačka - Abc Samoposluga",
+        "lat": 45.2609008436,
+        "lon": 19.8204896166,
+        "distanceFromStartMeters": 1181.9
+      },
+      {
+        "sequence": 4,
+        "name": "Hajduk Veljkova - Sajam",
+        "lat": 45.2569093044,
+        "lon": 19.8241177466,
+        "distanceFromStartMeters": 1728.9
+      },
+      {
+        "sequence": 5,
+        "name": "Hajduk Veljkova - Medicinski Fakultet",
+        "lat": 45.2532878064,
+        "lon": 19.8241868372,
+        "distanceFromStartMeters": 2123.4
+      },
+      {
+        "sequence": 6,
+        "name": "Cara Dušana - Futoška",
+        "lat": 45.2487841683,
+        "lon": 19.8247020319,
+        "distanceFromStartMeters": 2630.8
+      },
+      {
+        "sequence": 7,
+        "name": "Cara Dušana - Medicinska Škola",
+        "lat": 45.2436192236,
+        "lon": 19.8250937953,
+        "distanceFromStartMeters": 3204.8
+      },
+      {
+        "sequence": 8,
+        "name": "Ive Andrića - Bulevar Evrope",
+        "lat": 45.2394232209,
+        "lon": 19.8253580867,
+        "distanceFromStartMeters": 3694.4
+      },
+      {
+        "sequence": 9,
+        "name": "Narodnog Fronta - Ive Andrića",
+        "lat": 45.2373436138,
+        "lon": 19.8276347235,
+        "distanceFromStartMeters": 4096.3
+      },
+      {
+        "sequence": 10,
+        "name": "Narodnog Fronta - Balzakova",
+        "lat": 45.2388659784,
+        "lon": 19.833210388,
+        "distanceFromStartMeters": 4490.8
+      },
+      {
+        "sequence": 11,
+        "name": "Narodnog Fronta - Šekspirova",
+        "lat": 45.2403689153,
+        "lon": 19.8384767147,
+        "distanceFromStartMeters": 5016.6
+      },
+      {
+        "sequence": 12,
+        "name": "Narodnog Fronta - Bulevar Oslobođenja",
+        "lat": 45.2417640206,
+        "lon": 19.843435786,
+        "distanceFromStartMeters": 5410.4
+      },
+      {
+        "sequence": 13,
+        "name": "Fruškogorska - Doktora Ilije Đuričića",
+        "lat": 45.2429842112,
+        "lon": 19.847528317,
+        "distanceFromStartMeters": 5723.8
+      },
+      {
+        "sequence": 14,
+        "name": "Stražilovska - Urbis",
+        "lat": 45.2481301777,
+        "lon": 19.8492059684,
+        "distanceFromStartMeters": 6406.8
+      },
+      {
+        "sequence": 15,
+        "name": "Maksima Gorkog - Stevana Musića",
+        "lat": 45.2514125025,
+        "lon": 19.8515882207,
+        "distanceFromStartMeters": 6984.5
+      },
+      {
+        "sequence": 16,
+        "name": "Maksima Gorkog - Kej",
+        "lat": 45.2521192996,
+        "lon": 19.8546993561,
+        "distanceFromStartMeters": 7283.9
+      },
+      {
+        "sequence": 17,
+        "name": "Beogradski Kej - Kapetanija",
+        "lat": 45.2576645565,
+        "lon": 19.8548476045,
+        "distanceFromStartMeters": 7895.6
+      },
+      {
+        "sequence": 18,
+        "name": "Marka Miljanova - Kvantaška Pijaca",
+        "lat": 45.2617554805,
+        "lon": 19.8537375388,
+        "distanceFromStartMeters": 8542.2
+      },
+      {
+        "sequence": 19,
+        "name": "Kosovska - Marka Miljanova",
+        "lat": 45.261569,
+        "lon": 19.850373,
+        "distanceFromStartMeters": 8812.7
+      },
+      {
+        "sequence": 20,
+        "name": "Gundulićeva - Koče Kolarova",
+        "lat": 45.264153,
+        "lon": 19.846968,
+        "distanceFromStartMeters": 9345.2
+      },
+      {
+        "sequence": 21,
+        "name": "Gundulićeva - Temerinska",
+        "lat": 45.264563,
+        "lon": 19.843454,
+        "distanceFromStartMeters": 9671.9
+      },
+      {
+        "sequence": 22,
+        "name": "Kisačka - Jovana Cvijića",
+        "lat": 45.2652106325,
+        "lon": 19.8364405487,
+        "distanceFromStartMeters": 10146.2
+      },
+      {
+        "sequence": 23,
+        "name": "Železnička Stanica - Dolasci",
+        "lat": 45.2650202834,
+        "lon": 19.830132455,
+        "distanceFromStartMeters": 10841.0
+      }
+    ]
+  },
+  {
+    "line": "11B",
+    "route": "Z.STANICA - LIMAN - BOLNICA - Z.STANICA",
+    "mrezaId": "22",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Jaše Tomića - Bulevar Oslobođenja",
+        "lat": 45.264414954,
+        "lon": 19.831181344,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Kisačka - Bulevar Jaše Tomića",
+        "lat": 45.2656954001,
+        "lon": 19.8354809218,
+        "distanceFromStartMeters": 394.7
+      },
+      {
+        "sequence": 3,
+        "name": "Gundulićeva - Temerinska",
+        "lat": 45.264400104,
+        "lon": 19.8447802173,
+        "distanceFromStartMeters": 1173.9
+      },
+      {
+        "sequence": 4,
+        "name": "Marka Miljanova - Kosovska",
+        "lat": 45.2614748508,
+        "lon": 19.8507066908,
+        "distanceFromStartMeters": 1915.4
+      },
+      {
+        "sequence": 5,
+        "name": "Beogradski Kej - Marka Miljanova",
+        "lat": 45.2608772309,
+        "lon": 19.8557970812,
+        "distanceFromStartMeters": 2365.9
+      },
+      {
+        "sequence": 6,
+        "name": "Beogradski Kej - Miloša Bajića",
+        "lat": 45.2575567077,
+        "lon": 19.8546271049,
+        "distanceFromStartMeters": 2759.9
+      },
+      {
+        "sequence": 7,
+        "name": "Trg Neznanog Junaka - Most Duga",
+        "lat": 45.2549794279,
+        "lon": 19.8549474588,
+        "distanceFromStartMeters": 3034.9
+      },
+      {
+        "sequence": 8,
+        "name": "Maksima Gorkog - Vojvode Mišića",
+        "lat": 45.2516559504,
+        "lon": 19.8520851559,
+        "distanceFromStartMeters": 3597.7
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Cara Lazara - Urbis",
+        "lat": 45.2474414598,
+        "lon": 19.8488525074,
+        "distanceFromStartMeters": 4326.6
+      },
+      {
+        "sequence": 10,
+        "name": "Narodnog Fronta - Fruškogorska",
+        "lat": 45.2424582038,
+        "lon": 19.8467941518,
+        "distanceFromStartMeters": 4994.9
+      },
+      {
+        "sequence": 11,
+        "name": "Narodnog Fronta - Bulevar Oslobođenja",
+        "lat": 45.2414328005,
+        "lon": 19.8415475397,
+        "distanceFromStartMeters": 5351.1
+      },
+      {
+        "sequence": 12,
+        "name": "Narodnog Fronta - Šekspirova",
+        "lat": 45.2400602044,
+        "lon": 19.8370412179,
+        "distanceFromStartMeters": 5643.0
+      },
+      {
+        "sequence": 13,
+        "name": "Narodnog Fronta - Balzakova",
+        "lat": 45.23861537,
+        "lon": 19.8316359129,
+        "distanceFromStartMeters": 6321.2
+      },
+      {
+        "sequence": 14,
+        "name": "Narodnog Fronta - Ive Andrića",
+        "lat": 45.2374119519,
+        "lon": 19.8273963747,
+        "distanceFromStartMeters": 6605.8
+      },
+      {
+        "sequence": 15,
+        "name": "Cara Dušana - Bulevar Cara Lazara",
+        "lat": 45.2403667659,
+        "lon": 19.8253952094,
+        "distanceFromStartMeters": 7051.3
+      },
+      {
+        "sequence": 16,
+        "name": "Cara Dušana - Medicinska Škola",
+        "lat": 45.2442691715,
+        "lon": 19.8252026974,
+        "distanceFromStartMeters": 7493.6
+      },
+      {
+        "sequence": 17,
+        "name": "Hajduk Veljkova - Dečija Bolnica",
+        "lat": 45.2510679517,
+        "lon": 19.8244972937,
+        "distanceFromStartMeters": 8230.0
+      },
+      {
+        "sequence": 18,
+        "name": "Hajduk Veljkova - Novosadskog Sajma",
+        "lat": 45.2545639152,
+        "lon": 19.8244393678,
+        "distanceFromStartMeters": 8629.0
+      },
+      {
+        "sequence": 19,
+        "name": "Rumenačka - Dom Zdravlja",
+        "lat": 45.260450059,
+        "lon": 19.8213763649,
+        "distanceFromStartMeters": 9372.1
+      },
+      {
+        "sequence": 20,
+        "name": "Bulevar Jaše Tomića - Rumenačka",
+        "lat": 45.2630741789,
+        "lon": 19.8192032513,
+        "distanceFromStartMeters": 9731.3
+      },
+      {
+        "sequence": 21,
+        "name": "Bulevar Jaše Tomića - Pariske Komune",
+        "lat": 45.2637816804,
+        "lon": 19.8246328903,
+        "distanceFromStartMeters": 10190.6
+      },
+      {
+        "sequence": 22,
+        "name": "Železnička Stanica - Dolasci",
+        "lat": 45.2650202834,
+        "lon": 19.830132455,
+        "distanceFromStartMeters": 10733.1
+      }
+    ]
+  },
+  {
+    "line": "12A",
+    "route": "CENTAR - TELEP",
+    "mrezaId": "23",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.2550293771,
+        "lon": 19.8414070119,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253337,
+        "lon": 19.844187,
+        "distanceFromStartMeters": 297.1
+      },
+      {
+        "sequence": 3,
+        "name": "Žarka Zrenjanina - Opština",
+        "lat": 45.2524025428,
+        "lon": 19.8471827488,
+        "distanceFromStartMeters": 689.8
+      },
+      {
+        "sequence": 4,
+        "name": "Maksima Gorkog - Sremska",
+        "lat": 45.2488034819,
+        "lon": 19.8421576964,
+        "distanceFromStartMeters": 1312.1
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Oslobođenja - Braće Ribnikar",
+        "lat": 45.2475207776,
+        "lon": 19.8392619075,
+        "distanceFromStartMeters": 1635.7
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Cara Lazara - Bulevar Oslobođenja",
+        "lat": 45.2437760634,
+        "lon": 19.8407575757,
+        "distanceFromStartMeters": 2090.1
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Cara Lazara - Puškinova",
+        "lat": 45.2425681438,
+        "lon": 19.8359820245,
+        "distanceFromStartMeters": 2555.4
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Cara Lazara - Dom Zdravlja",
+        "lat": 45.2413137447,
+        "lon": 19.8302794061,
+        "distanceFromStartMeters": 3021.4
+      },
+      {
+        "sequence": 9,
+        "name": "Ive Andrića - Bulevar Evrope",
+        "lat": 45.2394232209,
+        "lon": 19.8253580867,
+        "distanceFromStartMeters": 3481.9
+      },
+      {
+        "sequence": 10,
+        "name": "Heroja Pinkija - Laze Lazarevića",
+        "lat": 45.2372217236,
+        "lon": 19.8216097718,
+        "distanceFromStartMeters": 3920.2
+      },
+      {
+        "sequence": 11,
+        "name": "Heroja Pinkija - Mornarska",
+        "lat": 45.2349410298,
+        "lon": 19.8180658175,
+        "distanceFromStartMeters": 4289.2
+      },
+      {
+        "sequence": 12,
+        "name": "Kotorska - Braće Miladinov",
+        "lat": 45.234404245,
+        "lon": 19.8139810465,
+        "distanceFromStartMeters": 4662.4
+      },
+      {
+        "sequence": 13,
+        "name": "Feješ Klare - Kotorska",
+        "lat": 45.2350171332,
+        "lon": 19.810173082,
+        "distanceFromStartMeters": 5013.6
+      },
+      {
+        "sequence": 14,
+        "name": "Stanoja Glavaša - Šarplaninska",
+        "lat": 45.236683,
+        "lon": 19.808045,
+        "distanceFromStartMeters": 5358.8
+      },
+      {
+        "sequence": 15,
+        "name": "Senteleki Kornela - Osnovna Škola Jožef Atila",
+        "lat": 45.237096,
+        "lon": 19.806373,
+        "distanceFromStartMeters": 5557.4
+      }
+    ]
+  },
+  {
+    "line": "12B",
+    "route": "TELEP - CENTAR",
+    "mrezaId": "24",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Senteleki Kornela - Osnovna Škola Jožef Atila",
+        "lat": 45.237096,
+        "lon": 19.806373,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Ćirila I Metodija - Osnovna Škola Jožef Atila",
+        "lat": 45.2383549843,
+        "lon": 19.8079954948,
+        "distanceFromStartMeters": 321.0
+      },
+      {
+        "sequence": 3,
+        "name": "Feješ Klare - Ćirila I Metodija",
+        "lat": 45.2376452454,
+        "lon": 19.810635893,
+        "distanceFromStartMeters": 481.2
+      },
+      {
+        "sequence": 4,
+        "name": "Feješ Klare - Kotorska",
+        "lat": 45.2349271049,
+        "lon": 19.8100768788,
+        "distanceFromStartMeters": 843.9
+      },
+      {
+        "sequence": 5,
+        "name": "Kotorska - Braće Miladinov",
+        "lat": 45.2343708896,
+        "lon": 19.813750923,
+        "distanceFromStartMeters": 1139.7
+      },
+      {
+        "sequence": 6,
+        "name": "Heroja Pinkija - Mornarska",
+        "lat": 45.2351605706,
+        "lon": 19.8185888685,
+        "distanceFromStartMeters": 1589.0
+      },
+      {
+        "sequence": 7,
+        "name": "Heroja Pinkija - Laze Lazarevića",
+        "lat": 45.2373825002,
+        "lon": 19.8221918457,
+        "distanceFromStartMeters": 1943.4
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Cara Lazara - Ive Andrića",
+        "lat": 45.2399480828,
+        "lon": 19.8258641034,
+        "distanceFromStartMeters": 2446.4
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Cara Lazara - Dom Zdravlja",
+        "lat": 45.241465683,
+        "lon": 19.8317379566,
+        "distanceFromStartMeters": 2925.0
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Cara Lazara - Šekspirova",
+        "lat": 45.2426706144,
+        "lon": 19.8371533191,
+        "distanceFromStartMeters": 3391.8
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Oslobođenja - Bulevar Cara Lazara",
+        "lat": 45.2444754031,
+        "lon": 19.8412524923,
+        "distanceFromStartMeters": 3841.6
+      },
+      {
+        "sequence": 12,
+        "name": "Maksima Gorkog - Bulevar Oslobođenja",
+        "lat": 45.2480202534,
+        "lon": 19.839720893,
+        "distanceFromStartMeters": 4261.1
+      },
+      {
+        "sequence": 13,
+        "name": "Maksima Gorkog - Spens",
+        "lat": 45.2488624702,
+        "lon": 19.8431913572,
+        "distanceFromStartMeters": 4546.5
+      },
+      {
+        "sequence": 14,
+        "name": "Žarka Zrenjanina - Izvršno Veće",
+        "lat": 45.2528535063,
+        "lon": 19.8475593745,
+        "distanceFromStartMeters": 5267.2
+      },
+      {
+        "sequence": 15,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253519,
+        "lon": 19.844141,
+        "distanceFromStartMeters": 5638.8
+      },
+      {
+        "sequence": 16,
+        "name": "Uspenska - Pozorišni Trg",
+        "lat": 45.2548499029,
+        "lon": 19.8422463011,
+        "distanceFromStartMeters": 5849.7
+      },
+      {
+        "sequence": 17,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.2550293771,
+        "lon": 19.8414070119,
+        "distanceFromStartMeters": 5909.1
+      }
+    ]
+  },
+  {
+    "line": "13A",
+    "route": "DETELINARA - LIMAN - UNIVERZITET",
+    "mrezaId": "239",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Janka Čmelika - Oblačića Rada",
+        "lat": 45.2649285714,
+        "lon": 19.8083164398,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Janka Čmelika - Dečije Obdanište",
+        "lat": 45.2618134201,
+        "lon": 19.8104375633,
+        "distanceFromStartMeters": 443.9
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Evrope - Bulevar Vojvode Stepe",
+        "lat": 45.259486,
+        "lon": 19.808937,
+        "distanceFromStartMeters": 835.4
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Evrope - Raše Radujkova",
+        "lat": 45.255302,
+        "lon": 19.811805,
+        "distanceFromStartMeters": 1264.6
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Evrope - Branka Bajića",
+        "lat": 45.252347,
+        "lon": 19.813837,
+        "distanceFromStartMeters": 1722.7
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Evrope - Futoška",
+        "lat": 45.246928424027786,
+        "lon": 19.817569304369616,
+        "distanceFromStartMeters": 2361.5
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Evrope - Romanijska",
+        "lat": 45.2430591564,
+        "lon": 19.8201818748,
+        "distanceFromStartMeters": 2851.6
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Cara Lazara - Ive Andrića",
+        "lat": 45.2399480828,
+        "lon": 19.8258641034,
+        "distanceFromStartMeters": 3656.6
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Cara Lazara - Dom Zdravlja",
+        "lat": 45.241465683,
+        "lon": 19.8317379566,
+        "distanceFromStartMeters": 4051.8
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Cara Lazara - Šekspirova",
+        "lat": 45.2426706144,
+        "lon": 19.8371533191,
+        "distanceFromStartMeters": 4453.2
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Cara Lazara - Bulevar Oslobođenja",
+        "lat": 45.2440216217,
+        "lon": 19.8424535024,
+        "distanceFromStartMeters": 5021.6
+      },
+      {
+        "sequence": 12,
+        "name": "Doktora Sime Miloševića - Bulevar Cara Lazara",
+        "lat": 45.246804,
+        "lon": 19.849049,
+        "distanceFromStartMeters": 5599.8
+      },
+      {
+        "sequence": 13,
+        "name": "Univerzitet - Doktora Sime Miloševića",
+        "lat": 45.243749,
+        "lon": 19.850994,
+        "distanceFromStartMeters": 5995.1
+      }
+    ]
+  },
+  {
+    "line": "13B",
+    "route": "UNIVERZITET - LIMAN - DETELINARA",
+    "mrezaId": "240",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Univerzitet - Doktora Sime Miloševića",
+        "lat": 45.243749,
+        "lon": 19.850994,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Fruškogorska - Doktora Ilije Đuričića",
+        "lat": 45.2429842112,
+        "lon": 19.847528317,
+        "distanceFromStartMeters": 414.1
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Cara Lazara - Bulevar Oslobođenja",
+        "lat": 45.2437760634,
+        "lon": 19.8407575757,
+        "distanceFromStartMeters": 1168.9
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Cara Lazara - Puškinova",
+        "lat": 45.2425681438,
+        "lon": 19.8359820245,
+        "distanceFromStartMeters": 1168.9
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Cara Lazara - Dom Zdravlja",
+        "lat": 45.2413137447,
+        "lon": 19.8302794061,
+        "distanceFromStartMeters": 2327.9
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Evrope - Cara Dušana",
+        "lat": 45.239855,
+        "lon": 19.82477,
+        "distanceFromStartMeters": 2593.9
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Evrope - Aranj Janoša",
+        "lat": 45.240414,
+        "lon": 19.822391,
+        "distanceFromStartMeters": 2758.8
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Evrope - Teodora Pavlovića",
+        "lat": 45.2440148287,
+        "lon": 19.8198292771,
+        "distanceFromStartMeters": 3208.8
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Evrope - Futoška",
+        "lat": 45.249118,
+        "lon": 19.816518,
+        "distanceFromStartMeters": 3857.5
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Evrope - Branka Bajića",
+        "lat": 45.253249,
+        "lon": 19.813681,
+        "distanceFromStartMeters": 4377.2
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Evrope - Hadži Ruvimova",
+        "lat": 45.256212,
+        "lon": 19.811657,
+        "distanceFromStartMeters": 4717.2
+      },
+      {
+        "sequence": 12,
+        "name": "Kornelija Stankovića - Bulevar Evrope",
+        "lat": 45.2604662935,
+        "lon": 19.8096845247,
+        "distanceFromStartMeters": 5248.9
+      },
+      {
+        "sequence": 13,
+        "name": "Milenka Grčića - Banatska",
+        "lat": 45.2640112807,
+        "lon": 19.8111852139,
+        "distanceFromStartMeters": 5866.2
+      },
+      {
+        "sequence": 14,
+        "name": "Oblačića Rada - Janka Čmelika",
+        "lat": 45.265188,
+        "lon": 19.808222,
+        "distanceFromStartMeters": 6270.2
+      }
+    ]
+  },
+  {
+    "line": "14A",
+    "route": "CENTAR - SAJLOVO - VETERNIK",
+    "mrezaId": "25",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255074308,
+        "lon": 19.8415125346,
+        "distanceFromStartMeters": 23.9
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2525198464,
+        "lon": 19.8368000824,
+        "distanceFromStartMeters": 666.8
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 1077.6
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2613766166,
+        "lon": 19.8318492939,
+        "distanceFromStartMeters": 1752.5
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Jaše Tomića - Železnička Stanica",
+        "lat": 45.2640665923,
+        "lon": 19.8291811843,
+        "distanceFromStartMeters": 2155.4
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Jaše Tomića - Železnički Park",
+        "lat": 45.2640771252,
+        "lon": 19.8231059398,
+        "distanceFromStartMeters": 2650.6
+      },
+      {
+        "sequence": 7,
+        "name": "Rumenačka - Bulevar Jaše Tomića",
+        "lat": 45.2633439588,
+        "lon": 19.8182127414,
+        "distanceFromStartMeters": 3096.6
+      },
+      {
+        "sequence": 8,
+        "name": "Rumenačka - Radničko Igralište",
+        "lat": 45.2660444179,
+        "lon": 19.8148147237,
+        "distanceFromStartMeters": 3478.6
+      },
+      {
+        "sequence": 9,
+        "name": "Rumenački Put - Benzinska Pumpa",
+        "lat": 45.2681204351,
+        "lon": 19.8121474846,
+        "distanceFromStartMeters": 3792.4
+      },
+      {
+        "sequence": 10,
+        "name": "Rumenački Put - Avijatičarska",
+        "lat": 45.2712216153,
+        "lon": 19.8079135339,
+        "distanceFromStartMeters": 4280.7
+      },
+      {
+        "sequence": 11,
+        "name": "Rumenački Put - Kružni Tok",
+        "lat": 45.2759310771,
+        "lon": 19.7998638594,
+        "distanceFromStartMeters": 5086.7
+      },
+      {
+        "sequence": 12,
+        "name": "Rumenački Put - Gradsko Groblje",
+        "lat": 45.2785344884,
+        "lon": 19.7937338396,
+        "distanceFromStartMeters": 5684.7
+      },
+      {
+        "sequence": 13,
+        "name": "Sajlovo 1",
+        "lat": 45.2778935404,
+        "lon": 19.7896525102,
+        "distanceFromStartMeters": 6174.3
+      },
+      {
+        "sequence": 14,
+        "name": "Sajlovo 2",
+        "lat": 45.2751092444,
+        "lon": 19.7865491723,
+        "distanceFromStartMeters": 6490.1
+      },
+      {
+        "sequence": 15,
+        "name": "Sajlovo 3",
+        "lat": 45.2719896416,
+        "lon": 19.7830517183,
+        "distanceFromStartMeters": 7091.0
+      },
+      {
+        "sequence": 16,
+        "name": "Donje Sajlovo - Doktora Miloša Krne",
+        "lat": 45.270245,
+        "lon": 19.78086,
+        "distanceFromStartMeters": 7091.0
+      },
+      {
+        "sequence": 17,
+        "name": "Veternik - Kralja Petra Prvog Br. 97",
+        "lat": 45.2609518927876,
+        "lon": 19.7704969152352,
+        "distanceFromStartMeters": 8468.2
+      },
+      {
+        "sequence": 18,
+        "name": "Veternik - Savke Subotić",
+        "lat": 45.258963,
+        "lon": 19.76754,
+        "distanceFromStartMeters": 8826.8
+      },
+      {
+        "sequence": 19,
+        "name": "Veternik - Kralja Petra Prvog Naspram Br. 24",
+        "lat": 45.2558385846175,
+        "lon": 19.7638405755272,
+        "distanceFromStartMeters": 9250.6
+      },
+      {
+        "sequence": 20,
+        "name": "Veternik - Kralja Petra Prvog 9A",
+        "lat": 45.2524693028534,
+        "lon": 19.7597206841289,
+        "distanceFromStartMeters": 9786.5
+      },
+      {
+        "sequence": 21,
+        "name": "Veternik - Centar",
+        "lat": 45.2502026841,
+        "lon": 19.7570349816,
+        "distanceFromStartMeters": 10087.1
+      },
+      {
+        "sequence": 22,
+        "name": "Veternik - Pravoslavna Crkva - Okretnica",
+        "lat": 45.248742,
+        "lon": 19.75592,
+        "distanceFromStartMeters": 10305.1
+      }
+    ]
+  },
+  {
+    "line": "14B",
+    "route": "VETERNIK - SAJLOVO - CENTAR",
+    "mrezaId": "26",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Veternik - Pravoslavna Crkva - Okretnica",
+        "lat": 45.248742,
+        "lon": 19.75592,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Veternik - Stadion",
+        "lat": 45.2531656254,
+        "lon": 19.7606394502,
+        "distanceFromStartMeters": 661.6
+      },
+      {
+        "sequence": 3,
+        "name": "Veternik - Tome Maksimovića - Stadion",
+        "lat": 45.2543231427185,
+        "lon": 19.7620929551699,
+        "distanceFromStartMeters": 861.9
+      },
+      {
+        "sequence": 4,
+        "name": "Veternik - Zrmanjska",
+        "lat": 45.256777,
+        "lon": 19.765075,
+        "distanceFromStartMeters": 1157.5
+      },
+      {
+        "sequence": 5,
+        "name": "Veternik - Vase Eškićevića",
+        "lat": 45.258778,
+        "lon": 19.767468,
+        "distanceFromStartMeters": 1543.6
+      },
+      {
+        "sequence": 6,
+        "name": "Veternik - Kralja Petra Prvog Nspram Br. 101",
+        "lat": 45.2611073303386,
+        "lon": 19.7708375111044,
+        "distanceFromStartMeters": 1865.1
+      },
+      {
+        "sequence": 7,
+        "name": "Donje Sajlovo - Sajlovo 9",
+        "lat": 45.271724,
+        "lon": 19.78288,
+        "distanceFromStartMeters": 3264.9
+      },
+      {
+        "sequence": 8,
+        "name": "Donje Sajlovo - Stevana Neštickog",
+        "lat": 45.275676,
+        "lon": 19.787356,
+        "distanceFromStartMeters": 3879.4
+      },
+      {
+        "sequence": 9,
+        "name": "Rumenački Put - Gradsko Groblje",
+        "lat": 45.2782101032,
+        "lon": 19.7944074552,
+        "distanceFromStartMeters": 4767.6
+      },
+      {
+        "sequence": 10,
+        "name": "Rumenački Put - Kružni Tok",
+        "lat": 45.2747023047,
+        "lon": 19.8018176756,
+        "distanceFromStartMeters": 5486.4
+      },
+      {
+        "sequence": 11,
+        "name": "Rumenački Put - Avijatičarska",
+        "lat": 45.2702133075,
+        "lon": 19.8089150153,
+        "distanceFromStartMeters": 6240.5
+      },
+      {
+        "sequence": 12,
+        "name": "Rumenačka - Policijska Stanica",
+        "lat": 45.2670846403,
+        "lon": 19.8130603695,
+        "distanceFromStartMeters": 6693.8
+      },
+      {
+        "sequence": 13,
+        "name": "Rumenačka - Kornelija Stankovića",
+        "lat": 45.2636389127,
+        "lon": 19.8174016008,
+        "distanceFromStartMeters": 7185.9
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Jaše Tomića - Pariske Komune",
+        "lat": 45.2637816804,
+        "lon": 19.8246328903,
+        "distanceFromStartMeters": 7906.7
+      },
+      {
+        "sequence": 15,
+        "name": "Bulevar Oslobođenja - Bulevar Jaše Tomića",
+        "lat": 45.263325649,
+        "lon": 19.8304838937,
+        "distanceFromStartMeters": 8387.3
+      },
+      {
+        "sequence": 16,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 8811.4
+      },
+      {
+        "sequence": 17,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 9452.4
+      },
+      {
+        "sequence": 18,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 9872.3
+      },
+      {
+        "sequence": 19,
+        "name": "Uspenska - Pozorišni Trg",
+        "lat": 45.2548499029,
+        "lon": 19.8422463011,
+        "distanceFromStartMeters": 10375.5
+      }
+    ]
+  },
+  {
+    "line": "15NPA",
+    "route": "CENTAR - INDUSTR.ZONA SEVER",
+    "mrezaId": "302",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.2550293771,
+        "lon": 19.8414070119,
+        "distanceFromStartMeters": 19.7
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2525198464,
+        "lon": 19.8368000824,
+        "distanceFromStartMeters": 674.4
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 1026.3
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2613766166,
+        "lon": 19.8318492939,
+        "distanceFromStartMeters": 1707.3
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Jaše Tomića - Bulevar Oslobođenja",
+        "lat": 45.264414954,
+        "lon": 19.831181344,
+        "distanceFromStartMeters": 2126.7
+      },
+      {
+        "sequence": 6,
+        "name": "Kisačka - Podvožnjak",
+        "lat": 45.2665045391,
+        "lon": 19.834665763,
+        "distanceFromStartMeters": 2531.2
+      },
+      {
+        "sequence": 7,
+        "name": "Sentandrejski Put - Partizanska",
+        "lat": 45.2699357528,
+        "lon": 19.8315959987,
+        "distanceFromStartMeters": 2994.5
+      },
+      {
+        "sequence": 8,
+        "name": "Sentandrejski Put - Teodora Mandića",
+        "lat": 45.2737069812,
+        "lon": 19.830315176,
+        "distanceFromStartMeters": 3435.1
+      },
+      {
+        "sequence": 9,
+        "name": "Primorska - Sentandrejski Put",
+        "lat": 45.2836607098,
+        "lon": 19.825949915,
+        "distanceFromStartMeters": 4643.2
+      },
+      {
+        "sequence": 10,
+        "name": "Primorska - Novograp",
+        "lat": 45.2829316542,
+        "lon": 19.8170137915,
+        "distanceFromStartMeters": 5357.6
+      },
+      {
+        "sequence": 11,
+        "name": "Primorska - Apatinska",
+        "lat": 45.2838787569,
+        "lon": 19.8117226773,
+        "distanceFromStartMeters": 5786.3
+      },
+      {
+        "sequence": 12,
+        "name": "Primorska - Stoteks",
+        "lat": 45.284399498,
+        "lon": 19.8089573695,
+        "distanceFromStartMeters": 6009.7
+      },
+      {
+        "sequence": 13,
+        "name": "Primorska - Hins",
+        "lat": 45.2864831757,
+        "lon": 19.8000847096,
+        "distanceFromStartMeters": 6740.5
+      },
+      {
+        "sequence": 14,
+        "name": "Primorska - Bazar Veleprodaja",
+        "lat": 45.2879205478,
+        "lon": 19.7942811115,
+        "distanceFromStartMeters": 7258.3
+      },
+      {
+        "sequence": 15,
+        "name": "Primorska - Neoplanta - Okretnica",
+        "lat": 45.2891747388,
+        "lon": 19.7896050461,
+        "distanceFromStartMeters": 7588.1
+      }
+    ]
+  },
+  {
+    "line": "15NPB",
+    "route": "INDUSTR.ZONA SEVER - CENTAR",
+    "mrezaId": "303",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Primorska - Neoplanta - Okretnica",
+        "lat": 45.2889172932,
+        "lon": 19.7898802778,
+        "distanceFromStartMeters": 213.4
+      },
+      {
+        "sequence": 2,
+        "name": "Primorska 88",
+        "lat": 45.2876579587,
+        "lon": 19.795145297,
+        "distanceFromStartMeters": 675.3
+      },
+      {
+        "sequence": 3,
+        "name": "Primorska - Hins",
+        "lat": 45.2862955383,
+        "lon": 19.8007371836,
+        "distanceFromStartMeters": 1139.3
+      },
+      {
+        "sequence": 4,
+        "name": "Primorska - Idea",
+        "lat": 45.2844569192,
+        "lon": 19.8082336599,
+        "distanceFromStartMeters": 1751.3
+      },
+      {
+        "sequence": 5,
+        "name": "Primorska - Apatinska",
+        "lat": 45.2836071021,
+        "lon": 19.8128528029,
+        "distanceFromStartMeters": 2126.8
+      },
+      {
+        "sequence": 6,
+        "name": "Primorska 7",
+        "lat": 45.2829661459,
+        "lon": 19.816482199,
+        "distanceFromStartMeters": 2421.9
+      },
+      {
+        "sequence": 7,
+        "name": "Sentandrejski Put - Most Kanal Dtd",
+        "lat": 45.2828585422,
+        "lon": 19.8268347377,
+        "distanceFromStartMeters": 3343.6
+      },
+      {
+        "sequence": 8,
+        "name": "Sentandrejski Put - Benzinska Pumpa",
+        "lat": 45.2713036839,
+        "lon": 19.8308548777,
+        "distanceFromStartMeters": 4704.6
+      },
+      {
+        "sequence": 9,
+        "name": "Kisačka - Partizanska",
+        "lat": 45.2687779267,
+        "lon": 19.8317437287,
+        "distanceFromStartMeters": 4946.3
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Oslobođenja - Bulevar Jaše Tomića",
+        "lat": 45.263325649,
+        "lon": 19.8304838937,
+        "distanceFromStartMeters": 5844.9
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 6171.3
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 6959.4
+      },
+      {
+        "sequence": 13,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 7299.6
+      },
+      {
+        "sequence": 14,
+        "name": "Uspenska - Pozorišni Trg",
+        "lat": 45.2548499029,
+        "lon": 19.8422463011,
+        "distanceFromStartMeters": 7783.0
+      },
+      {
+        "sequence": 15,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.2550293771,
+        "lon": 19.8414070119,
+        "distanceFromStartMeters": 7799.7
+      }
+    ]
+  },
+  {
+    "line": "16A",
+    "route": "ZELE.STANICA - PRISTANISNA ZONA",
+    "mrezaId": "29",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Jaše Tomića - Bulevar Oslobođenja",
+        "lat": 45.264414954,
+        "lon": 19.831181344,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Kisačka - Podvožnjak",
+        "lat": 45.2665045391,
+        "lon": 19.834665763,
+        "distanceFromStartMeters": 409.5
+      },
+      {
+        "sequence": 3,
+        "name": "Put Šajkaškog Odreda - Temerinska",
+        "lat": 45.270255,
+        "lon": 19.842795,
+        "distanceFromStartMeters": 1670.4
+      },
+      {
+        "sequence": 4,
+        "name": "Bajči Žilinskog - Metalurgija",
+        "lat": 45.2699333114,
+        "lon": 19.84741502,
+        "distanceFromStartMeters": 2016.0
+      },
+      {
+        "sequence": 5,
+        "name": "Bajči Žilinskog - Balkan",
+        "lat": 45.2680922537,
+        "lon": 19.85219461,
+        "distanceFromStartMeters": 2447.6
+      },
+      {
+        "sequence": 6,
+        "name": "Bajči Žilinskog - Luka Novi Sad",
+        "lat": 45.2666746173,
+        "lon": 19.8563748626,
+        "distanceFromStartMeters": 2822.8
+      },
+      {
+        "sequence": 7,
+        "name": "Bajči Žilinskog - Hleb",
+        "lat": 45.2658468595,
+        "lon": 19.8589099487,
+        "distanceFromStartMeters": 3102.8
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Mihajla Pupina - Sonje Marinković",
+        "lat": 45.254153,
+        "lon": 19.852979,
+        "distanceFromStartMeters": 3147.8
+      }
+    ]
+  },
+  {
+    "line": "16B",
+    "route": "PRISTANISNA ZONA - ZELE.STANICA",
+    "mrezaId": "30",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bajči Žilinskog - Hleb",
+        "lat": 45.2658468595,
+        "lon": 19.8589099487,
+        "distanceFromStartMeters": 169.5
+      },
+      {
+        "sequence": 2,
+        "name": "Bajči Žilinskog - Luka Novi Sad",
+        "lat": 45.2667245338,
+        "lon": 19.8564206921,
+        "distanceFromStartMeters": 394.8
+      },
+      {
+        "sequence": 3,
+        "name": "Bajči Žilinskog - Balkan",
+        "lat": 45.2678999388,
+        "lon": 19.853083049,
+        "distanceFromStartMeters": 607.3
+      },
+      {
+        "sequence": 4,
+        "name": "Azotara",
+        "lat": 45.272147,
+        "lon": 19.848567,
+        "distanceFromStartMeters": 1530.0
+      },
+      {
+        "sequence": 5,
+        "name": "Partizanska - Temerinska",
+        "lat": 45.270261,
+        "lon": 19.841061,
+        "distanceFromStartMeters": 2327.0
+      },
+      {
+        "sequence": 6,
+        "name": "Kisačka - Partizanska",
+        "lat": 45.2687779267,
+        "lon": 19.8317437287,
+        "distanceFromStartMeters": 3151.6
+      },
+      {
+        "sequence": 7,
+        "name": "Železnička Stanica - Dolasci",
+        "lat": 45.2650202834,
+        "lon": 19.830132455,
+        "distanceFromStartMeters": 4067.4
+      }
+    ]
+  },
+  {
+    "line": "17A",
+    "route": "BIG TC - CENTAR",
+    "mrezaId": "315",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Big Šoping Centar",
+        "lat": 45.27707,
+        "lon": 19.828226,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Industrijska - Limprodukt",
+        "lat": 45.271510041,
+        "lon": 19.8236627755,
+        "distanceFromStartMeters": 1006.1
+      },
+      {
+        "sequence": 3,
+        "name": "Partizanska - Industrijska",
+        "lat": 45.268245,
+        "lon": 19.824428,
+        "distanceFromStartMeters": 1449.8
+      },
+      {
+        "sequence": 4,
+        "name": "Kisačka - Partizanska",
+        "lat": 45.2687779267,
+        "lon": 19.8317437287,
+        "distanceFromStartMeters": 2151.7
+      },
+      {
+        "sequence": 5,
+        "name": "Kisačka - Bulevar Jaše Tomića",
+        "lat": 45.2656954001,
+        "lon": 19.8354809218,
+        "distanceFromStartMeters": 2631.2
+      },
+      {
+        "sequence": 6,
+        "name": "Kisačka - Bulevar Kralja Petra Prvog",
+        "lat": 45.2623699914,
+        "lon": 19.8401023551,
+        "distanceFromStartMeters": 3118.8
+      },
+      {
+        "sequence": 7,
+        "name": "Kisačka - Vuka Karadžića",
+        "lat": 45.2609612857,
+        "lon": 19.8420940143,
+        "distanceFromStartMeters": 3318.7
+      },
+      {
+        "sequence": 8,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255074308,
+        "lon": 19.8415125346,
+        "distanceFromStartMeters": 4055.6
+      }
+    ]
+  },
+  {
+    "line": "17B",
+    "route": "CENTAR - BIG TC",
+    "mrezaId": "31",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255074308,
+        "lon": 19.8415125346,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2528681592,
+        "lon": 19.8366307617,
+        "distanceFromStartMeters": 715.3
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 1089.3
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2613766166,
+        "lon": 19.8318492939,
+        "distanceFromStartMeters": 1898.3
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Jaše Tomića - Bulevar Oslobođenja",
+        "lat": 45.264414954,
+        "lon": 19.831181344,
+        "distanceFromStartMeters": 2041.6
+      },
+      {
+        "sequence": 6,
+        "name": "Kisačka - Podvožnjak",
+        "lat": 45.2665045391,
+        "lon": 19.834665763,
+        "distanceFromStartMeters": 2562.5
+      },
+      {
+        "sequence": 7,
+        "name": "Partizanska - Sentanrejski Put",
+        "lat": 45.26934066177086,
+        "lon": 19.831204469308403,
+        "distanceFromStartMeters": 2983.0
+      },
+      {
+        "sequence": 8,
+        "name": "Industrijska - Benzinska Pumpa",
+        "lat": 45.2689087832,
+        "lon": 19.8239098396,
+        "distanceFromStartMeters": 3687.4
+      },
+      {
+        "sequence": 9,
+        "name": "Put Novosadskog Partizanskog Odreda - Industrijska",
+        "lat": 45.272176,
+        "lon": 19.824733,
+        "distanceFromStartMeters": 4052.5
+      },
+      {
+        "sequence": 10,
+        "name": "Sentandrejski Put - Teodora Mandića",
+        "lat": 45.2737069812,
+        "lon": 19.830315176,
+        "distanceFromStartMeters": 4591.8
+      },
+      {
+        "sequence": 11,
+        "name": "Big Šoping Centar",
+        "lat": 45.27707,
+        "lon": 19.828226,
+        "distanceFromStartMeters": 5485.7
+      }
+    ]
+  },
+  {
+    "line": "18A",
+    "route": "N.NASELJE - DETELINARA - CENTAR - LIMAN - N.NASELJE",
+    "mrezaId": "243",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.247888,
+        "lon": 19.787416,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489713023,
+        "lon": 19.7915144259,
+        "distanceFromStartMeters": 338.2
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Jovana Dučića - Igralište",
+        "lat": 45.2495765937,
+        "lon": 19.7936823203,
+        "distanceFromStartMeters": 596.7
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Jovana Dučića - Robna Kuća",
+        "lat": 45.2523770585,
+        "lon": 19.8018919417,
+        "distanceFromStartMeters": 1213.5
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Jovana Dučića - Bate Brkića",
+        "lat": 45.2511237051,
+        "lon": 19.7983862612,
+        "distanceFromStartMeters": 1213.5
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Slobodana Jovanovića - Todora Toze Jovanovića",
+        "lat": 45.2556482515,
+        "lon": 19.8026436487,
+        "distanceFromStartMeters": 1975.4
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Vojvode Stepe - Bulevar Slobodana Jovanovića",
+        "lat": 45.2579092564,
+        "lon": 19.8022341912,
+        "distanceFromStartMeters": 2048.0
+      },
+      {
+        "sequence": 8,
+        "name": "Kornelija Stankovića - Bulevar Evrope",
+        "lat": 45.2604662935,
+        "lon": 19.8096845247,
+        "distanceFromStartMeters": 2686.5
+      },
+      {
+        "sequence": 9,
+        "name": "Kornelija Stankovića - Ilije Birčanina",
+        "lat": 45.2620111469,
+        "lon": 19.8135399393,
+        "distanceFromStartMeters": 3025.3
+      },
+      {
+        "sequence": 10,
+        "name": "Rumenačka - Kornelija Stankovića",
+        "lat": 45.2636389127,
+        "lon": 19.8174016008,
+        "distanceFromStartMeters": 3427.0
+      },
+      {
+        "sequence": 11,
+        "name": "Rumenačka - Abc Samoposluga",
+        "lat": 45.2609008436,
+        "lon": 19.8204896166,
+        "distanceFromStartMeters": 3868.8
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Kralja Petra Prvog - Sajam",
+        "lat": 45.2591224024,
+        "lon": 19.8244448578,
+        "distanceFromStartMeters": 4291.2
+      },
+      {
+        "sequence": 13,
+        "name": "Bulevar Kralja Petra Prvog - Mašinska Škola",
+        "lat": 45.259428265,
+        "lon": 19.8274393446,
+        "distanceFromStartMeters": 4575.4
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 4936.0
+      },
+      {
+        "sequence": 15,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 5604.6
+      },
+      {
+        "sequence": 16,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 5943.9
+      },
+      {
+        "sequence": 17,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255083741,
+        "lon": 19.8416138869,
+        "distanceFromStartMeters": 6723.3
+      },
+      {
+        "sequence": 18,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253337,
+        "lon": 19.844187,
+        "distanceFromStartMeters": 7034.6
+      },
+      {
+        "sequence": 19,
+        "name": "Žarka Zrenjanina - Opština",
+        "lat": 45.2524025428,
+        "lon": 19.8471827488,
+        "distanceFromStartMeters": 7478.2
+      },
+      {
+        "sequence": 20,
+        "name": "Bulevar Cara Lazara - Urbis",
+        "lat": 45.2474414598,
+        "lon": 19.8488525074,
+        "distanceFromStartMeters": 8072.9
+      },
+      {
+        "sequence": 21,
+        "name": "Bulevar Cara Lazara - Bulevar Oslobođenja",
+        "lat": 45.2437760634,
+        "lon": 19.8407575757,
+        "distanceFromStartMeters": 8749.8
+      },
+      {
+        "sequence": 22,
+        "name": "Bulevar Cara Lazara - Puškinova",
+        "lat": 45.2425681438,
+        "lon": 19.8359820245,
+        "distanceFromStartMeters": 9172.8
+      },
+      {
+        "sequence": 23,
+        "name": "Bulevar Cara Lazara - Dom Zdravlja",
+        "lat": 45.2413137447,
+        "lon": 19.8302794061,
+        "distanceFromStartMeters": 9614.9
+      },
+      {
+        "sequence": 24,
+        "name": "Bulevar Evrope - Cara Dušana",
+        "lat": 45.239855,
+        "lon": 19.82477,
+        "distanceFromStartMeters": 10121.1
+      },
+      {
+        "sequence": 25,
+        "name": "Bulevar Patrijarha Pavla - Bulevar Evrope",
+        "lat": 45.23977,
+        "lon": 19.821792,
+        "distanceFromStartMeters": 10415.2
+      },
+      {
+        "sequence": 26,
+        "name": "Bulevar Patrijarha Pavla - Subotička",
+        "lat": 45.240393,
+        "lon": 19.815733,
+        "distanceFromStartMeters": 10904.3
+      },
+      {
+        "sequence": 27,
+        "name": "Bulevar Patrijarha Pavla - Vršačka",
+        "lat": 45.2408800594,
+        "lon": 19.8107038207,
+        "distanceFromStartMeters": 11298.6
+      },
+      {
+        "sequence": 28,
+        "name": "Bulevar Patrijarha Pavla - Ilirska",
+        "lat": 45.2413029105,
+        "lon": 19.8064595317,
+        "distanceFromStartMeters": 11468.0
+      },
+      {
+        "sequence": 29,
+        "name": "Bulevar Patrijarha Pavla - Ilariona Ruvarca",
+        "lat": 45.2417062369,
+        "lon": 19.8023266636,
+        "distanceFromStartMeters": 11872.3
+      },
+      {
+        "sequence": 30,
+        "name": "Bulevar Patrijarha Pavla - Drvarska",
+        "lat": 45.2420787039,
+        "lon": 19.7984549409,
+        "distanceFromStartMeters": 12223.1
+      },
+      {
+        "sequence": 31,
+        "name": "Bulevar Kneza Miloša - Futoški Put",
+        "lat": 45.245098379,
+        "lon": 19.7946648286,
+        "distanceFromStartMeters": 12730.1
+      },
+      {
+        "sequence": 32,
+        "name": "Bulevar Kneza Miloša - Garaža Gsp-A",
+        "lat": 45.2472193464,
+        "lon": 19.7933548666,
+        "distanceFromStartMeters": 13215.7
+      },
+      {
+        "sequence": 33,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489224745,
+        "lon": 19.791754249,
+        "distanceFromStartMeters": 13237.4
+      },
+      {
+        "sequence": 34,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.248251,
+        "lon": 19.786933,
+        "distanceFromStartMeters": 13658.6
+      }
+    ]
+  },
+  {
+    "line": "18B",
+    "route": "N.NASELJE - LIMAN - CENTAR - DETELINARA - N.NASELJE",
+    "mrezaId": "244",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+        "lat": 45.2489713023,
+        "lon": 19.7915144259,
+        "distanceFromStartMeters": 16.3
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Kneza Miloša - Bulevar Jovana Dučića",
+        "lat": 45.2487632498,
+        "lon": 19.7921260989,
+        "distanceFromStartMeters": 63.7
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Kneza Miloša - Garaža Gsp-A",
+        "lat": 45.2470681807,
+        "lon": 19.793176626,
+        "distanceFromStartMeters": 202.1
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Patrijarha Pavla - Futoški Put",
+        "lat": 45.2440339225,
+        "lon": 19.795029964,
+        "distanceFromStartMeters": 633.0
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Patrijarha Pavla - Drvarska",
+        "lat": 45.2417500565,
+        "lon": 19.7996161438,
+        "distanceFromStartMeters": 1065.5
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Patrijarha Pavla - Prvomajska",
+        "lat": 45.2413580417,
+        "lon": 19.8036125161,
+        "distanceFromStartMeters": 1379.5
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Patrijarha Pavla - Senteleki Kornela",
+        "lat": 45.2409610249,
+        "lon": 19.8076663846,
+        "distanceFromStartMeters": 1632.6
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Patrijarha Pavla - Feješ Klare",
+        "lat": 45.240548,
+        "lon": 19.81195,
+        "distanceFromStartMeters": 2228.9
+      },
+      {
+        "sequence": 9,
+        "name": "Bulevar Patrijarha Pavla - Jožef Atile",
+        "lat": 45.240038,
+        "lon": 19.816809,
+        "distanceFromStartMeters": 2463.2
+      },
+      {
+        "sequence": 10,
+        "name": "Bulevar Cara Lazara - Ive Andrića",
+        "lat": 45.2399480828,
+        "lon": 19.8258641034,
+        "distanceFromStartMeters": 3191.1
+      },
+      {
+        "sequence": 11,
+        "name": "Bulevar Cara Lazara - Dom Zdravlja",
+        "lat": 45.241465683,
+        "lon": 19.8317379566,
+        "distanceFromStartMeters": 3884.8
+      },
+      {
+        "sequence": 12,
+        "name": "Bulevar Cara Lazara - Šekspirova",
+        "lat": 45.2426706144,
+        "lon": 19.8371533191,
+        "distanceFromStartMeters": 4202.9
+      },
+      {
+        "sequence": 13,
+        "name": "Bulevar Cara Lazara - Bulevar Oslobođenja",
+        "lat": 45.2440216217,
+        "lon": 19.8424535024,
+        "distanceFromStartMeters": 4521.8
+      },
+      {
+        "sequence": 14,
+        "name": "Stražilovska - Urbis",
+        "lat": 45.2481301777,
+        "lon": 19.8492059684,
+        "distanceFromStartMeters": 5395.1
+      },
+      {
+        "sequence": 15,
+        "name": "Žarka Zrenjanina - Izvršno Veće",
+        "lat": 45.2528535063,
+        "lon": 19.8475593745,
+        "distanceFromStartMeters": 5921.2
+      },
+      {
+        "sequence": 16,
+        "name": "Bulevar Mihajla Pupina - Pothodnik",
+        "lat": 45.253519,
+        "lon": 19.844141,
+        "distanceFromStartMeters": 6350.8
+      },
+      {
+        "sequence": 17,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.255083741,
+        "lon": 19.8416138869,
+        "distanceFromStartMeters": 6762.4
+      },
+      {
+        "sequence": 18,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2525198464,
+        "lon": 19.8368000824,
+        "distanceFromStartMeters": 7360.0
+      },
+      {
+        "sequence": 19,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 7717.2
+      },
+      {
+        "sequence": 20,
+        "name": "Bulevar Kralja Petra Prvog - Bulevar Oslobođenja",
+        "lat": 45.2605767651,
+        "lon": 19.8314132035,
+        "distanceFromStartMeters": 8447.0
+      },
+      {
+        "sequence": 21,
+        "name": "Bulevar Kralja Petra Prvog - Groblje",
+        "lat": 45.2595168963,
+        "lon": 19.8263471168,
+        "distanceFromStartMeters": 8877.2
+      },
+      {
+        "sequence": 22,
+        "name": "Rumenačka - Dom Zdravlja",
+        "lat": 45.260450059,
+        "lon": 19.8213763649,
+        "distanceFromStartMeters": 9260.8
+      },
+      {
+        "sequence": 23,
+        "name": "Rumenačka - Bulevar Jaše Tomića",
+        "lat": 45.2633439588,
+        "lon": 19.8182127414,
+        "distanceFromStartMeters": 9651.7
+      },
+      {
+        "sequence": 24,
+        "name": "Kornelija Stankovića - Filipa Filipovića",
+        "lat": 45.2634661042,
+        "lon": 19.8156966528,
+        "distanceFromStartMeters": 10058.2
+      },
+      {
+        "sequence": 25,
+        "name": "Kornelija Stankovića - Milenka Grčića",
+        "lat": 45.2616253594,
+        "lon": 19.8122424682,
+        "distanceFromStartMeters": 10311.3
+      },
+      {
+        "sequence": 26,
+        "name": "Bulevar Vojvode Stepe - Bulevar Evrope",
+        "lat": 45.260028,
+        "lon": 19.807755,
+        "distanceFromStartMeters": 10754.3
+      },
+      {
+        "sequence": 27,
+        "name": "Bulevar Slobodana Jovanovića - Bulevar Vojvode Stepe",
+        "lat": 45.2569890699,
+        "lon": 19.8015188427,
+        "distanceFromStartMeters": 11443.5
+      },
+      {
+        "sequence": 28,
+        "name": "Bulevar Jovana Dučića - Bulevar Slobodana Jovanovića",
+        "lat": 45.2529483166,
+        "lon": 19.8031021067,
+        "distanceFromStartMeters": 11892.9
+      },
+      {
+        "sequence": 29,
+        "name": "Bulevar Jovana Dučića - Braće Dronjak",
+        "lat": 45.2513539058,
+        "lon": 19.7983752275,
+        "distanceFromStartMeters": 12312.8
+      },
+      {
+        "sequence": 30,
+        "name": "Bulevar Jovana Dučića - Igralište",
+        "lat": 45.2500788277,
+        "lon": 19.7947978105,
+        "distanceFromStartMeters": 12673.6
+      },
+      {
+        "sequence": 31,
+        "name": "Novo Naselje - Kružni Tok",
+        "lat": 45.248251,
+        "lon": 19.786933,
+        "distanceFromStartMeters": 13324.1
+      }
+    ]
+  },
+  {
+    "line": "19A",
+    "route": "Z.STANICA - RTV - MISELUK(BOLNICA)",
+    "mrezaId": "267",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Oslobođenja - Bulevar Jaše Tomića",
+        "lat": 45.263325649,
+        "lon": 19.8304838937,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 704.3
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 993.6
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Oslobođenja - Futoška",
+        "lat": 45.2514514442,
+        "lon": 19.8370753816,
+        "distanceFromStartMeters": 1407.0
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Oslobođenja - Braće Ribnikar",
+        "lat": 45.2475207776,
+        "lon": 19.8392619075,
+        "distanceFromStartMeters": 1861.6
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Oslobođenja - Bulevar Cara Lazara",
+        "lat": 45.2434304122,
+        "lon": 19.8414842753,
+        "distanceFromStartMeters": 2222.9
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Oslobođenja - Most Slobode",
+        "lat": 45.241081551,
+        "lon": 19.8428482132,
+        "distanceFromStartMeters": 2593.7
+      },
+      {
+        "sequence": 8,
+        "name": "Kamenički Put - Rtv \"Novi Sad\"",
+        "lat": 45.2325391031,
+        "lon": 19.8588026936,
+        "distanceFromStartMeters": 5698.5
+      },
+      {
+        "sequence": 9,
+        "name": "Petlja Mišeluk - Tunel",
+        "lat": 45.2292476482,
+        "lon": 19.8592274923,
+        "distanceFromStartMeters": 7092.2
+      },
+      {
+        "sequence": 10,
+        "name": "Mišeluk - Bolnica - Okretnica",
+        "lat": 45.226521,
+        "lon": 19.8716683,
+        "distanceFromStartMeters": 9030.3
+      }
+    ]
+  },
+  {
+    "line": "19B",
+    "route": "MISELUK(BOLNICA) - RTV - Z.STANICA",
+    "mrezaId": "268",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Mišeluk - Bolnica - Okretnica",
+        "lat": 45.226521,
+        "lon": 19.8716683,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Okretnica - Rtv \"Novi Sad\"",
+        "lat": 45.23356,
+        "lon": 19.860366,
+        "distanceFromStartMeters": 2493.1
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Oslobođenja - Bulevar Cara Lazara",
+        "lat": 45.2444754031,
+        "lon": 19.8412524923,
+        "distanceFromStartMeters": 5676.6
+      },
+      {
+        "sequence": 4,
+        "name": "Bulevar Oslobođenja - Narodnog Fronta",
+        "lat": 45.2421433047,
+        "lon": 19.8425582061,
+        "distanceFromStartMeters": 5676.6
+      },
+      {
+        "sequence": 5,
+        "name": "Bulevar Oslobođenja - Maksima Gorkog",
+        "lat": 45.2485327883,
+        "lon": 19.8390130044,
+        "distanceFromStartMeters": 6456.7
+      },
+      {
+        "sequence": 6,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2525198464,
+        "lon": 19.8368000824,
+        "distanceFromStartMeters": 6946.7
+      },
+      {
+        "sequence": 7,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 6946.7
+      },
+      {
+        "sequence": 8,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2613766166,
+        "lon": 19.8318492939,
+        "distanceFromStartMeters": 8030.6
+      },
+      {
+        "sequence": 9,
+        "name": "Železnička Stanica - Dolasci",
+        "lat": 45.2650202834,
+        "lon": 19.830132455,
+        "distanceFromStartMeters": 8219.1
+      }
+    ]
+  }
+]
