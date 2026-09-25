@@ -1,4 +1,4 @@
-import type { DayType, Line, Vehicle } from './types.ts'
+import type { Arrival, DayType, Line, Vehicle } from './types.ts'
 
 export function dayType(now: Date): DayType {
   const day = now.getDay()
@@ -88,8 +88,77 @@ export function vehiclesAt(
       nextStop: stops[next].name,
       departedAt: hhmm,
       progress,
+      along,
     })
   }
 
   return out
+}
+
+function near(lat1: number, lon1: number, lat2: number, lon2: number): boolean {
+  return metres([lat1, lon1], [lat2, lon2]) < 60
+}
+
+function timesFor(line: Line, now: Date): string[] {
+  return line.departures[dayType(now)] ?? line.departures.workday
+}
+
+/**
+ * Buses (already rolling, or not yet left) that the timetable says will still
+ * reach this stop. Closest times first; capped so the popup stays readable.
+ */
+export function arrivalsAtStop(
+  lines: Line[],
+  lat: number,
+  lon: number,
+  now: Date,
+  limit = 12,
+): Arrival[] {
+  const out: Arrival[] = []
+
+  for (const line of lines) {
+    const served = line.stops.filter((s) => near(s.lat, s.lon, lat, lon))
+    if (!served.length) continue
+
+    const first = line.stops[0].along
+    const last = line.stops[line.stops.length - 1].along
+    const span = last - first
+    if (span <= 0 || line.tripSeconds <= 0) continue
+    const mps = span / line.tripSeconds
+
+    for (const hhmm of timesFor(line, now)) {
+      const t0 = parseToday(hhmm, now)
+      const elapsedSec = (now.getTime() - t0.getTime()) / 1000
+      const alongNow =
+        elapsedSec < 0 ? first - 1 : first + span * (elapsedSec / line.tripSeconds)
+
+      // On a loop the same pole can be both start and finish — pick the one still ahead.
+      const target = served
+        .filter((s) => s.along > alongNow + 15)
+        .sort((a, b) => a.along - b.along)[0]
+      if (!target) continue
+
+      const etaSec = (target.along - Math.max(alongNow, first)) / mps
+      const arrivesAt = new Date(
+        (elapsedSec < 0 ? t0.getTime() : now.getTime()) +
+          (elapsedSec < 0 ? ((target.along - first) / mps) * 1000 : etaSec * 1000),
+      )
+      if (arrivesAt.getTime() <= now.getTime()) continue
+
+      const fromOrigin = target.along - first < 40
+      out.push({
+        vehicleId: elapsedSec >= 0 && elapsedSec < line.tripSeconds ? `${line.id}-${hhmm}` : null,
+        lineId: line.id,
+        lineName: line.route,
+        departedAt: hhmm,
+        arrivesAt,
+        minutes: Math.max(0, Math.round((arrivesAt.getTime() - now.getTime()) / 60000)),
+        onMap: elapsedSec >= 0 && elapsedSec < line.tripSeconds,
+        kind: fromOrigin ? 'departs' : 'arrives',
+      })
+    }
+  }
+
+  out.sort((a, b) => a.arrivesAt.getTime() - b.arrivesAt.getTime())
+  return out.slice(0, limit)
 }

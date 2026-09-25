@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import rawLines from './data/lines.json'
-import { dayType, shapeDistances, vehiclesAt } from './simulate.ts'
+import { arrivalsAtStop, dayType, shapeDistances, vehiclesAt } from './simulate.ts'
 import './style.css'
 import type { Line } from './types.ts'
 
@@ -39,7 +39,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <div id="status" class="muted"></div>
     <span class="muted warn">simulated from timetable, not GPS</span>
   </header>
-  <div id="map"></div>
+  <div class="content">
+    <div id="map"></div>
+    <aside id="panel" class="panel"></aside>
+  </div>
 `
 
 const map = L.map('map')
@@ -65,6 +68,20 @@ function stopRadius(zoom: number): number {
   return Math.min(9, Math.max(3, Math.round(zoom) - 9))
 }
 
+const stopStyle = {
+  color: '#41505f',
+  weight: 2,
+  fillColor: '#fff',
+  fillOpacity: 1,
+}
+
+const selectedStopStyle = {
+  color: '#c45c26',
+  weight: 3,
+  fillColor: '#f4c28a',
+  fillOpacity: 1,
+}
+
 for (const { line } of lines) {
   for (const stop of line.stops) {
     const key = `${stop.lat.toFixed(5)},${stop.lon.toFixed(5)}`
@@ -72,13 +89,14 @@ for (const { line } of lines) {
     drawnStops.add(key)
     const marker = L.circleMarker([stop.lat, stop.lon], {
       radius: stopRadius(map.getZoom()),
-      color: '#41505f',
-      weight: 2,
-      fillColor: '#fff',
-      fillOpacity: 1,
+      ...stopStyle,
     })
       .bindTooltip(stop.name)
       .addTo(stopLayer)
+    marker.on('click', (event) => {
+      L.DomEvent.stopPropagation(event.originalEvent)
+      toggleStop(stop.name, stop.lat, stop.lon, marker)
+    })
     stopMarkers.push(marker)
   }
 }
@@ -126,8 +144,113 @@ const icons = new Map(
 const markers = new Map<string, L.Marker>()
 const statusEl = document.querySelector('#status')!
 
+type SelectedStop = {
+  name: string
+  lat: number
+  lon: number
+  marker: L.CircleMarker
+}
+
+let selected: SelectedStop | null = null
+let dueIds = new Set<string>()
+
+function clock(date: Date): string {
+  return date.toLocaleTimeString('sr-RS', { hour: '2-digit', minute: '2-digit' })
+}
+
+const panelEl = document.querySelector<HTMLElement>('#panel')!
+let panelHtml = ''
+
+/** Only touch the DOM when the text actually changes, so the panel does not flicker. */
+function paintPanel(html: string) {
+  if (html === panelHtml) return
+  panelHtml = html
+  panelEl.innerHTML = html
+  panelEl.querySelector('#clear-stop')?.addEventListener('click', () => {
+    clearStop()
+    tick()
+  })
+}
+
+function renderPanel(now: Date) {
+  if (!selected) {
+    dueIds = new Set()
+    paintPanel(`<div class="arrivals">
+      <h3>Arrivals</h3>
+      <p class="empty">Click a stop to see which buses are coming.</p>
+    </div>`)
+    return
+  }
+
+  const rows = arrivalsAtStop(
+    lines.map((row) => row.line),
+    selected.lat,
+    selected.lon,
+    now,
+  )
+  dueIds = new Set(rows.flatMap((row) => (row.vehicleId ? [row.vehicleId] : [])))
+
+  const body = rows.length
+    ? `<ul>${rows
+        .map((row) => {
+          const label =
+            row.kind === 'departs'
+              ? row.minutes === 0
+                ? 'departs now'
+                : `departs in ${row.minutes} min`
+              : row.minutes === 0
+                ? 'now'
+                : `in ${row.minutes} min`
+          const dot = row.onMap ? '<i class="live"></i>' : ''
+          return `<li><span class="line">${dot}${row.lineId}</span>
+            <span class="when">${label} · ${clock(row.arrivesAt)}</span></li>`
+        })
+        .join('')}</ul>`
+    : `<p class="empty">No more buses to this stop today.</p>`
+
+  paintPanel(`<div class="arrivals">
+    <h3>${selected.name}</h3>
+    ${body}
+    <p class="empty">simulated from timetable · ● already rolling</p>
+    <button type="button" id="clear-stop">clear</button>
+  </div>`)
+}
+
+function clearStop() {
+  if (!selected) return
+  selected.marker.setStyle(stopStyle)
+  selected.marker.setRadius(stopRadius(map.getZoom()))
+  selected = null
+  dueIds = new Set()
+}
+
+function toggleStop(
+  name: string,
+  lat: number,
+  lon: number,
+  marker: L.CircleMarker,
+) {
+  const same = selected?.marker === marker
+  clearStop()
+  if (!same) {
+    selected = { name, lat, lon, marker }
+    marker.setStyle(selectedStopStyle)
+    marker.setRadius(Math.max(stopRadius(map.getZoom()), 8))
+  }
+  tick()
+}
+
+function markDue(id: string, marker: L.Marker) {
+  const el = marker.getElement()
+  if (!el) return
+  const watching = selected !== null
+  el.classList.toggle('is-due', watching && dueIds.has(id))
+  el.classList.toggle('is-dim', watching && !dueIds.has(id))
+}
+
 function tick() {
   const now = new Date()
+  renderPanel(now)
   const seen = new Set<string>()
   let count = 0
 
@@ -143,12 +266,14 @@ function tick() {
       if (marker) {
         marker.setLatLng([v.lat, v.lon])
         marker.setPopupContent(popup)
+        markDue(v.id, marker)
       } else {
         const created = L.marker([v.lat, v.lon], { icon: icons.get(v.lineId) })
           .bindPopup(popup)
           .addTo(map)
         created.on('click', () => toggleRoute(v.lineId))
         markers.set(v.id, created)
+        markDue(v.id, created)
       }
     }
   }

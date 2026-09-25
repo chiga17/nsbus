@@ -28,4 +28,16 @@ export type Vehicle = {
   nextStop: string
   departedAt: string
   progress: number
+  along: number
+}
+
+export type Arrival = {
+  vehicleId: string | null
+  lineId: string
+  lineName: string
+  departedAt: string
+  arrivesAt: Date
+  minutes: number
+  onMap: boolean
+  kind: 'arrives' | 'departs'
 }
