@@ -97,7 +97,8 @@ body,
   opacity: 0.28;
 }
 
-.bus-marker.is-due span {
+.bus-marker.is-due span,
+.bus-marker.is-selected span {
   box-shadow:
     0 0 0 3px #fff,
     0 0 0 6px #c45c26,
@@ -110,8 +111,28 @@ body,
 }
 
 .arrivals h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 0 0 10px;
   font-size: 15px;
+}
+
+.arrivals .chip {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: none;
+}
+
+.arrivals .route {
+  margin: -4px 0 10px;
+  color: #4a4038;
+}
+
+.arrivals .detail {
+  text-align: right;
+  color: #4a4038;
 }
 
 .arrivals ul {
@@ -132,6 +153,7 @@ body,
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  flex: none;
   font-weight: 700;
 }
 

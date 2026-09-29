@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import rawLines from './data/lines.json'
 import { arrivalsAtStop, dayType, shapeDistances, vehiclesAt } from './simulate.ts'
 import './style.css'
-import type { Line } from './types.ts'
+import type { Line, Vehicle } from './types.ts'
 
 const PALETTE = [
   '#c45c26',
@@ -100,7 +100,7 @@ for (const { line } of lines) {
       .bindTooltip(stop.name)
       .addTo(stopLayer)
     marker.on('click', (event) => {
-      L.DomEvent.stopPropagation(event.originalEvent)
+      L.DomEvent.stopPropagation(event)
       toggleStop(stop.name, stop.lat, stop.lon, marker)
     })
     stopMarkers.push(marker)
@@ -115,12 +115,19 @@ map.on('zoomend', () => {
 const routes = new Map<string, L.Polyline>()
 const shown = new Set<string>()
 
-function toggleRoute(id: string) {
-  if (shown.has(id)) {
-    routes.get(id)?.remove()
-    shown.delete(id)
-    return
+function hideRoutes() {
+  for (const id of shown) routes.get(id)?.remove()
+  shown.clear()
+}
+
+/** One line at a time: drop whatever was drawn, then show this one. */
+function showOnlyRoute(id: string) {
+  for (const shownId of shown) {
+    if (shownId === id) continue
+    routes.get(shownId)?.remove()
+    shown.delete(shownId)
   }
+  if (shown.has(id)) return
   let route = routes.get(id)
   if (!route) {
     const row = lines.find((r) => r.line.id === id)!
@@ -158,6 +165,7 @@ type SelectedStop = {
 }
 
 let selected: SelectedStop | null = null
+let selectedBusId: string | null = null
 let dueIds = new Set<string>()
 
 function clock(date: Date): string {
@@ -172,18 +180,52 @@ function paintPanel(html: string) {
   if (html === panelHtml) return
   panelHtml = html
   panelEl.innerHTML = html
-  panelEl.querySelector('#clear-stop')?.addEventListener('click', () => {
+  panelEl.querySelector('#clear-panel')?.addEventListener('click', () => {
     clearStop()
+    clearBus()
     tick()
   })
 }
 
+function vehicleById(id: string, now: Date): { vehicle: Vehicle; route: string; color: string } | null {
+  for (const row of lines) {
+    if (!id.startsWith(`${row.line.id}-`)) continue
+    const vehicle = vehiclesAt(row.line, row.cumulative, now).find((v) => v.id === id)
+    if (vehicle) return { vehicle, route: row.line.route, color: row.color }
+  }
+  return null
+}
+
 function renderPanel(now: Date) {
+  if (selectedBusId) {
+    const found = vehicleById(selectedBusId, now)
+    if (!found) {
+      clearBus()
+    } else {
+      dueIds = new Set()
+      const { vehicle, route, color } = found
+      const pct = Math.round(vehicle.progress * 100)
+      paintPanel(`<div class="arrivals">
+        <h3><i class="chip" style="background:${color}"></i>${vehicle.lineId}</h3>
+        <p class="route">${route}</p>
+        <ul>
+          <li><span class="line">Left</span><span class="when">${vehicle.departedAt}</span></li>
+          <li><span class="line">Last stop</span><span class="detail">${vehicle.lastStop}</span></li>
+          <li><span class="line">Next stop</span><span class="detail">${vehicle.nextStop}</span></li>
+          <li><span class="line">Along route</span><span class="when">${pct}%</span></li>
+        </ul>
+        <p class="empty">simulated from timetable</p>
+        <button type="button" id="clear-panel">clear</button>
+      </div>`)
+      return
+    }
+  }
+
   if (!selected) {
     dueIds = new Set()
     paintPanel(`<div class="arrivals">
       <h3>Arrivals</h3>
-      <p class="empty">Click a stop to see which buses are coming.</p>
+      <p class="empty">Click a stop to see which buses are coming, or a bus to follow it.</p>
     </div>`)
     return
   }
@@ -219,7 +261,7 @@ function renderPanel(now: Date) {
     <h3>${selected.name}</h3>
     ${body}
     <p class="empty">simulated from timetable · ● already rolling</p>
-    <button type="button" id="clear-stop">clear</button>
+    <button type="button" id="clear-panel">clear</button>
   </div>`)
 }
 
@@ -231,6 +273,11 @@ function clearStop() {
   dueIds = new Set()
 }
 
+function clearBus() {
+  selectedBusId = null
+  hideRoutes()
+}
+
 function toggleStop(
   name: string,
   lat: number,
@@ -239,6 +286,7 @@ function toggleStop(
 ) {
   const same = selected?.marker === marker
   clearStop()
+  clearBus()
   if (!same) {
     selected = { name, lat, lon, marker }
     marker.setStyle(selectedStopStyle)
@@ -247,12 +295,31 @@ function toggleStop(
   tick()
 }
 
+function selectBus(vehicleId: string, lineId: string) {
+  if (selectedBusId === vehicleId) {
+    clearBus()
+    tick()
+    return
+  }
+  clearStop()
+  selectedBusId = vehicleId
+  showOnlyRoute(lineId)
+  tick()
+}
+
+map.on('click', () => {
+  if (!selectedBusId) return
+  clearBus()
+  tick()
+})
+
 function markDue(id: string, marker: L.Marker) {
   const el = marker.getElement()
   if (!el) return
   const watching = selected !== null
   el.classList.toggle('is-due', watching && dueIds.has(id))
   el.classList.toggle('is-dim', watching && !dueIds.has(id))
+  el.classList.toggle('is-selected', selectedBusId === id)
 }
 
 function tick() {
@@ -265,20 +332,17 @@ function tick() {
     for (const v of vehiclesAt(line, cumulative, now)) {
       seen.add(v.id)
       count++
-      const popup = `<strong>${v.lineId}</strong> ${line.route}
-        <br>left ${v.departedAt} · ${v.lastStop} → ${v.nextStop}
-        <br><small>${Math.round(v.progress * 100)}% of the route · click the bus to toggle its line</small>`
 
       const marker = markers.get(v.id)
       if (marker) {
         marker.setLatLng([v.lat, v.lon])
-        marker.setPopupContent(popup)
         markDue(v.id, marker)
       } else {
-        const created = L.marker([v.lat, v.lon], { icon: icons.get(v.lineId) })
-          .bindPopup(popup)
-          .addTo(map)
-        created.on('click', () => toggleRoute(v.lineId))
+        const created = L.marker([v.lat, v.lon], { icon: icons.get(v.lineId) }).addTo(map)
+        created.on('click', (event) => {
+          L.DomEvent.stopPropagation(event)
+          selectBus(v.id, v.lineId)
+        })
         markers.set(v.id, created)
         markDue(v.id, created)
       }
