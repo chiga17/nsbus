@@ -18,9 +18,15 @@ const PALETTE = [
   '#4d7c0f',
 ]
 
+/** Drop the trailing direction letter so 1A/1B, 6AA/6AB, and 10ALA/10ALB share a color. */
+function lineFamily(id: string): string {
+  return /[AB]$/.test(id) ? id.slice(0, -1) : id
+}
+
 function colorFor(id: string): string {
+  const key = lineFamily(id)
   let h = 0
-  for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  for (const ch of key) h = (h * 31 + ch.charCodeAt(0)) >>> 0
   return PALETTE[h % PALETTE.length]
 }
 
