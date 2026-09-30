@@ -68,7 +68,13 @@ map.fitBounds(bounds.pad(-0.32))
 // Every stop of every line, drawn once even when several lines share it.
 const stopLayer = L.layerGroup().addTo(map)
 const stopMarkers: L.CircleMarker[] = []
-const drawnStops = new Set<string>()
+
+function stopKey(lat: number, lon: number): string {
+  return `${lat.toFixed(5)},${lon.toFixed(5)}`
+}
+
+type Pole = { lat: number; lon: number; marker: L.CircleMarker }
+const poles = new Map<string, Pole>()
 
 /** circleMarker radius is in pixels, so grow it as the user zooms in. */
 function stopRadius(zoom: number): number {
@@ -91,9 +97,8 @@ const selectedStopStyle = {
 
 for (const { line } of lines) {
   for (const stop of line.stops) {
-    const key = `${stop.lat.toFixed(5)},${stop.lon.toFixed(5)}`
-    if (drawnStops.has(key)) continue
-    drawnStops.add(key)
+    const key = stopKey(stop.lat, stop.lon)
+    if (poles.has(key)) continue
     const marker = L.circleMarker([stop.lat, stop.lon], {
       radius: stopRadius(map.getZoom()),
       ...stopStyle,
@@ -105,6 +110,7 @@ for (const { line } of lines) {
       toggleStop(stop.name, stop.lat, stop.lon, marker)
     })
     stopMarkers.push(marker)
+    poles.set(key, { lat: stop.lat, lon: stop.lon, marker })
   }
 }
 
@@ -174,6 +180,16 @@ function clock(date: Date): string {
 }
 
 const panelEl = document.querySelector<HTMLElement>('#panel')!
+panelEl.addEventListener('click', (event) => {
+  const target = event.target
+  if (!(target instanceof Element)) return
+  const button = target.closest<HTMLButtonElement>('button[data-stop]')
+  if (!button) return
+  const pole = poles.get(button.dataset.stop ?? '')
+  const name = button.querySelector('.stop')?.textContent
+  if (!pole || !name) return
+  toggleStop(name, pole.lat, pole.lon, pole.marker)
+})
 let panelHtml = ''
 /** Which bus and upcoming stop the list is scrolled to. */
 let followKey = ''
@@ -239,9 +255,10 @@ function renderPanel(now: Date) {
       const scroll = key === followKey ? 'keep' : 'next'
       followKey = key
       const rows = calls
-        .map((call) => {
+        .map((call, i) => {
+          const stop = line.stops[i]
           const cls = call.passed ? ' class="passed"' : call.next ? ' class="next"' : ''
-          return `<li${cls}><span class="stop">${esc(call.name)}</span><span class="when">${clock(call.at)}</span></li>`
+          return `<li${cls}><button type="button" data-stop="${stopKey(stop.lat, stop.lon)}"><span class="stop">${esc(call.name)}</span><span class="when">${clock(call.at)}</span></button></li>`
         })
         .join('')
       paintPanel(

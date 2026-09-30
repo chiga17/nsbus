@@ -159,6 +159,28 @@ body,
   padding-right: 6px;
 }
 
+.arrivals li button {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.arrivals li button:hover .stop {
+  text-decoration: underline;
+}
+
 .arrivals .detail {
   text-align: right;
   color: #4a4038;
@@ -204,7 +226,7 @@ body,
   font-size: 12px;
 }
 
-.arrivals button {
+.arrivals #clear-panel {
   margin-top: 10px;
   border: 1px solid #e8d5c4;
   background: #fff8f1;
