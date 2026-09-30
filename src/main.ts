@@ -51,19 +51,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-const map = L.map('map')
+/** Starting view. Shift [lat, lon] to move the center; raise zoom to move closer. */
+const INITIAL_VIEW = { center: [45.25, 19.83] as [number, number], zoom: 14 }
+
+const map = L.map('map', INITIAL_VIEW)
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; OpenStreetMap · JGSP Novi Sad',
 }).addTo(map)
-
-const bounds = L.latLngBounds([])
-for (const { line } of lines) {
-  for (const point of line.shape) bounds.extend(point)
-}
-// Retract toward the same center so the dense core fills the map and outer tails sit off-screen.
-map.fitBounds(bounds.pad(-0.32))
 
 // Every stop of every line, drawn once even when several lines share it.
 const stopLayer = L.layerGroup().addTo(map)
