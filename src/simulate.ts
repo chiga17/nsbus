@@ -95,6 +95,37 @@ export function vehiclesAt(
   return out
 }
 
+export type Call = {
+  name: string
+  at: Date
+  /** already reached — draw it quieter than the stops still ahead */
+  passed: boolean
+  /** the first stop the bus has not reached yet */
+  next: boolean
+}
+
+/**
+ * Every stop of this departure, in route order, with the time the bus is there
+ * if it left on schedule and holds a steady speed.
+ */
+export function itinerary(line: Line, departedAt: string, along: number, now: Date): Call[] {
+  const stops = line.stops
+  const first = stops[0]?.along ?? 0
+  const last = stops[stops.length - 1]?.along ?? first
+  const span = last - first
+  const mps = span > 0 && line.tripSeconds > 0 ? span / line.tripSeconds : 0
+  const t0 = parseToday(departedAt, now).getTime()
+  let markedNext = false
+
+  return stops.map((stop) => {
+    const passed = stop.along <= along
+    const next = !passed && !markedNext
+    if (next) markedNext = true
+    const at = new Date(mps > 0 ? t0 + ((stop.along - first) / mps) * 1000 : t0)
+    return { name: stop.name, at, passed, next }
+  })
+}
+
 /**
  * Both directions of a street have their own pole, sometimes under 60 m apart
  * (Žarka Zrenjanina: "Opština" and "Izvršno Veće" are 58 m). Distance alone would

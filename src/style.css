@@ -125,9 +125,38 @@ body,
   flex: none;
 }
 
+.arrivals .sheet-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  margin: -12px -14px 8px;
+  padding: 12px 14px 8px;
+  background: #fffdfb;
+  border-bottom: 1px solid #f1e6da;
+}
+
 .arrivals .route {
-  margin: -4px 0 10px;
+  margin: -4px 0 0;
   color: #4a4038;
+}
+
+.arrivals .stop {
+  min-width: 0;
+  font-weight: 600;
+}
+
+.arrivals li.passed .stop,
+.arrivals li.passed .when {
+  color: #b7ada4;
+  font-weight: 500;
+}
+
+.arrivals li.next {
+  background: #fff1e4;
+  border-radius: 6px;
+  margin: 0 -6px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 .arrivals .detail {

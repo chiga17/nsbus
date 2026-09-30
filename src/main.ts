@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import rawLines from './data/lines.json'
-import { arrivalsAtStop, dayType, shapeDistances, vehiclesAt } from './simulate.ts'
+import { arrivalsAtStop, dayType, itinerary, shapeDistances, vehiclesAt } from './simulate.ts'
 import './style.css'
 import type { Line, Vehicle } from './types.ts'
 
@@ -62,7 +62,8 @@ const bounds = L.latLngBounds([])
 for (const { line } of lines) {
   for (const point of line.shape) bounds.extend(point)
 }
-map.fitBounds(bounds.pad(0.06))
+// Retract toward the same center so the dense core fills the map and outer tails sit off-screen.
+map.fitBounds(bounds.pad(-0.32))
 
 // Every stop of every line, drawn once even when several lines share it.
 const stopLayer = L.layerGroup().addTo(map)
@@ -174,10 +175,21 @@ function clock(date: Date): string {
 
 const panelEl = document.querySelector<HTMLElement>('#panel')!
 let panelHtml = ''
+/** Which bus and upcoming stop the list is scrolled to. */
+let followKey = ''
 
-/** Only touch the DOM when the text actually changes, so the panel does not flicker. */
-function paintPanel(html: string) {
+function esc(text: string): string {
+  return text.replace(/[&<>]/g, (ch) => (ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : '&gt;'))
+}
+
+/**
+ * Replace the panel only when its text changes.
+ * `scroll` is `next` to bring the upcoming stop into view, `keep` to leave the
+ * user where they scrolled, or `top` when the panel is a different kind of view.
+ */
+function paintPanel(html: string, scroll: 'keep' | 'next' | 'top' = 'keep') {
   if (html === panelHtml) return
+  const keep = panelEl.scrollTop
   panelHtml = html
   panelEl.innerHTML = html
   panelEl.querySelector('#clear-panel')?.addEventListener('click', () => {
@@ -185,13 +197,30 @@ function paintPanel(html: string) {
     clearBus()
     tick()
   })
+  if (scroll === 'top') {
+    panelEl.scrollTop = 0
+    return
+  }
+  if (scroll === 'keep') {
+    panelEl.scrollTop = keep
+    return
+  }
+  const row =
+    panelEl.querySelector<HTMLElement>('.next') ??
+    panelEl.querySelector<HTMLElement>('li:last-child')
+  if (!row) return
+  const delta = row.getBoundingClientRect().top - panelEl.getBoundingClientRect().top
+  panelEl.scrollTop = Math.max(0, delta - 72)
 }
 
-function vehicleById(id: string, now: Date): { vehicle: Vehicle; route: string; color: string } | null {
+function vehicleById(
+  id: string,
+  now: Date,
+): { vehicle: Vehicle; line: Line; color: string } | null {
   for (const row of lines) {
     if (!id.startsWith(`${row.line.id}-`)) continue
     const vehicle = vehiclesAt(row.line, row.cumulative, now).find((v) => v.id === id)
-    if (vehicle) return { vehicle, route: row.line.route, color: row.color }
+    if (vehicle) return { vehicle, line: row.line, color: row.color }
   }
   return null
 }
@@ -203,30 +232,45 @@ function renderPanel(now: Date) {
       clearBus()
     } else {
       dueIds = new Set()
-      const { vehicle, route, color } = found
-      const pct = Math.round(vehicle.progress * 100)
-      paintPanel(`<div class="arrivals">
-        <h3><i class="chip" style="background:${color}"></i>${vehicle.lineId}</h3>
-        <p class="route">${route}</p>
-        <ul>
-          <li><span class="line">Left</span><span class="when">${vehicle.departedAt}</span></li>
-          <li><span class="line">Last stop</span><span class="detail">${vehicle.lastStop}</span></li>
-          <li><span class="line">Next stop</span><span class="detail">${vehicle.nextStop}</span></li>
-          <li><span class="line">Along route</span><span class="when">${pct}%</span></li>
-        </ul>
-        <p class="empty">simulated from timetable</p>
+      const { vehicle, line, color } = found
+      const calls = itinerary(line, vehicle.departedAt, vehicle.along, now)
+      const nextAt = calls.findIndex((call) => call.next)
+      const key = `${selectedBusId}:${nextAt}`
+      const scroll = key === followKey ? 'keep' : 'next'
+      followKey = key
+      const rows = calls
+        .map((call) => {
+          const cls = call.passed ? ' class="passed"' : call.next ? ' class="next"' : ''
+          return `<li${cls}><span class="stop">${esc(call.name)}</span><span class="when">${clock(call.at)}</span></li>`
+        })
+        .join('')
+      paintPanel(
+        `<div class="arrivals">
+        <div class="sheet-head">
+          <h3><i class="chip" style="background:${color}"></i>${esc(vehicle.lineId)}</h3>
+          <p class="route">${esc(line.route)}</p>
+        </div>
+        <ul>${rows}</ul>
+        <p class="empty">simulated from timetable · gray stops are already passed</p>
         <button type="button" id="clear-panel">clear</button>
-      </div>`)
+      </div>`,
+        scroll,
+      )
       return
     }
   }
 
+  followKey = ''
+
   if (!selected) {
     dueIds = new Set()
-    paintPanel(`<div class="arrivals">
+    paintPanel(
+      `<div class="arrivals">
       <h3>Arrivals</h3>
       <p class="empty">Click a stop to see which buses are coming, or a bus to follow it.</p>
-    </div>`)
+    </div>`,
+      'top',
+    )
     return
   }
 
@@ -257,12 +301,15 @@ function renderPanel(now: Date) {
         .join('')}</ul>`
     : `<p class="empty">No more buses to this stop today.</p>`
 
-  paintPanel(`<div class="arrivals">
-    <h3>${selected.name}</h3>
+  paintPanel(
+    `<div class="arrivals">
+    <h3>${esc(selected.name)}</h3>
     ${body}
     <p class="empty">simulated from timetable · ● already rolling</p>
     <button type="button" id="clear-panel">clear</button>
-  </div>`)
+  </div>`,
+    'top',
+  )
 }
 
 function clearStop() {
@@ -275,6 +322,7 @@ function clearStop() {
 
 function clearBus() {
   selectedBusId = null
+  followKey = ''
   hideRoutes()
 }
 
