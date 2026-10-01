@@ -179,6 +179,11 @@ const panelEl = document.querySelector<HTMLElement>('#panel')!
 panelEl.addEventListener('click', (event) => {
   const target = event.target
   if (!(target instanceof Element)) return
+  const bus = target.closest<HTMLButtonElement>('button[data-bus]')
+  if (bus?.dataset.bus && bus.dataset.line) {
+    selectBus(bus.dataset.bus, bus.dataset.line)
+    return
+  }
   const button = target.closest<HTMLButtonElement>('button[data-stop]')
   if (!button) return
   const pole = poles.get(button.dataset.stop ?? '')
@@ -301,7 +306,7 @@ function renderPanel(now: Date) {
   )
   const lineList = serving.length
     ? `<ul class="serving">${serving
-        .map(({ line, color }) => `<li style="background:${color}">${esc(line.id)}</li>`)
+        .map(({ line, color }) => `<li class="badge" style="background:${color}">${esc(line.id)}</li>`)
         .join('')}</ul>`
     : `<p class="empty">No lines stop here.</p>`
 
@@ -316,9 +321,12 @@ function renderPanel(now: Date) {
               : row.minutes === 0
                 ? 'now'
                 : `in ${row.minutes} min`
-          const dot = row.onMap ? '<i class="live" title="already on the map"></i>' : ''
-          return `<li><span class="line">${dot}${row.lineId}</span>
-            <span class="when">${label} · ${clock(row.arrivesAt)}</span></li>`
+          const when = `<span class="when">${label} · ${clock(row.arrivesAt)}</span>`
+          if (row.onMap && row.vehicleId) {
+            const color = colorFor(row.lineId)
+            return `<li><button type="button" class="bus" data-bus="${esc(row.vehicleId)}" data-line="${esc(row.lineId)}"><span class="line"><i class="live"></i><span class="badge" style="background:${color}">${esc(row.lineId)}</span></span>${when}</button></li>`
+          }
+          return `<li><span class="line">${esc(row.lineId)}</span>${when}</li>`
         })
         .join('')}</ul>`
     : `<p class="empty">No more buses to this stop today.</p>`
