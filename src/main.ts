@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import rawLines from './data/lines.json'
-import { arrivalsAtStop, dayType, itinerary, shapeDistances, vehiclesAt } from './simulate.ts'
+import { arrivalsAtStop, dayType, itinerary, servesStop, shapeDistances, vehiclesAt } from './simulate.ts'
 import './style.css'
 import type { Line, Vehicle } from './types.ts'
 
@@ -296,6 +296,15 @@ function renderPanel(now: Date) {
   )
   dueIds = new Set(rows.flatMap((row) => (row.vehicleId ? [row.vehicleId] : [])))
 
+  const serving = lines.filter(({ line }) =>
+    servesStop(line, selected.name, selected.lat, selected.lon),
+  )
+  const lineList = serving.length
+    ? `<ul class="serving">${serving
+        .map(({ line, color }) => `<li style="background:${color}">${esc(line.id)}</li>`)
+        .join('')}</ul>`
+    : `<p class="empty">No lines stop here.</p>`
+
   const body = rows.length
     ? `<ul>${rows
         .map((row) => {
@@ -307,7 +316,7 @@ function renderPanel(now: Date) {
               : row.minutes === 0
                 ? 'now'
                 : `in ${row.minutes} min`
-          const dot = row.onMap ? '<i class="live"></i>' : ''
+          const dot = row.onMap ? '<i class="live" title="already on the map"></i>' : ''
           return `<li><span class="line">${dot}${row.lineId}</span>
             <span class="when">${label} · ${clock(row.arrivesAt)}</span></li>`
         })
@@ -317,8 +326,12 @@ function renderPanel(now: Date) {
   paintPanel(
     `<div class="arrivals">
     <h3>${esc(selected.name)}</h3>
+    <h4>Lines</h4>
+    ${lineList}
+    <h4>Next</h4>
     ${body}
-    <p class="empty">simulated from timetable · ● already rolling</p>
+    <p class="empty">simulated from timetable</p>
+    <p class="empty legend"><i class="live"></i> already on the map</p>
     <button type="button" id="clear-panel">clear</button>
   </div>`,
     'top',

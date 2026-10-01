@@ -140,6 +140,11 @@ function timesFor(line: Line, now: Date): string[] {
   return line.departures[dayType(now)] ?? line.departures.workday
 }
 
+/** True when this line's timetable includes the selected pole. */
+export function servesStop(line: Line, name: string, lat: number, lon: number): boolean {
+  return line.stops.some((stop) => samePole(stop, name, lat, lon))
+}
+
 /**
  * Buses (already rolling, or not yet left) that the timetable says will still
  * reach this stop. Closest times first; capped so the popup stays readable.

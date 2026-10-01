@@ -118,6 +118,38 @@ body,
   font-size: 15px;
 }
 
+.arrivals h4 {
+  margin: 12px 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8a7768;
+}
+
+.arrivals .serving {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+.arrivals .serving li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 40px;
+  height: 28px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
 .arrivals .chip {
   width: 10px;
   height: 10px;
@@ -224,6 +256,13 @@ body,
   color: #6b5b4f;
   margin: 10px 0 0;
   font-size: 12px;
+}
+
+.arrivals .empty.legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
 }
 
 .arrivals #clear-panel {
