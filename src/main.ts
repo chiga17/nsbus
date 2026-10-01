@@ -369,7 +369,8 @@ function selectBus(vehicleId: string, lineId: string) {
 }
 
 map.on('click', () => {
-  if (!selectedBusId) return
+  if (!selected && !selectedBusId) return
+  clearStop()
   clearBus()
   tick()
 })
