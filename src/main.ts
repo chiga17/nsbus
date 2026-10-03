@@ -56,6 +56,10 @@ const INITIAL_VIEW = { center: [45.25, 19.83] as [number, number], zoom: 14 }
 
 const map = L.map('map', INITIAL_VIEW)
 
+// Below the overlay pane, so stop circles stay above the route no matter which is added last.
+const routePane = map.createPane('routes')
+routePane.style.zIndex = '350'
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; OpenStreetMap · JGSP Novi Sad',
@@ -63,7 +67,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Every stop of every line, drawn once even when several lines share it.
 const stopLayer = L.layerGroup().addTo(map)
-const stopMarkers: L.CircleMarker[] = []
 
 function stopKey(lat: number, lon: number): string {
   return `${lat.toFixed(5)},${lon.toFixed(5)}`
@@ -105,14 +108,12 @@ for (const { line } of lines) {
       L.DomEvent.stopPropagation(event)
       toggleStop(stop.name, stop.lat, stop.lon, marker)
     })
-    stopMarkers.push(marker)
     poles.set(key, { lat: stop.lat, lon: stop.lon, marker })
   }
 }
 
 map.on('zoomend', () => {
-  const radius = stopRadius(map.getZoom())
-  for (const marker of stopMarkers) marker.setRadius(radius)
+  paintPoles()
 })
 
 const routes = new Map<string, L.Polyline>()
@@ -138,6 +139,7 @@ function showOnlyRoute(id: string) {
       color: row.color,
       weight: 5,
       opacity: 0.85,
+      pane: 'routes',
     })
     routes.set(id, route)
   }
@@ -169,6 +171,9 @@ type SelectedStop = {
 
 let selected: SelectedStop | null = null
 let selectedBusId: string | null = null
+let selectedLineId: string | null = null
+/** Line whose panel was last painted, so a newly chosen line starts scrolled to the top. */
+let linePanelKey = ''
 let dueIds = new Set<string>()
 
 function clock(date: Date): string {
@@ -182,6 +187,11 @@ panelEl.addEventListener('click', (event) => {
   const bus = target.closest<HTMLButtonElement>('button[data-bus]')
   if (bus?.dataset.bus && bus.dataset.line) {
     selectBus(bus.dataset.bus, bus.dataset.line)
+    return
+  }
+  const lineBtn = target.closest<HTMLButtonElement>('button[data-line]')
+  if (lineBtn?.dataset.line) {
+    toggleLine(lineBtn.dataset.line)
     return
   }
   const button = target.closest<HTMLButtonElement>('button[data-stop]')
@@ -212,6 +222,7 @@ function paintPanel(html: string, scroll: 'keep' | 'next' | 'top' = 'keep') {
   panelEl.querySelector('#clear-panel')?.addEventListener('click', () => {
     clearStop()
     clearBus()
+    clearLine()
     tick()
   })
   if (scroll === 'top') {
@@ -240,6 +251,101 @@ function vehicleById(
     if (vehicle) return { vehicle, line: row.line, color: row.color }
   }
   return null
+}
+
+function lineChip(id: string, color: string): string {
+  return `<button type="button" class="badge" data-line="${esc(id)}" style="background:${color}">${esc(id)}</button>`
+}
+
+function otherWayHtml(id: string): string {
+  const family = lineFamily(id)
+  const siblings = lines.filter(
+    (row) => row.line.id !== id && lineFamily(row.line.id) === family,
+  )
+  if (!siblings.length) return ''
+  return `<p class="other-way">Other way ${siblings
+    .map((row) => lineChip(row.line.id, row.color))
+    .join('')}</p>`
+}
+
+/** Departures that have not left the first stop yet. */
+function upcomingDepartures(line: Line, now: Date, limit = 8): string[] {
+  const nowMin = now.getHours() * 60 + now.getMinutes()
+  const times = line.departures[dayType(now)] ?? line.departures.workday
+  const out: string[] = []
+  for (const hhmm of times) {
+    const [hours, minutes] = hhmm.split(':').map(Number)
+    if (hours * 60 + minutes <= nowMin) continue
+    out.push(hhmm)
+    if (out.length >= limit) break
+  }
+  return out
+}
+
+function renderLine(now: Date): boolean {
+  const row = lines.find((r) => r.line.id === selectedLineId)
+  if (!row) {
+    selectedLineId = null
+    return false
+  }
+  const { line, cumulative, color } = row
+  const running = vehiclesAt(line, cumulative, now)
+    .map((vehicle) => ({
+      vehicle,
+      next: itinerary(line, vehicle.departedAt, vehicle.along, now).find((call) => call.next),
+    }))
+    .sort((a, b) => (a.next?.at.getTime() ?? 0) - (b.next?.at.getTime() ?? 0))
+
+  const road = running.length
+    ? `<ul>${running
+        .map(({ vehicle, next }) => {
+          const name = next?.name ?? line.stops.at(-1)?.name ?? ''
+          const mins = next
+            ? Math.max(0, Math.round((next.at.getTime() - now.getTime()) / 60000))
+            : 0
+          const eta = !next ? 'at last stop' : mins === 0 ? 'now' : `in ${mins} min`
+          return `<li><button type="button" class="road" data-bus="${esc(vehicle.id)}" data-line="${esc(line.id)}"><span class="stop">${esc(name)}</span><span class="when">left ${esc(vehicle.departedAt)} · ${eta}</span></button></li>`
+        })
+        .join('')}</ul>`
+    : `<p class="empty">None on the road right now.</p>`
+
+  const upcoming = upcomingDepartures(line, now)
+  const departures = upcoming.length
+    ? `<ul>${upcoming
+        .map((hhmm) => `<li><span class="line">departs ${esc(hhmm)}</span></li>`)
+        .join('')}</ul>`
+    : `<p class="empty">No more departures today.</p>`
+
+  const stops = `<ul>${line.stops
+    .map(
+      (stop) =>
+        `<li><button type="button" data-stop="${stopKey(stop.lat, stop.lon)}"><span class="stop">${esc(stop.name)}</span></button></li>`,
+    )
+    .join('')}</ul>`
+
+  const scroll = selectedLineId === linePanelKey ? 'keep' : 'top'
+  linePanelKey = selectedLineId ?? ''
+  const minutes = Math.max(1, Math.round(line.tripSeconds / 60))
+  paintPanel(
+    `<div class="arrivals">
+      <div class="sheet-head">
+        <h3><button type="button" class="line-id" data-line="${esc(line.id)}"><i class="chip" style="background:${color}"></i>${esc(line.id)}</button></h3>
+        <p class="route">${esc(line.route)}</p>
+        <p class="meta">${minutes} min</p>
+        ${otherWayHtml(line.id)}
+      </div>
+      <h4>On the road</h4>
+      ${road}
+      <h4>Next departures</h4>
+      ${departures}
+      <h4>Stops</h4>
+      ${stops}
+      <p class="empty">simulated from timetable</p>
+      <button type="button" id="clear-panel">clear</button>
+    </div>`,
+    scroll,
+  )
+  return true
 }
 
 function renderPanel(now: Date) {
@@ -278,35 +384,43 @@ function renderPanel(now: Date) {
     }
   }
 
+  if (selectedLineId && renderLine(now)) return
+
   followKey = ''
+  linePanelKey = ''
 
   if (!selected) {
     dueIds = new Set()
+    const chips = lines
+      .map(({ line, color }) => `<li>${lineChip(line.id, color)}</li>`)
+      .join('')
     paintPanel(
       `<div class="arrivals">
-      <h3>Arrivals</h3>
-      <p class="empty">Click a stop to see which buses are coming, or a bus to follow it.</p>
+      <h3>Lines</h3>
+      <p class="empty">Click a line to see its route, a stop for arrivals, or a bus to follow it.</p>
+      <ul class="serving">${chips}</ul>
     </div>`,
       'top',
     )
     return
   }
 
+  const stop = selected
   const rows = arrivalsAtStop(
     lines.map((row) => row.line),
-    selected.name,
-    selected.lat,
-    selected.lon,
+    stop.name,
+    stop.lat,
+    stop.lon,
     now,
   )
   dueIds = new Set(rows.flatMap((row) => (row.vehicleId ? [row.vehicleId] : [])))
 
   const serving = lines.filter(({ line }) =>
-    servesStop(line, selected.name, selected.lat, selected.lon),
+    servesStop(line, stop.name, stop.lat, stop.lon),
   )
   const lineList = serving.length
     ? `<ul class="serving">${serving
-        .map(({ line, color }) => `<li class="badge" style="background:${color}">${esc(line.id)}</li>`)
+        .map(({ line, color }) => `<li>${lineChip(line.id, color)}</li>`)
         .join('')}</ul>`
     : `<p class="empty">No lines stop here.</p>`
 
@@ -333,7 +447,7 @@ function renderPanel(now: Date) {
 
   paintPanel(
     `<div class="arrivals">
-    <h3>${esc(selected.name)}</h3>
+    <h3>${esc(stop.name)}</h3>
     <h4>Lines</h4>
     ${lineList}
     <h4>Next</h4>
@@ -360,6 +474,47 @@ function clearBus() {
   hideRoutes()
 }
 
+function clearLine() {
+  if (!selectedLineId) return
+  selectedLineId = null
+  linePanelKey = ''
+  hideRoutes()
+}
+
+/** Line mode draws this direction's poles larger, in the line color, and hides the rest. */
+function paintPoles() {
+  const row = selectedLineId
+    ? lines.find((r) => r.line.id === selectedLineId)
+    : undefined
+  const onLine = new Set(
+    row ? row.line.stops.map((stop) => stopKey(stop.lat, stop.lon)) : [],
+  )
+  const radius = stopRadius(map.getZoom())
+  for (const [key, pole] of poles) {
+    if (row && !onLine.has(key)) {
+      if (map.hasLayer(pole.marker)) pole.marker.remove()
+      continue
+    }
+    // remove() takes the marker off the map but leaves it in the group, so check the map.
+    if (!map.hasLayer(pole.marker)) pole.marker.addTo(stopLayer)
+    if (selected?.marker === pole.marker) {
+      pole.marker.setStyle(selectedStopStyle)
+      pole.marker.setRadius(Math.max(radius, 8))
+    } else if (row) {
+      pole.marker.setStyle({
+        color: row.color,
+        weight: 3,
+        fillColor: '#fff',
+        fillOpacity: 1,
+      })
+      pole.marker.setRadius(Math.max(radius, 6))
+    } else {
+      pole.marker.setStyle(stopStyle)
+      pole.marker.setRadius(radius)
+    }
+  }
+}
+
 function toggleStop(
   name: string,
   lat: number,
@@ -369,6 +524,7 @@ function toggleStop(
   const same = selected?.marker === marker
   clearStop()
   clearBus()
+  clearLine()
   if (!same) {
     selected = { name, lat, lon, marker }
     marker.setStyle(selectedStopStyle)
@@ -384,15 +540,38 @@ function selectBus(vehicleId: string, lineId: string) {
     return
   }
   clearStop()
+  // Keep the polyline when drilling into a bus that is already on this line.
+  if (selectedLineId === lineId) {
+    selectedLineId = null
+    linePanelKey = ''
+  } else {
+    clearLine()
+  }
   selectedBusId = vehicleId
   showOnlyRoute(lineId)
   tick()
 }
 
-map.on('click', () => {
-  if (!selected && !selectedBusId) return
+function toggleLine(id: string) {
+  if (selectedLineId === id) {
+    clearLine()
+    tick()
+    return
+  }
   clearStop()
   clearBus()
+  selectedLineId = id
+  showOnlyRoute(id)
+  const route = routes.get(id)
+  if (route) map.fitBounds(route.getBounds(), { padding: [28, 28], maxZoom: 16 })
+  tick()
+}
+
+map.on('click', () => {
+  if (!selected && !selectedBusId && !selectedLineId) return
+  clearStop()
+  clearBus()
+  clearLine()
   tick()
 })
 
@@ -412,6 +591,7 @@ function tick() {
   let count = 0
 
   for (const { line, cumulative } of lines) {
+    if (selectedLineId && line.id !== selectedLineId) continue
     for (const v of vehiclesAt(line, cumulative, now)) {
       seen.add(v.id)
       count++
@@ -438,6 +618,8 @@ function tick() {
       markers.delete(id)
     }
   }
+
+  paintPoles()
 
   statusEl.textContent = `${dayType(now)} · ${count} bus(es) · ${shown.size} line(s) shown · ${now.toLocaleTimeString('sr-RS')}`
 }
