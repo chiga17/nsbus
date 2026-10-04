@@ -42,6 +42,23 @@ body,
   color: #7a4418;
 }
 
+.live-switch {
+  border: 1px solid #e8d5c4;
+  background: #fff;
+  color: #7a4418;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.live-switch.on {
+  background: #c45c26;
+  color: #fff;
+  border-color: #c45c26;
+}
+
 .content {
   flex: 1;
   min-height: 0;

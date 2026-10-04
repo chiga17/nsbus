@@ -146,14 +146,17 @@ def poll_once(stops: list[dict], lines: set[str] | None) -> None:
     collected: list[dict] = []
     for stop in stops:
         uid = int(stop["stationUid"])
+        tracked = sorted(set(stop["lines"]) if lines is None else set(stop["lines"]) & lines)
+        line_list = ",".join(tracked)
         request_started = time.perf_counter()
         try:
             rows = fetch_announcement(uid)
         except Exception as error:
             failed += 1
             logger.error(
-                "nsmart stop={} uid={} failed after {}ms: {}",
+                "nsmart stop={} lines={} uid={} failed after {}ms: {}",
                 stop["name"],
+                line_list,
                 uid,
                 int((time.perf_counter() - request_started) * 1000),
                 error,
@@ -168,8 +171,9 @@ def poll_once(stops: list[dict], lines: set[str] | None) -> None:
         collected.extend(buses)
         ok += 1
         logger.info(
-            "nsmart stop={} uid={} status=200 ms={} rows={} buses={}",
+            "nsmart stop={} lines={} uid={} status=200 ms={} rows={} buses={}",
             stop["name"],
+            line_list,
             uid,
             int((time.perf_counter() - request_started) * 1000),
             len(rows),
@@ -221,6 +225,15 @@ def poll_loop(stops: list[dict], lines: set[str] | None, seconds: int) -> None:
             time.sleep(remaining)
 
 
+def origin_allowed(origin: str | None, allowed: list[str]) -> bool:
+    if not origin:
+        return False
+    if origin in allowed:
+        return True
+    parsed = urllib.parse.urlparse(origin)
+    return parsed.scheme == "http" and parsed.hostname in {"localhost", "127.0.0.1"}
+
+
 def authorized(header: str | None, token: str) -> bool:
     if not header or not header.startswith("Bearer "):
         return False
@@ -230,9 +243,14 @@ def authorized(header: str | None, token: str) -> bool:
     return hmac.compare_digest(got, token)
 
 
+class Server(ThreadingHTTPServer):
+    # On Windows SO_REUSEADDR lets a second process bind the same port.
+    allow_reuse_address = sys.platform != "win32"
+
+
 class Handler(BaseHTTPRequestHandler):
     token = ""
-    origin = ""
+    origins: list[str] = []
 
     def log_message(self, format: str, *args: object) -> None:
         return
@@ -292,8 +310,9 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(raw)))
         self.send_header("Cache-Control", "no-store")
-        if self.origin:
-            self.send_header("Access-Control-Allow-Origin", self.origin)
+        request_origin = self.headers.get("Origin")
+        if origin_allowed(request_origin, self.origins):
+            self.send_header("Access-Control-Allow-Origin", request_origin)
             self.send_header("Access-Control-Allow-Headers", "Authorization")
             self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
             self.send_header("Vary", "Origin")
@@ -312,10 +331,10 @@ def main() -> None:
     stops = stops_for(lines, load_stops())
 
     Handler.token = token
-    Handler.origin = optional("CLIENT_ORIGIN")
+    Handler.origins = [item.strip() for item in optional("CLIENT_ORIGIN").split(",") if item.strip()]
     threading.Thread(target=poll_loop, args=(stops, lines, seconds), daemon=True).start()
 
-    server = ThreadingHTTPServer((host, port), Handler)
+    server = Server((host, port), Handler)
     logger.info("listening on http://{}:{}/buses every {}s", host, port, seconds)
     try:
         server.serve_forever()

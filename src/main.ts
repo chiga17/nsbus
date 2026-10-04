@@ -43,7 +43,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <span class="muted">JGSP Novi Sad · gradski</span>
     </div>
     <div id="status" class="muted"></div>
-    <span class="muted warn">simulated from timetable, not GPS</span>
+    <span id="source-note" class="muted warn">simulated from timetable, not GPS</span>
+    <span id="admin-slot"></span>
   </header>
   <div class="content">
     <div id="map"></div>
@@ -160,7 +161,77 @@ const icons = new Map(
 )
 
 const markers = new Map<string, L.Marker>()
+const liveIcons = new Map<string, L.DivIcon>()
 const statusEl = document.querySelector('#status')!
+const sourceNote = document.querySelector<HTMLElement>('#source-note')!
+
+export type LiveBus = {
+  id: string
+  line: string
+  lat: number
+  lng: number
+  secondsLeft: number | null
+  stopName: string
+}
+
+let usingLive = false
+let liveBuses: LiveBus[] = []
+let liveStatus = 'live'
+
+function liveIcon(line: string): L.DivIcon {
+  const cached = liveIcons.get(line)
+  if (cached) return cached
+  const width = Math.max(40, line.length * 12)
+  const icon = L.divIcon({
+    className: 'bus-marker',
+    html: `<span style="background:${colorFor(line)};width:${width}px">${esc(line)}</span>`,
+    iconSize: [width, 28],
+    iconAnchor: [width / 2, 14],
+  })
+  liveIcons.set(line, icon)
+  return icon
+}
+
+/** Admin page only. The public bundle never receives the backend address or token. */
+export function enableLive(
+  poll: () => Promise<{ ready: boolean; updatedAt: string | null; buses: LiveBus[] }>,
+): void {
+  const slot = document.querySelector('#admin-slot')
+  if (!slot) return
+  slot.innerHTML = `<button type="button" id="live-switch" class="live-switch">Live GPS</button>`
+  const button = document.querySelector<HTMLButtonElement>('#live-switch')!
+  let timer = 0
+
+  async function refresh() {
+    try {
+      const snap = await poll()
+      liveBuses = snap.buses
+      const when = snap.updatedAt ? new Date(snap.updatedAt) : null
+      const clock =
+        when && !Number.isNaN(when.getTime()) ? when.toLocaleTimeString('sr-RS') : ''
+      liveStatus = clock ? `live ${clock}` : 'live'
+      if (!snap.ready) liveStatus += ' · stale'
+    } catch {
+      liveStatus = 'live · update failed'
+    }
+    tick()
+  }
+
+  button.addEventListener('click', () => {
+    usingLive = !usingLive
+    button.classList.toggle('on', usingLive)
+    button.textContent = usingLive ? 'Live GPS on' : 'Live GPS'
+    clearBus()
+    if (usingLive) {
+      void refresh()
+      timer = window.setInterval(() => void refresh(), 15_000)
+    } else {
+      window.clearInterval(timer)
+      liveBuses = []
+      tick()
+    }
+  })
+}
 
 type SelectedStop = {
   name: string
@@ -710,24 +781,44 @@ function tick() {
   const seen = new Set<string>()
   let count = 0
 
-  for (const { line, cumulative } of lines) {
-    if (selectedLineId && line.id !== selectedLineId) continue
-    for (const v of vehiclesAt(line, cumulative, now)) {
+  if (usingLive) {
+    for (const v of liveBuses) {
       seen.add(v.id)
       count++
-
       const marker = markers.get(v.id)
       if (marker) {
-        marker.setLatLng([v.lat, v.lon])
-        markDue(v.id, marker)
+        marker.setLatLng([v.lat, v.lng])
       } else {
-        const created = L.marker([v.lat, v.lon], { icon: icons.get(v.lineId) }).addTo(map)
+        const created = L.marker([v.lat, v.lng], { icon: liveIcon(v.line) }).addTo(map)
+        const minutes =
+          v.secondsLeft == null ? '' : ` · ${Math.max(1, Math.round(v.secondsLeft / 60))} min`
+        created.bindTooltip(`${v.line}${minutes}${v.stopName ? ` · ${v.stopName}` : ''}`)
         created.on('click', (event) => {
           L.DomEvent.stopPropagation(event)
-          selectBus(v.id, v.lineId)
         })
         markers.set(v.id, created)
-        markDue(v.id, created)
+      }
+    }
+  } else {
+    for (const { line, cumulative } of lines) {
+      if (selectedLineId && line.id !== selectedLineId) continue
+      for (const v of vehiclesAt(line, cumulative, now)) {
+        seen.add(v.id)
+        count++
+
+        const marker = markers.get(v.id)
+        if (marker) {
+          marker.setLatLng([v.lat, v.lon])
+          markDue(v.id, marker)
+        } else {
+          const created = L.marker([v.lat, v.lon], { icon: icons.get(v.lineId) }).addTo(map)
+          created.on('click', (event) => {
+            L.DomEvent.stopPropagation(event)
+            selectBus(v.id, v.lineId)
+          })
+          markers.set(v.id, created)
+          markDue(v.id, created)
+        }
       }
     }
   }
@@ -741,7 +832,13 @@ function tick() {
 
   paintPoles()
 
-  statusEl.textContent = `${dayType(now)} · ${count} bus(es) · ${shown.size} line(s) shown · ${now.toLocaleTimeString('sr-RS')}`
+  if (usingLive) {
+    sourceNote.textContent = 'live GPS'
+    statusEl.textContent = `${liveStatus} · ${count} bus(es) · ${now.toLocaleTimeString('sr-RS')}`
+  } else {
+    sourceNote.textContent = 'simulated from timetable, not GPS'
+    statusEl.textContent = `${dayType(now)} · ${count} bus(es) · ${shown.size} line(s) shown · ${now.toLocaleTimeString('sr-RS')}`
+  }
 }
 
 tick()
