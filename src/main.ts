@@ -174,6 +174,8 @@ let selectedBusId: string | null = null
 let selectedLineId: string | null = null
 /** Line whose panel was last painted, so a newly chosen line starts scrolled to the top. */
 let linePanelKey = ''
+/** Live buses and stops, or the full day's departures. Kept when flipping direction. */
+let lineSheet: 'live' | 'timetable' = 'live'
 let dueIds = new Set<string>()
 
 function clock(date: Date): string {
@@ -187,6 +189,15 @@ panelEl.addEventListener('click', (event) => {
   const bus = target.closest<HTMLButtonElement>('button[data-bus]')
   if (bus?.dataset.bus && bus.dataset.line) {
     selectBus(bus.dataset.bus, bus.dataset.line)
+    return
+  }
+  const sheetBtn = target.closest<HTMLButtonElement>('button[data-sheet]')
+  const sheet = sheetBtn?.dataset.sheet
+  if (sheet === 'live' || sheet === 'timetable') {
+    if (lineSheet !== sheet) {
+      lineSheet = sheet
+      tick()
+    }
     return
   }
   const lineBtn = target.closest<HTMLButtonElement>('button[data-line]')
@@ -233,12 +244,12 @@ function paintPanel(html: string, scroll: 'keep' | 'next' | 'top' = 'keep') {
     panelEl.scrollTop = keep
     return
   }
-  const row =
-    panelEl.querySelector<HTMLElement>('.next') ??
-    panelEl.querySelector<HTMLElement>('li:last-child')
+  const mark = panelEl.querySelector<HTMLElement>('.next')
+  const row = mark?.closest('li') ?? panelEl.querySelector<HTMLElement>('li:last-child')
   if (!row) return
+  const cover = panelEl.querySelector('.sheet-head')?.getBoundingClientRect().height ?? 72
   const delta = row.getBoundingClientRect().top - panelEl.getBoundingClientRect().top
-  panelEl.scrollTop = Math.max(0, delta - 72)
+  panelEl.scrollTop = Math.max(0, delta - cover - 8)
 }
 
 function vehicleById(
@@ -268,6 +279,37 @@ function otherWayHtml(id: string): string {
     .join('')}</p>`
 }
 
+function minutesOf(hhmm: string): number {
+  const [hours, minutes] = hhmm.split(':').map(Number)
+  return hours * 60 + minutes
+}
+
+/**
+ * One published day, in listed order. A time after midnight (00:00 at the end of
+ * the list) stays after the evening departures, so it is not treated as already gone.
+ */
+function scheduleMarks(
+  times: string[],
+  now: Date,
+): { hhmm: string; passed: boolean; next: boolean }[] {
+  let prev = -1
+  let offset = 0
+  const points = times.map((hhmm) => {
+    const clock = minutesOf(hhmm)
+    if (prev >= 0 && clock < prev) offset = 24 * 60
+    prev = clock
+    return { hhmm, at: clock + offset }
+  })
+  const nowAt = now.getHours() * 60 + now.getMinutes()
+  let marked = false
+  return points.map((point) => {
+    const passed = point.at <= nowAt
+    const next = !passed && !marked
+    if (next) marked = true
+    return { hhmm: point.hhmm, passed, next }
+  })
+}
+
 /** Departures that have not left the first stop yet. */
 function upcomingDepartures(line: Line, now: Date, limit = 8): string[] {
   const nowMin = now.getHours() * 60 + now.getMinutes()
@@ -280,6 +322,44 @@ function upcomingDepartures(line: Line, now: Date, limit = 8): string[] {
     if (out.length >= limit) break
   }
   return out
+}
+
+function lineHead(line: Line, color: string, now: Date): string {
+  const minutes = Math.max(1, Math.round(line.tripSeconds / 60))
+  return `<div class="sheet-head">
+        <h3><button type="button" class="line-id" data-line="${esc(line.id)}"><i class="chip" style="background:${color}"></i>${esc(line.id)}</button></h3>
+        <p class="route">${esc(line.route)}</p>
+        <p class="meta">${minutes} min · ${esc(dayType(now))}</p>
+        <div class="sheet-switch">
+          <button type="button" class="sheet${lineSheet === 'live' ? ' on' : ''}" data-sheet="live">Live</button>
+          <button type="button" class="sheet${lineSheet === 'timetable' ? ' on' : ''}" data-sheet="timetable">Timetable</button>
+        </div>
+        ${otherWayHtml(line.id)}
+      </div>`
+}
+
+/** Today's departures, one row per hour. Past minutes are quiet; the next one is marked. */
+function timetableHtml(line: Line, now: Date): string {
+  const times = line.departures[dayType(now)] ?? line.departures.workday
+  const marks = scheduleMarks(times, now)
+  if (!marks.length) return `<p class="empty">No departures today.</p>`
+  const hours: { hour: string; mins: { mm: string; cls: string }[] }[] = []
+  for (const mark of marks) {
+    const [hour, mm] = mark.hhmm.split(':')
+    const cls = mark.passed ? 'passed' : mark.next ? 'next' : ''
+    const last = hours.at(-1)
+    if (!last || last.hour !== hour) hours.push({ hour, mins: [{ mm, cls }] })
+    else last.mins.push({ mm, cls })
+  }
+  const rows = hours
+    .map((row) => {
+      const chips = row.mins
+        .map((min) => `<span class="min${min.cls ? ` ${min.cls}` : ''}">${esc(min.mm)}</span>`)
+        .join('')
+      return `<li><span class="hour">${esc(row.hour)}</span><span class="mins">${chips}</span></li>`
+    })
+    .join('')
+  return `<ul class="timetable">${rows}</ul>`
 }
 
 function renderLine(now: Date): boolean {
@@ -323,23 +403,22 @@ function renderLine(now: Date): boolean {
     )
     .join('')}</ul>`
 
-  const scroll = selectedLineId === linePanelKey ? 'keep' : 'top'
-  linePanelKey = selectedLineId ?? ''
-  const minutes = Math.max(1, Math.round(line.tripSeconds / 60))
-  paintPanel(
-    `<div class="arrivals">
-      <div class="sheet-head">
-        <h3><button type="button" class="line-id" data-line="${esc(line.id)}"><i class="chip" style="background:${color}"></i>${esc(line.id)}</button></h3>
-        <p class="route">${esc(line.route)}</p>
-        <p class="meta">${minutes} min</p>
-        ${otherWayHtml(line.id)}
-      </div>
-      <h4>On the road</h4>
+  const viewKey = `${line.id}:${lineSheet}`
+  const scroll = viewKey === linePanelKey ? 'keep' : lineSheet === 'timetable' ? 'next' : 'top'
+  linePanelKey = viewKey
+  const body =
+    lineSheet === 'timetable'
+      ? timetableHtml(line, now)
+      : `<h4>On the road</h4>
       ${road}
       <h4>Next departures</h4>
       ${departures}
       <h4>Stops</h4>
-      ${stops}
+      ${stops}`
+  paintPanel(
+    `<div class="arrivals">
+      ${lineHead(line, color, now)}
+      ${body}
       <p class="empty">simulated from timetable</p>
       <button type="button" id="clear-panel">clear</button>
     </div>`,
@@ -478,6 +557,7 @@ function clearLine() {
   if (!selectedLineId) return
   selectedLineId = null
   linePanelKey = ''
+  lineSheet = 'live'
   hideRoutes()
 }
 
@@ -544,6 +624,7 @@ function selectBus(vehicleId: string, lineId: string) {
   if (selectedLineId === lineId) {
     selectedLineId = null
     linePanelKey = ''
+    lineSheet = 'live'
   } else {
     clearLine()
   }

@@ -221,6 +221,64 @@ body,
   font-size: 12px;
 }
 
+.arrivals .sheet-switch {
+  display: flex;
+  gap: 6px;
+  margin: 8px 0 0;
+}
+
+.arrivals .sheet-switch button {
+  border: 1px solid #e8d5c4;
+  background: #fff8f1;
+  border-radius: 6px;
+  padding: 3px 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  color: #6b5b4f;
+}
+
+.arrivals .sheet-switch button.on {
+  background: #c45c26;
+  border-color: #c45c26;
+  color: #fff;
+  font-weight: 700;
+}
+
+.arrivals .timetable li {
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.arrivals .timetable .hour {
+  flex: none;
+  width: 1.6em;
+  font-weight: 700;
+  color: #4a4038;
+}
+
+.arrivals .timetable .mins {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 6px;
+}
+
+.arrivals .timetable .min {
+  font-variant-numeric: tabular-nums;
+}
+
+.arrivals .timetable .min.passed {
+  color: #b7ada4;
+}
+
+.arrivals .timetable .min.next {
+  background: #fff1e4;
+  border-radius: 4px;
+  padding: 0 3px;
+  font-weight: 700;
+}
+
 .arrivals .sheet-head {
   position: sticky;
   top: 0;
