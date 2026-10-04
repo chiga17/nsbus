@@ -11,7 +11,7 @@ Reference sites and data sources for this project.
 Official JGSP site; used by `scripts/build_city.py` to build `src/data/lines.json`.
 
 - [JGSP Novi Sad](http://www.gspns.rs/)
-- [Gradski red vožnje](http://www.gspns.rs/red-voznje/gradski) — city timetable (save Network response as `src/data/red-voznje-resp.html`)
+- [Gradski red vožnje](http://www.gspns.rs/red-voznje/gradski) — city timetable (workday, Saturday, Sunday; downloaded by `npm run data`)
 - [Mreža linija](http://www.gspns.rs/mreza) — line network / geometry catalog
 - Route shape API: `http://www.gspns.rs/mreza-get-linija-tacke?linija={id}`
 - Stops API: `http://www.gspns.rs/mreza-get-stajalista-tacke?linija={id}`

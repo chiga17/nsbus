@@ -956,3 +956,48 @@ polyline and unordered stop set. Do not edit by hand.
 | 7 | Bulevar Oslobođenja - Pokrajinski Sup | 6947 m | 45.255630, 19.835103 |
 | 8 | Bulevar Oslobođenja - Bulevar Kralja Petra Prvog | 8031 m | 45.261377, 19.831849 |
 | 9 | Železnička Stanica - Dolasci | 8219 m | 45.265020, 19.830132 |
+
+## 5NA — Z.STANICA - NAJLON - TEM.PUT
+
+| # | Stop | Distance | Coordinates |
+|---:|---|---:|---|
+| 1 | Bulevar Oslobođenja - Bulevar Jaše Tomića | 0 m | 45.263326, 19.830484 |
+| 2 | Bulevar Oslobođenja - Bulevar Kralja Petra Prvog | 396 m | 45.260178, 19.832222 |
+| 3 | Bulevar Osloboðenja - Novosadskog Sajma | 1501 m | 45.254551, 19.835318 |
+| 4 | Jevrejska - Bulevar Oslobođenja | 1501 m | 45.252208, 19.837761 |
+| 5 | Uspenska - Uspenska Crkva | 2031 m | 45.255476, 19.841830 |
+| 6 | Temerinska - Trg Marije Trandafil | 2655 m | 45.261008, 19.843192 |
+| 7 | Temerinska - Gundulićeva | 3080 m | 45.264154, 19.843835 |
+| 8 | Temerinska - Patrijarha Čarnojevića | 3336 m | 45.266940, 19.843377 |
+| 9 | Temerinska - Put Šajkaškog Odreda | 3807 m | 45.271009, 19.841917 |
+| 10 | Temerinska - Most Kanal Dtd | 4104 m | 45.273314, 19.841046 |
+| 11 | Temerinska - Vidovdansko Naselje | 5065 m | 45.280901, 19.836199 |
+| 12 | Temerinska - Najlon Pijaca | 5315 m | 45.283513, 19.834531 |
+| 13 | Temerinski Put - Otokara Keršovanija | 5903 m | 45.288746, 19.831698 |
+| 14 | Temerinski Put - Majke Jugovića | 6240 m | 45.291092, 19.830775 |
+| 15 | Temerinski Put - Paje Radosavljevića | 6620 m | 45.294100, 19.830754 |
+| 16 | Temerinski Put - Dečanska | 6886 m | 45.296491, 19.830743 |
+| 17 | Temerinski Put - Savska | 7200 m | 45.300286, 19.830557 |
+| 18 | Temerinski Put - Nadvožnjak - Okretnica | 7490 m | 45.302319, 19.830275 |
+
+## 5NB — TEM.PUT - NAJLON - Z.STANICA
+
+| # | Stop | Distance | Coordinates |
+|---:|---|---:|---|
+| 1 | Temerinski Put - Nadvožnjak - Okretnica | 0 m | 45.302319, 19.830275 |
+| 2 | Temerinski Put - Savska | 410 m | 45.299308, 19.830436 |
+| 3 | Temerinski Put - Velebitska | 778 m | 45.295765, 19.830449 |
+| 4 | Temerinski Put - Paje Radosavljeva | 1073 m | 45.293324, 19.830494 |
+| 5 | Temerinski Put - Majke Jugovića | 1330 m | 45.290689, 19.830501 |
+| 6 | Temerinski Put - Otokara Keršovanija | 1653 m | 45.288078, 19.831729 |
+| 7 | Temerinska - Najlon Pijaca | 2256 m | 45.282876, 19.834692 |
+| 8 | Temerinska - Vidovdansko Naselje | 2524 m | 45.280232, 19.836384 |
+| 9 | Temerinska - Šajkaška | 3525 m | 45.272576, 19.841121 |
+| 10 | Temerinska - Partizanska | 3834 m | 45.269669, 19.842127 |
+| 11 | Temerinska - Koste Šokice | 4057 m | 45.267305, 19.843070 |
+| 12 | Temerinska - Pijaca | 4701 m | 45.262147, 19.843565 |
+| 13 | Uspenska - Šafarikova | 5459 m | 45.255448, 19.841488 |
+| 14 | Bulevar Oslobođenja - Futoška Pijaca | 6083 m | 45.252520, 19.836800 |
+| 15 | Bulevar Oslobođenja - Pokrajinski Sup | 6312 m | 45.255630, 19.835103 |
+| 16 | Bulevar Oslobođenja - Bulevar Kralja Petra Prvog | 7414 m | 45.261377, 19.831849 |
+| 17 | Železnička Stanica - Dolasci | 7608 m | 45.265020, 19.830132 |

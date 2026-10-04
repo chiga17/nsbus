@@ -5472,5 +5472,264 @@
         "distanceFromStartMeters": 8219.1
       }
     ]
+  },
+  {
+    "line": "5NA",
+    "route": "Z.STANICA - NAJLON - TEM.PUT",
+    "mrezaId": "69",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Bulevar Oslobođenja - Bulevar Jaše Tomića",
+        "lat": 45.263325649,
+        "lon": 19.8304838937,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2601777537,
+        "lon": 19.8322222835,
+        "distanceFromStartMeters": 395.5
+      },
+      {
+        "sequence": 3,
+        "name": "Bulevar Osloboðenja - Novosadskog Sajma",
+        "lat": 45.2545506888,
+        "lon": 19.8353175469,
+        "distanceFromStartMeters": 1500.7
+      },
+      {
+        "sequence": 4,
+        "name": "Jevrejska - Bulevar Oslobođenja",
+        "lat": 45.2522080286,
+        "lon": 19.8377609655,
+        "distanceFromStartMeters": 1500.7
+      },
+      {
+        "sequence": 5,
+        "name": "Uspenska - Uspenska Crkva",
+        "lat": 45.2554755764,
+        "lon": 19.8418302098,
+        "distanceFromStartMeters": 2031.4
+      },
+      {
+        "sequence": 6,
+        "name": "Temerinska - Trg Marije Trandafil",
+        "lat": 45.2610079188,
+        "lon": 19.8431916148,
+        "distanceFromStartMeters": 2655.4
+      },
+      {
+        "sequence": 7,
+        "name": "Temerinska - Gundulićeva",
+        "lat": 45.264154136,
+        "lon": 19.8438347072,
+        "distanceFromStartMeters": 3080.0
+      },
+      {
+        "sequence": 8,
+        "name": "Temerinska - Patrijarha Čarnojevića",
+        "lat": 45.2669400366,
+        "lon": 19.8433774932,
+        "distanceFromStartMeters": 3335.6
+      },
+      {
+        "sequence": 9,
+        "name": "Temerinska - Put Šajkaškog Odreda",
+        "lat": 45.2710086836,
+        "lon": 19.8419173482,
+        "distanceFromStartMeters": 3807.0
+      },
+      {
+        "sequence": 10,
+        "name": "Temerinska - Most Kanal Dtd",
+        "lat": 45.2733137159,
+        "lon": 19.8410463411,
+        "distanceFromStartMeters": 4104.4
+      },
+      {
+        "sequence": 11,
+        "name": "Temerinska - Vidovdansko Naselje",
+        "lat": 45.2809013055,
+        "lon": 19.8361991299,
+        "distanceFromStartMeters": 5064.6
+      },
+      {
+        "sequence": 12,
+        "name": "Temerinska - Najlon Pijaca",
+        "lat": 45.2835133286,
+        "lon": 19.8345314956,
+        "distanceFromStartMeters": 5314.8
+      },
+      {
+        "sequence": 13,
+        "name": "Temerinski Put - Otokara Keršovanija",
+        "lat": 45.2887458333,
+        "lon": 19.8316979215,
+        "distanceFromStartMeters": 5902.7
+      },
+      {
+        "sequence": 14,
+        "name": "Temerinski Put - Majke Jugovića",
+        "lat": 45.2910920332,
+        "lon": 19.8307752397,
+        "distanceFromStartMeters": 6240.2
+      },
+      {
+        "sequence": 15,
+        "name": "Temerinski Put - Paje Radosavljevića",
+        "lat": 45.2941004442,
+        "lon": 19.8307538038,
+        "distanceFromStartMeters": 6619.9
+      },
+      {
+        "sequence": 16,
+        "name": "Temerinski Put - Dečanska",
+        "lat": 45.2964910099,
+        "lon": 19.830743315,
+        "distanceFromStartMeters": 6885.6
+      },
+      {
+        "sequence": 17,
+        "name": "Temerinski Put - Savska",
+        "lat": 45.3002863203,
+        "lon": 19.8305569794,
+        "distanceFromStartMeters": 7199.8
+      },
+      {
+        "sequence": 18,
+        "name": "Temerinski Put - Nadvožnjak - Okretnica",
+        "lat": 45.3023192227,
+        "lon": 19.8302754549,
+        "distanceFromStartMeters": 7489.7
+      }
+    ]
+  },
+  {
+    "line": "5NB",
+    "route": "TEM.PUT - NAJLON - Z.STANICA",
+    "mrezaId": "70",
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Temerinski Put - Nadvožnjak - Okretnica",
+        "lat": 45.3023192227,
+        "lon": 19.8302754549,
+        "distanceFromStartMeters": 0.0
+      },
+      {
+        "sequence": 2,
+        "name": "Temerinski Put - Savska",
+        "lat": 45.2993083361,
+        "lon": 19.8304360891,
+        "distanceFromStartMeters": 409.9
+      },
+      {
+        "sequence": 3,
+        "name": "Temerinski Put - Velebitska",
+        "lat": 45.2957648457,
+        "lon": 19.8304491318,
+        "distanceFromStartMeters": 777.5
+      },
+      {
+        "sequence": 4,
+        "name": "Temerinski Put - Paje Radosavljeva",
+        "lat": 45.2933241684,
+        "lon": 19.8304941804,
+        "distanceFromStartMeters": 1073.0
+      },
+      {
+        "sequence": 5,
+        "name": "Temerinski Put - Majke Jugovića",
+        "lat": 45.2906889242,
+        "lon": 19.8305011638,
+        "distanceFromStartMeters": 1329.8
+      },
+      {
+        "sequence": 6,
+        "name": "Temerinski Put - Otokara Keršovanija",
+        "lat": 45.2880777199,
+        "lon": 19.8317289762,
+        "distanceFromStartMeters": 1653.0
+      },
+      {
+        "sequence": 7,
+        "name": "Temerinska - Najlon Pijaca",
+        "lat": 45.2828756397,
+        "lon": 19.8346922664,
+        "distanceFromStartMeters": 2256.4
+      },
+      {
+        "sequence": 8,
+        "name": "Temerinska - Vidovdansko Naselje",
+        "lat": 45.2802317297,
+        "lon": 19.8363835969,
+        "distanceFromStartMeters": 2524.5
+      },
+      {
+        "sequence": 9,
+        "name": "Temerinska - Šajkaška",
+        "lat": 45.2725760616,
+        "lon": 19.8411205686,
+        "distanceFromStartMeters": 3524.8
+      },
+      {
+        "sequence": 10,
+        "name": "Temerinska - Partizanska",
+        "lat": 45.2696690854,
+        "lon": 19.8421271396,
+        "distanceFromStartMeters": 3834.3
+      },
+      {
+        "sequence": 11,
+        "name": "Temerinska - Koste Šokice",
+        "lat": 45.2673052212,
+        "lon": 19.8430703993,
+        "distanceFromStartMeters": 4056.9
+      },
+      {
+        "sequence": 12,
+        "name": "Temerinska - Pijaca",
+        "lat": 45.2621466908,
+        "lon": 19.8435652321,
+        "distanceFromStartMeters": 4701.2
+      },
+      {
+        "sequence": 13,
+        "name": "Uspenska - Šafarikova",
+        "lat": 45.2554480126,
+        "lon": 19.8414877223,
+        "distanceFromStartMeters": 5458.7
+      },
+      {
+        "sequence": 14,
+        "name": "Bulevar Oslobođenja - Futoška Pijaca",
+        "lat": 45.2525198464,
+        "lon": 19.8368000824,
+        "distanceFromStartMeters": 6083.2
+      },
+      {
+        "sequence": 15,
+        "name": "Bulevar Oslobođenja - Pokrajinski Sup",
+        "lat": 45.255629856,
+        "lon": 19.8351029309,
+        "distanceFromStartMeters": 6312.5
+      },
+      {
+        "sequence": 16,
+        "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+        "lat": 45.2613766166,
+        "lon": 19.8318492939,
+        "distanceFromStartMeters": 7413.5
+      },
+      {
+        "sequence": 17,
+        "name": "Železnička Stanica - Dolasci",
+        "lat": 45.2650202834,
+        "lon": 19.830132455,
+        "distanceFromStartMeters": 7608.0
+      }
+    ]
   }
 ]

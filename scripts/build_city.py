@@ -1,10 +1,10 @@
-"""Build src/data/lines.json from a saved GSPNS timetable dump + mreža geometry.
+"""Build src/data/lines.json from the GSPNS city timetable + mreža geometry.
 
-Update timetable:
-  1. Open http://www.gspns.rs/red-voznje/gradski
-  2. Select all linija, click PRIKAŽI
-  3. Save the ispis-polazaka Network response as src/data/red-voznje-resp.html
-  4. python scripts/build_city.py
+Update timetable and geometry:
+  python scripts/build_city.py
+
+Timetables are downloaded for workday (R), Saturday (S), and Sunday (N).
+Route shapes are cached under scratch/mreza/.
 """
 
 from __future__ import annotations
@@ -23,7 +23,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "src" / "data"
 CACHE = ROOT / "scratch" / "mreza"
-HTML_PATH = DATA / "red-voznje-resp.html"
 OUT_PATH = DATA / "lines.json"
 STOP_ORDERS_PATH = DATA / "stop-orders.json"
 STOP_ORDERS_MD_PATH = ROOT / "STOP_ORDERS.md"
@@ -34,7 +33,7 @@ CTX = ssl._create_unverified_context()
 SPEED_MPS = 16 * 1000 / 3600  # ~16 km/h (schedule sim; tune vs street)
 
 
-def get(path: str, params: dict[str, str] | None = None) -> str:
+def get(path: str, params: dict[str, str | list[str]] | None = None) -> str:
     url = BASE + path
     if params:
         url += "?" + urllib.parse.urlencode(params, doseq=True)
@@ -328,7 +327,76 @@ def pick_mreza(route: str, catalog: list[dict], used: set[str], code: str, smer:
     return max(unused, key=lambda row: score(route, row["title"]))
 
 
-def build_line(code: str, name: str, route: str, times: list[str], mreza: dict) -> dict | None:
+DAY_CODES = (("R", "workday"), ("S", "saturday"), ("N", "sunday"))
+
+
+def fetch_timetables() -> dict[str, list[dict]]:
+    """City departures for workday, Saturday, and Sunday from gspns.rs."""
+    page = get("/red-voznje/gradski")
+    edition = re.search(
+        r"id='vaziod'[\s\S]*?<option value=\"(\d{4}-\d{2}-\d{2})\"",
+        page,
+    )
+    if not edition:
+        raise SystemExit("could not read the timetable date from gspns.rs")
+    vaziod = edition.group(1)
+    print(f"timetable valid from {vaziod}")
+
+    line_ids: list[str] = []
+    seen: set[str] = set()
+    for code, _day in DAY_CODES:
+        listing = get(
+            "/red-voznje/lista-linija",
+            {"rv": "rvg", "vaziod": vaziod, "dan": code},
+        )
+        for value in re.findall(r'<option value="([^"]*)">', listing):
+            if value in seen:
+                continue
+            seen.add(value)
+            line_ids.append(value)
+    if not line_ids:
+        raise SystemExit("gspns.rs returned no city lines")
+
+    tables_by_day: dict[str, list[dict]] = {}
+    for code, day in DAY_CODES:
+        html = get(
+            "/red-voznje/ispis-polazaka",
+            {
+                "rv": "rvg",
+                "vaziod": vaziod,
+                "dan": code,
+                "linija[]": line_ids,
+            },
+        )
+        tables = parse_timetable(html)
+        print(f"  {day}: {len(tables)} lines")
+        if not tables:
+            raise SystemExit(f"gspns.rs returned no {day} timetable")
+        tables_by_day[day] = tables
+    return tables_by_day
+
+
+def index_directions(tables: list[dict]) -> dict[tuple[str, str], dict]:
+    indexed: dict[tuple[str, str], dict] = {}
+    for table in tables:
+        for direction in table["directions"]:
+            indexed[(table["code"], direction["smer"])] = {
+                "code": table["code"],
+                "name": table["name"],
+                "smer": direction["smer"],
+                "route": direction["route"],
+                "times": direction["times"],
+            }
+    return indexed
+
+
+def build_line(
+    code: str,
+    name: str,
+    route: str,
+    departures: dict[str, list[str]],
+    mreza: dict,
+) -> dict | None:
     points = route_points(mreza["id"])
     stops = order_along_route(route_stops(mreza["id"]), points)
     if len(points) < 2 or len(stops) < 2:
@@ -347,14 +415,14 @@ def build_line(code: str, name: str, route: str, times: list[str], mreza: dict) 
         "route": route,
         "mrezaId": mreza["id"],
         "mrezaCode": mreza["code"],
-        "source": "src/data/red-voznje-resp.html + gspns.rs/mreza",
+        "source": "gspns.rs/red-voznje + gspns.rs/mreza",
         "tripSeconds": max(60, round(length / SPEED_MPS)),
         "shape": points,
         "stops": stops,
         "departures": {
-            "workday": times,
-            "saturday": times,
-            "sunday": times,
+            "workday": departures.get("workday", []),
+            "saturday": departures.get("saturday", []),
+            "sunday": departures.get("sunday", []),
         },
     }
 
@@ -419,9 +487,17 @@ def write_stop_orders(lines: list[dict]) -> None:
 
 
 def main() -> None:
-    html = HTML_PATH.read_text(encoding="utf-8")
-    tables = parse_timetable(html)
-    print(f"timetable blocks: {len(tables)}")
+    by_day = {
+        day: index_directions(tables) for day, tables in fetch_timetables().items()
+    }
+    order: list[tuple[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for day in ("workday", "saturday", "sunday"):
+        for key in by_day[day]:
+            if key in seen:
+                continue
+            seen.add(key)
+            order.append(key)
 
     mreza_path = ROOT / "scratch" / "mreza.html"
     if not mreza_path.exists():
@@ -432,24 +508,27 @@ def main() -> None:
 
     lines = []
     used: set[str] = set()
-    for table in tables:
-        for direction in table["directions"]:
-            mreza = pick_mreza(direction["route"], catalog, used, table["code"], direction["smer"])
-            if not mreza:
-                print(f"  no mreža match for {table['code']} {direction['smer']}")
-                continue
-            used.add(mreza["code"])
-            lid = line_id(table["code"], direction["smer"], mreza["code"])
-            print(f"{table['code']} {direction['smer']} → {mreza['code']} (id {mreza['id']}) as {lid}  {direction['route']}")
-            built = build_line(
-                lid,
-                table["name"],
-                direction["route"],
-                direction["times"],
-                mreza,
-            )
-            if built:
-                lines.append(built)
+    for key in order:
+        row = (
+            by_day["workday"].get(key)
+            or by_day["saturday"].get(key)
+            or by_day["sunday"][key]
+        )
+        departures = {
+            day: by_day[day].get(key, {}).get("times", [])
+            for day in ("workday", "saturday", "sunday")
+        }
+        mreza = pick_mreza(row["route"], catalog, used, row["code"], row["smer"])
+        if not mreza:
+            print(f"  no mreža match for {row['code']} {row['smer']}")
+            continue
+        used.add(mreza["code"])
+        lid = line_id(row["code"], row["smer"], mreza["code"])
+        counts = "/".join(str(len(departures[day])) for day in ("workday", "saturday", "sunday"))
+        print(f"{row['code']} {row['smer']} → {mreza['code']} (id {mreza['id']}) as {lid}  {counts}  {row['route']}")
+        built = build_line(lid, row["name"], row["route"], departures, mreza)
+        if built:
+            lines.append(built)
 
     OUT_PATH.write_text(json.dumps(lines, ensure_ascii=False), encoding="utf-8")
     print(f"wrote {OUT_PATH.relative_to(ROOT)} ({len(lines)} directions)")
