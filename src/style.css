@@ -245,6 +245,21 @@ body,
   font-weight: 700;
 }
 
+.arrivals .sheet-switch.days {
+  flex-wrap: wrap;
+}
+
+.arrivals .sheet-switch button.today::after {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 1px;
+}
+
 .arrivals .timetable li {
   justify-content: flex-start;
   align-items: baseline;

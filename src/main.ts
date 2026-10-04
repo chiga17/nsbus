@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import rawLines from './data/lines.json'
 import { arrivalsAtStop, dayType, itinerary, servesStop, shapeDistances, vehiclesAt } from './simulate.ts'
 import './style.css'
-import type { Line, Vehicle } from './types.ts'
+import type { DayType, Line, Vehicle } from './types.ts'
 
 const PALETTE = [
   '#c45c26',
@@ -176,6 +176,8 @@ let selectedLineId: string | null = null
 let linePanelKey = ''
 /** Live buses and stops, or the full day's departures. Kept when flipping direction. */
 let lineSheet: 'live' | 'timetable' = 'live'
+/** Timetable day. Null follows the clock, and a picked day stays when flipping direction. */
+let timetableDay: DayType | null = null
 let dueIds = new Set<string>()
 
 function clock(date: Date): string {
@@ -196,6 +198,15 @@ panelEl.addEventListener('click', (event) => {
   if (sheet === 'live' || sheet === 'timetable') {
     if (lineSheet !== sheet) {
       lineSheet = sheet
+      tick()
+    }
+    return
+  }
+  const dayBtn = target.closest<HTMLButtonElement>('button[data-day]')
+  const day = dayBtn?.dataset.day
+  if (day === 'workday' || day === 'saturday' || day === 'sunday') {
+    if (timetableDay !== day) {
+      timetableDay = day
       tick()
     }
     return
@@ -324,6 +335,24 @@ function upcomingDepartures(line: Line, now: Date, limit = 8): string[] {
   return out
 }
 
+const DAY_LABELS: [DayType, string][] = [
+  ['workday', 'Workday'],
+  ['saturday', 'Saturday'],
+  ['sunday', 'Sunday'],
+]
+
+function daySwitch(now: Date): string {
+  if (lineSheet !== 'timetable') return ''
+  const today = dayType(now)
+  const shown = timetableDay ?? today
+  const buttons = DAY_LABELS.map(([day, label]) => {
+    const on = shown === day ? ' on' : ''
+    const mark = today === day ? ' today' : ''
+    return `<button type="button" class="sheet${on}${mark}" data-day="${day}">${label}</button>`
+  }).join('')
+  return `<div class="sheet-switch days">${buttons}</div>`
+}
+
 function lineHead(line: Line, color: string, now: Date): string {
   const minutes = Math.max(1, Math.round(line.tripSeconds / 60))
   return `<div class="sheet-head">
@@ -334,15 +363,20 @@ function lineHead(line: Line, color: string, now: Date): string {
           <button type="button" class="sheet${lineSheet === 'live' ? ' on' : ''}" data-sheet="live">Live</button>
           <button type="button" class="sheet${lineSheet === 'timetable' ? ' on' : ''}" data-sheet="timetable">Timetable</button>
         </div>
+        ${daySwitch(now)}
         ${otherWayHtml(line.id)}
       </div>`
 }
 
-/** Today's departures, one row per hour. Past minutes are quiet; the next one is marked. */
+/** One day's departures, one row per hour. Today grays past minutes and marks the next one. */
 function timetableHtml(line: Line, now: Date): string {
-  const times = line.departures[dayType(now)] ?? line.departures.workday
-  const marks = scheduleMarks(times, now)
-  if (!marks.length) return `<p class="empty">No departures today.</p>`
+  const shown = timetableDay ?? dayType(now)
+  const times = line.departures[shown] ?? []
+  const marks =
+    shown === dayType(now)
+      ? scheduleMarks(times, now)
+      : times.map((hhmm) => ({ hhmm, passed: false, next: false }))
+  if (!marks.length) return `<p class="empty">No departures this day.</p>`
   const hours: { hour: string; mins: { mm: string; cls: string }[] }[] = []
   for (const mark of marks) {
     const [hour, mm] = mark.hhmm.split(':')
@@ -403,8 +437,11 @@ function renderLine(now: Date): boolean {
     )
     .join('')}</ul>`
 
-  const viewKey = `${line.id}:${lineSheet}`
-  const scroll = viewKey === linePanelKey ? 'keep' : lineSheet === 'timetable' ? 'next' : 'top'
+  const shownDay = timetableDay ?? dayType(now)
+  const viewKey =
+    lineSheet === 'timetable' ? `${line.id}:timetable:${shownDay}` : `${line.id}:live`
+  const scroll =
+    viewKey === linePanelKey ? 'keep' : lineSheet === 'timetable' && shownDay === dayType(now) ? 'next' : 'top'
   linePanelKey = viewKey
   const body =
     lineSheet === 'timetable'
@@ -558,6 +595,7 @@ function clearLine() {
   selectedLineId = null
   linePanelKey = ''
   lineSheet = 'live'
+  timetableDay = null
   hideRoutes()
 }
 
@@ -625,6 +663,7 @@ function selectBus(vehicleId: string, lineId: string) {
     selectedLineId = null
     linePanelKey = ''
     lineSheet = 'live'
+    timetableDay = null
   } else {
     clearLine()
   }
