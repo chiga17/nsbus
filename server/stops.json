@@ -1,0 +1,262 @@
+[
+  {
+    "stationUid": 6548,
+    "name": "Avijatičarska - Kasarna - Okretnica",
+    "nsmartName": "Avijatičarska-Kasarna-Okretnica",
+    "lat": 45.2664847055,
+    "lon": 19.8051343851,
+    "lines": [
+      "5A"
+    ]
+  },
+  {
+    "stationUid": 12630,
+    "name": "Big Šoping Centar",
+    "nsmartName": "Big šoping Centar",
+    "lat": 45.27707,
+    "lon": 19.828226,
+    "lines": [
+      "17B"
+    ]
+  },
+  {
+    "stationUid": 13275,
+    "name": "Breza - Tome Maretića",
+    "nsmartName": "Breza-Tome Maretića",
+    "lat": 45.22373,
+    "lon": 19.894552,
+    "lines": [
+      "3BA"
+    ]
+  },
+  {
+    "stationUid": 6766,
+    "name": "Bulevar Evrope - Okretnica",
+    "nsmartName": "Bulevar Evrope-Okretnica",
+    "lat": 45.30128,
+    "lon": 19.807564,
+    "lines": [
+      "1B"
+    ]
+  },
+  {
+    "stationUid": 6661,
+    "name": "Bulevar Mihajla Pupina - Sonje Marinković",
+    "nsmartName": "Bulevar Mihajla Pupina-Sonje Marinković",
+    "lat": 45.254153,
+    "lon": 19.852979,
+    "lines": [
+      "16A"
+    ]
+  },
+  {
+    "stationUid": 16561,
+    "name": "Filipa Višnjića - Terminal",
+    "nsmartName": "Filipa Višnjića - Terminal",
+    "lat": 45.265255,
+    "lon": 19.850381,
+    "lines": [
+      "6B"
+    ]
+  },
+  {
+    "stationUid": 12590,
+    "name": "Mišeluk - Bolnica - Okretnica",
+    "nsmartName": "Okretnica-Mišeluk bolnica",
+    "lat": 45.226521,
+    "lon": 19.8716683,
+    "lines": [
+      "19A"
+    ]
+  },
+  {
+    "stationUid": 6937,
+    "name": "Narodnog Fronta - Okretnica",
+    "nsmartName": "Narodnog fronta-Okretnica",
+    "lat": 45.2371046813,
+    "lon": 19.8262756442,
+    "lines": [
+      "4B"
+    ]
+  },
+  {
+    "stationUid": 13218,
+    "name": "Novo Naselje - Kružni Tok",
+    "nsmartName": "Novo naselje-Kružni tok",
+    "lat": 45.248251,
+    "lon": 19.786933,
+    "lines": [
+      "18A",
+      "18B",
+      "2A",
+      "7A",
+      "7B",
+      "8B",
+      "9B"
+    ]
+  },
+  {
+    "stationUid": 7361,
+    "name": "Oblačića Rada - Janka Čmelika",
+    "nsmartName": "Oblacica Rada-Janka Čmelika",
+    "lat": 45.265188,
+    "lon": 19.808222,
+    "lines": [
+      "13B",
+      "3A"
+    ]
+  },
+  {
+    "stationUid": 6475,
+    "name": "Petrovaradin - Okretnica",
+    "nsmartName": "Petrovaradin-Okretnica",
+    "lat": 45.2360062995,
+    "lon": 19.8878906109,
+    "lines": [
+      "3B",
+      "9A"
+    ]
+  },
+  {
+    "stationUid": 9981,
+    "name": "Pobeda",
+    "nsmartName": "Pobeda",
+    "lat": 45.253667,
+    "lon": 19.881576,
+    "lines": [
+      "3AA"
+    ]
+  },
+  {
+    "stationUid": 6481,
+    "name": "Preradovićeva - Šenoina",
+    "nsmartName": "Preradovićeva-Šenoina",
+    "lat": 45.251431704,
+    "lon": 19.8732154355,
+    "lines": [
+      "3BB"
+    ]
+  },
+  {
+    "stationUid": 12602,
+    "name": "Primorska - Neoplanta - Okretnica",
+    "nsmartName": "Primorska-Neoplanta Okretnica Kanal DTD",
+    "lat": 45.2891747388,
+    "lon": 19.7896050461,
+    "lines": [
+      "15NPA"
+    ]
+  },
+  {
+    "stationUid": 12599,
+    "name": "Put Novosadskog Partizanskog Odreda - Albus",
+    "nsmartName": "Put novosadskog partizanskog odreda-Albus",
+    "lat": 45.278889,
+    "lon": 19.806465,
+    "lines": [
+      "10ALA"
+    ]
+  },
+  {
+    "stationUid": 7373,
+    "name": "Senteleki Kornela - Osnovna Škola Jožef Atila",
+    "nsmartName": "Senteleki Kornela-Osnovna škola Jožef Atila",
+    "lat": 45.237096,
+    "lon": 19.806373,
+    "lines": [
+      "12A"
+    ]
+  },
+  {
+    "stationUid": 6487,
+    "name": "Smederevska - Banjalučka",
+    "nsmartName": "Smederevska-Banjalučka",
+    "lat": 45.2344242907,
+    "lon": 19.7847028632,
+    "lines": [
+      "6A",
+      "6AB"
+    ]
+  },
+  {
+    "stationUid": 6635,
+    "name": "Temerinski Put - Nadvožnjak - Okretnica",
+    "nsmartName": "Temerinski put-Nadvožnjak-Okretnica",
+    "lat": 45.3023192227,
+    "lon": 19.8302754549,
+    "lines": [
+      "5B",
+      "5NA"
+    ]
+  },
+  {
+    "stationUid": 12618,
+    "name": "Univerzitet - Doktora Sime Miloševića",
+    "nsmartName": "Univerzitet-Doktora Sime Miloševica",
+    "lat": 45.243749,
+    "lon": 19.850994,
+    "lines": [
+      "13A"
+    ]
+  },
+  {
+    "stationUid": 11680,
+    "name": "Uspenska - Pozorišni Trg",
+    "nsmartName": "Uspenska-Pozorišni trg",
+    "lat": 45.2548499029,
+    "lon": 19.8422463011,
+    "lines": [
+      "10ALB",
+      "14B",
+      "2B"
+    ]
+  },
+  {
+    "stationUid": 6571,
+    "name": "Uspenska - Šafarikova",
+    "nsmartName": "Uspenska-Šafarikova 14",
+    "lat": 45.2550293771,
+    "lon": 19.8414070119,
+    "lines": [
+      "12B",
+      "15NPB",
+      "17A"
+    ]
+  },
+  {
+    "stationUid": 16558,
+    "name": "Veternik - Pravoslavna Crkva - Okretnica",
+    "nsmartName": "Veternik-Pravoslavna crkva-Okretnica",
+    "lat": 45.248742,
+    "lon": 19.75592,
+    "lines": [
+      "14A"
+    ]
+  },
+  {
+    "stationUid": 13467,
+    "name": "Štrand - Okretnica",
+    "nsmartName": "Štrand-Okretnica",
+    "lat": 45.2386999087,
+    "lon": 19.84777609,
+    "lines": [
+      "1A",
+      "8A"
+    ]
+  },
+  {
+    "stationUid": 6584,
+    "name": "Železnička Stanica - Dolasci",
+    "nsmartName": "Železnička Stanica Terminal",
+    "lat": 45.2650202834,
+    "lon": 19.830132455,
+    "lines": [
+      "11A",
+      "11B",
+      "16B",
+      "19B",
+      "4A",
+      "5NB"
+    ]
+  }
+]
