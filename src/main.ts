@@ -276,6 +276,11 @@ function clock(date: Date): string {
   return date.toLocaleTimeString('sr-RS', { hour: '2-digit', minute: '2-digit' })
 }
 
+/** Pin this pole in Google Maps. Coordinates, so the name cannot match a different place. */
+function googleMapsUrl(lat: number, lon: number): string {
+  return `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`
+}
+
 const panelEl = document.querySelector<HTMLElement>('#panel')!
 panelEl.addEventListener('click', (event) => {
   const target = event.target
@@ -667,6 +672,7 @@ function renderPanel(now: Date) {
   paintPanel(
     `<div class="arrivals">
     <h3>${esc(stop.name)}</h3>
+    <p class="map-link"><a href="${googleMapsUrl(stop.lat, stop.lon)}" target="_blank" rel="noopener">Google Maps</a></p>
     <h4>Lines</h4>
     ${lineList}
     <h4>Next</h4>

@@ -140,6 +140,15 @@ body,
   font-size: 15px;
 }
 
+.arrivals .map-link {
+  margin: -6px 0 10px;
+  font-size: 12px;
+}
+
+.arrivals .map-link a {
+  color: #2d6a8e;
+}
+
 .arrivals h4 {
   margin: 12px 0 4px;
   font-size: 11px;
