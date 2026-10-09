@@ -1,4 +1,4 @@
-"""Match each line's last stop to an NSmart station id and write server/stops.json.
+"""Match each line's last two stops to NSmart station ids and write server/stops.json.
 
 Station ids come from the public line-details page, which embeds the city catalog.
 Run from the repo root:
@@ -73,17 +73,24 @@ def catalog() -> list[dict]:
     return stations
 
 
-def last_stops() -> list[dict]:
+def tracked_stops() -> list[dict]:
+    """Last stop of each direction, plus the stop before it.
+
+    The announcement for a terminus sometimes omits a bus that the previous stop still lists.
+    """
     lines = json.loads(LINES_PATH.read_text(encoding="utf-8"))
     grouped: dict[tuple, dict] = {}
     for line in lines:
-        stop = line["stops"][-1]
-        key = (stop["name"], round(stop["lat"], 5), round(stop["lon"], 5))
-        row = grouped.get(key)
-        if row is None:
-            row = {"name": stop["name"], "lat": stop["lat"], "lon": stop["lon"], "lines": []}
-            grouped[key] = row
-        row["lines"].append(line["id"])
+        stops = line["stops"]
+        chosen = stops[-2:] if len(stops) >= 2 else stops[-1:]
+        for stop in chosen:
+            key = (stop["name"], round(stop["lat"], 5), round(stop["lon"], 5))
+            row = grouped.get(key)
+            if row is None:
+                row = {"name": stop["name"], "lat": stop["lat"], "lon": stop["lon"], "lines": []}
+                grouped[key] = row
+            if line["id"] not in row["lines"]:
+                row["lines"].append(line["id"])
     return list(grouped.values())
 
 
@@ -99,7 +106,7 @@ def main() -> None:
     stations = catalog()
     matched: dict[int, dict] = {}
     missing = []
-    for stop in last_stops():
+    for stop in tracked_stops():
         station, distance = nearest(stop, stations)
         if distance > MAX_METRES:
             missing.append(f"{stop['name']} [{', '.join(stop['lines'])}]")
@@ -133,7 +140,7 @@ def main() -> None:
             ",".join(stop["lines"]),
         )
     if not matched:
-        raise SystemExit("no last stops matched")
+        raise SystemExit("no stops matched")
     if missing:
         logger.warning("not in stops.json: {}", ", ".join(missing))
     stops = sorted(matched.values(), key=lambda stop: stop["name"])

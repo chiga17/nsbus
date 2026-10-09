@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => {
     plugins: secret ? [hideAdmin(secret)] : [],
     server: {
       proxy: {
-        '/buses': { target: 'http://127.0.0.1:8080', changeOrigin: true },
+        '/buses': { target: 'http://127.0.0.1:8082', changeOrigin: true },
       },
     },
     build: secret

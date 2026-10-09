@@ -10,6 +10,47 @@
     ]
   },
   {
+    "stationUid": 6726,
+    "name": "Avijatičarska - Rumenački Put",
+    "nsmartName": "Avijatičarska-Rumenački put",
+    "lat": 45.2704064001,
+    "lon": 19.80785211,
+    "lines": [
+      "5A"
+    ]
+  },
+  {
+    "stationUid": 6662,
+    "name": "Bajči Žilinskog - Hleb",
+    "nsmartName": "Bajči Žilinskog-Hleb",
+    "lat": 45.2658468595,
+    "lon": 19.8589099487,
+    "lines": [
+      "16A"
+    ]
+  },
+  {
+    "stationUid": 6488,
+    "name": "Banjalučka - Branka Ćopića",
+    "nsmartName": "banjalučka-Branka Ćopića",
+    "lat": 45.2330981747,
+    "lon": 19.7845240714,
+    "lines": [
+      "6A",
+      "6AB"
+    ]
+  },
+  {
+    "stationUid": 6674,
+    "name": "Beogradski Kej - Marka Miljanova",
+    "nsmartName": "Beogradski kej-Marka Miljanova Most",
+    "lat": 45.2615406229,
+    "lon": 19.856432882,
+    "lines": [
+      "6B"
+    ]
+  },
+  {
     "stationUid": 12630,
     "name": "Big Šoping Centar",
     "nsmartName": "Big šoping Centar",
@@ -40,6 +81,58 @@
     ]
   },
   {
+    "stationUid": 6728,
+    "name": "Bulevar Jaše Tomića - Pariske Komune",
+    "nsmartName": "Bulevar Jaše Tomića-Pariske komune",
+    "lat": 45.2637816804,
+    "lon": 19.8246328903,
+    "lines": [
+      "11B"
+    ]
+  },
+  {
+    "stationUid": 13216,
+    "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+    "nsmartName": "Bulevar Jovana Dučića-Bulevar kneza Miloša",
+    "lat": 45.2489713023,
+    "lon": 19.7915144259,
+    "lines": [
+      "2A",
+      "8B",
+      "9B"
+    ]
+  },
+  {
+    "stationUid": 13217,
+    "name": "Bulevar Jovana Dučića - Bulevar Kneza Miloša",
+    "nsmartName": "Bulevar Jovana Dučića-Bulevar kneza Miloša Terminal",
+    "lat": 45.2489224745,
+    "lon": 19.791754249,
+    "lines": [
+      "18A"
+    ]
+  },
+  {
+    "stationUid": 6502,
+    "name": "Bulevar Jovana Dučića - Igralište",
+    "nsmartName": "Bulevar Jovana Dučića-Igralište",
+    "lat": 45.2495765937,
+    "lon": 19.7936823203,
+    "lines": [
+      "7A"
+    ]
+  },
+  {
+    "stationUid": 6643,
+    "name": "Bulevar Jovana Dučića - Igralište",
+    "nsmartName": "Bulevar Jovana Dučića-Igralište zgrade",
+    "lat": 45.2500788277,
+    "lon": 19.7947978105,
+    "lines": [
+      "18B"
+    ]
+  },
+  {
     "stationUid": 6661,
     "name": "Bulevar Mihajla Pupina - Sonje Marinković",
     "nsmartName": "Bulevar Mihajla Pupina-Sonje Marinković",
@@ -47,6 +140,28 @@
     "lon": 19.852979,
     "lines": [
       "16A"
+    ]
+  },
+  {
+    "stationUid": 6709,
+    "name": "Bulevar Oslobođenja - Bulevar Kralja Petra Prvog",
+    "nsmartName": "Bulevar oslobođenja-Bulevar kralja Petra prvog",
+    "lat": 45.2613766166,
+    "lon": 19.8318492939,
+    "lines": [
+      "19B",
+      "4A",
+      "5NB"
+    ]
+  },
+  {
+    "stationUid": 12617,
+    "name": "Doktora Sime Miloševića - Bulevar Cara Lazara",
+    "nsmartName": "Doktora Sime Miloševica-Bulevar Cara Lazara",
+    "lat": 45.246804,
+    "lon": 19.849049,
+    "lines": [
+      "13A"
     ]
   },
   {
@@ -60,6 +175,70 @@
     ]
   },
   {
+    "stationUid": 6692,
+    "name": "Fruškogorska - Narodnog Fronta",
+    "nsmartName": "Fruškogorska-Narodnog fronta",
+    "lat": 45.2420582997,
+    "lon": 19.8475310279,
+    "lines": [
+      "1A",
+      "8A"
+    ]
+  },
+  {
+    "stationUid": 6524,
+    "name": "Jevrejska - Bulevar Oslobođenja",
+    "nsmartName": "Jevrejska-Bulevar oslobođenja",
+    "lat": 45.2522080286,
+    "lon": 19.8377609655,
+    "lines": [
+      "10ALB",
+      "14B",
+      "2B"
+    ]
+  },
+  {
+    "stationUid": 6744,
+    "name": "Kisačka - Jovana Cvijića",
+    "nsmartName": "Kisačka-Jovana Cvijića",
+    "lat": 45.2652106325,
+    "lon": 19.8364405487,
+    "lines": [
+      "11A"
+    ]
+  },
+  {
+    "stationUid": 6740,
+    "name": "Kisačka - Partizanska",
+    "nsmartName": "Sentandrejski put-Partizanska Lukoil",
+    "lat": 45.2687779267,
+    "lon": 19.8317437287,
+    "lines": [
+      "16B"
+    ]
+  },
+  {
+    "stationUid": 6591,
+    "name": "Kisačka - Vuka Karadžića",
+    "nsmartName": "Kisačka-Vuka Karadžića",
+    "lat": 45.2609612857,
+    "lon": 19.8420940143,
+    "lines": [
+      "17A"
+    ]
+  },
+  {
+    "stationUid": 6537,
+    "name": "Milenka Grčića - Banatska",
+    "nsmartName": "Milenka Grcica-Banatska",
+    "lat": 45.2640112807,
+    "lon": 19.8111852139,
+    "lines": [
+      "13B",
+      "3A"
+    ]
+  },
+  {
     "stationUid": 12590,
     "name": "Mišeluk - Bolnica - Okretnica",
     "nsmartName": "Okretnica-Mišeluk bolnica",
@@ -67,6 +246,16 @@
     "lon": 19.8716683,
     "lines": [
       "19A"
+    ]
+  },
+  {
+    "stationUid": 6650,
+    "name": "Narodnog Fronta - Ive Andrića",
+    "nsmartName": "Narodnog fronta-Ive Andrića",
+    "lat": 45.2374119519,
+    "lon": 19.8273963747,
+    "lines": [
+      "4B"
     ]
   },
   {
@@ -107,6 +296,16 @@
     ]
   },
   {
+    "stationUid": 6821,
+    "name": "Petlja Mišeluk - Tunel",
+    "nsmartName": "Petlja Mišeluk-Tunel",
+    "lat": 45.2292476482,
+    "lon": 19.8592274923,
+    "lines": [
+      "19A"
+    ]
+  },
+  {
     "stationUid": 6475,
     "name": "Petrovaradin - Okretnica",
     "nsmartName": "Petrovaradin-Okretnica",
@@ -118,11 +317,42 @@
     ]
   },
   {
+    "stationUid": 6668,
+    "name": "Petrovaradin - Železnička Stanica",
+    "nsmartName": "Petrovaradin-Železnička stanica",
+    "lat": 45.2389365212,
+    "lon": 19.8857439999,
+    "lines": [
+      "3B",
+      "9A"
+    ]
+  },
+  {
+    "stationUid": 6470,
+    "name": "Petrovaradin - Železnička Stanica",
+    "nsmartName": "Petrovaradin-Železnička stanica",
+    "lat": 45.2396101516,
+    "lon": 19.8853872807,
+    "lines": [
+      "3BB"
+    ]
+  },
+  {
     "stationUid": 9981,
     "name": "Pobeda",
     "nsmartName": "Pobeda",
     "lat": 45.253667,
     "lon": 19.881576,
+    "lines": [
+      "3AA"
+    ]
+  },
+  {
+    "stationUid": 6482,
+    "name": "Preradovićeva - Osnovna Škola Jovan Dučić",
+    "nsmartName": "Preradovićeva-Osnovna škola Jovan Dučić",
+    "lat": 45.2516407374,
+    "lon": 19.8727083512,
     "lines": [
       "3AA"
     ]
@@ -138,6 +368,16 @@
     ]
   },
   {
+    "stationUid": 6608,
+    "name": "Primorska - Bazar Veleprodaja",
+    "nsmartName": "Primorska-Bazar Veleprodaja",
+    "lat": 45.2879205478,
+    "lon": 19.7942811115,
+    "lines": [
+      "15NPA"
+    ]
+  },
+  {
     "stationUid": 12602,
     "name": "Primorska - Neoplanta - Okretnica",
     "nsmartName": "Primorska-Neoplanta Okretnica Kanal DTD",
@@ -148,6 +388,16 @@
     ]
   },
   {
+    "stationUid": 7118,
+    "name": "Proleterska - Drage Garašanin",
+    "nsmartName": "Proleterska-Šaljapinova",
+    "lat": 45.3018931203,
+    "lon": 19.8143882272,
+    "lines": [
+      "1B"
+    ]
+  },
+  {
     "stationUid": 12599,
     "name": "Put Novosadskog Partizanskog Odreda - Albus",
     "nsmartName": "Put novosadskog partizanskog odreda-Albus",
@@ -155,6 +405,26 @@
     "lon": 19.806465,
     "lines": [
       "10ALA"
+    ]
+  },
+  {
+    "stationUid": 6575,
+    "name": "Put Novosadskog Partizanskog Odreda - Standard",
+    "nsmartName": "Put novosadskog partizanskog odreda-Standard",
+    "lat": 45.276429415,
+    "lon": 19.8084575794,
+    "lines": [
+      "10ALA"
+    ]
+  },
+  {
+    "stationUid": 6561,
+    "name": "Sentandrejski Put - Teodora Mandića",
+    "nsmartName": "Sentandrejski put-Teodora Mandica",
+    "lat": 45.2737069812,
+    "lon": 19.830315176,
+    "lines": [
+      "17B"
     ]
   },
   {
@@ -179,11 +449,42 @@
     ]
   },
   {
+    "stationUid": 7372,
+    "name": "Stanoja Glavaša - Šarplaninska",
+    "nsmartName": "Stanoja Glavaša-Šarplaninska",
+    "lat": 45.236683,
+    "lon": 19.808045,
+    "lines": [
+      "12A"
+    ]
+  },
+  {
+    "stationUid": 12769,
+    "name": "Tekije - Benzinska Pumpa",
+    "nsmartName": "Tekije- Benzinska stanica",
+    "lat": 45.2312570434,
+    "lon": 19.8936378798,
+    "lines": [
+      "3BA"
+    ]
+  },
+  {
     "stationUid": 6635,
     "name": "Temerinski Put - Nadvožnjak - Okretnica",
     "nsmartName": "Temerinski put-Nadvožnjak-Okretnica",
     "lat": 45.3023192227,
     "lon": 19.8302754549,
+    "lines": [
+      "5B",
+      "5NA"
+    ]
+  },
+  {
+    "stationUid": 6732,
+    "name": "Temerinski Put - Savska",
+    "nsmartName": "Temerinski put-Savska-Matijević",
+    "lat": 45.3002863203,
+    "lon": 19.8305569794,
     "lines": [
       "5B",
       "5NA"
@@ -207,7 +508,9 @@
     "lon": 19.8422463011,
     "lines": [
       "10ALB",
+      "12B",
       "14B",
+      "15NPB",
       "2B"
     ]
   },
@@ -221,6 +524,16 @@
       "12B",
       "15NPB",
       "17A"
+    ]
+  },
+  {
+    "stationUid": 6944,
+    "name": "Veternik - Centar",
+    "nsmartName": "Veternik-Centar",
+    "lat": 45.2502026841,
+    "lon": 19.7570349816,
+    "lines": [
+      "14A"
     ]
   },
   {
