@@ -125,27 +125,37 @@ function hideRoutes() {
   shown.clear()
 }
 
-/** One line at a time: drop whatever was drawn, then show this one. */
+function routeFor(id: string): L.Polyline {
+  const existing = routes.get(id)
+  if (existing) return existing
+  const row = lines.find((r) => r.line.id === id)!
+  const route = L.polyline(row.line.shape, {
+    color: row.color,
+    weight: 5,
+    opacity: 0.85,
+    pane: 'routes',
+  })
+  routes.set(id, route)
+  return route
+}
+
+/** Draw exactly these lines, the same polylines a selected bus would show. */
+function showRoutes(ids: Iterable<string>) {
+  const keep = new Set(ids)
+  for (const id of [...shown]) {
+    if (keep.has(id)) continue
+    routes.get(id)?.remove()
+    shown.delete(id)
+  }
+  for (const id of keep) {
+    if (shown.has(id)) continue
+    routeFor(id).addTo(map)
+    shown.add(id)
+  }
+}
+
 function showOnlyRoute(id: string) {
-  for (const shownId of shown) {
-    if (shownId === id) continue
-    routes.get(shownId)?.remove()
-    shown.delete(shownId)
-  }
-  if (shown.has(id)) return
-  let route = routes.get(id)
-  if (!route) {
-    const row = lines.find((r) => r.line.id === id)!
-    route = L.polyline(row.line.shape, {
-      color: row.color,
-      weight: 5,
-      opacity: 0.85,
-      pane: 'routes',
-    })
-    routes.set(id, route)
-  }
-  route.addTo(map)
-  shown.add(id)
+  showRoutes([id])
 }
 
 const icons = new Map(
@@ -584,7 +594,7 @@ function renderPanel(now: Date) {
     paintPanel(
       `<div class="arrivals">
       <h3>Lines</h3>
-      <p class="empty">Click a line to see its route, a stop for arrivals, or a bus to follow it.</p>
+      <p class="empty">Click a line to see its route, a stop for the buses coming there and the routes they will take, or a bus to follow it.</p>
       <ul class="serving">${chips}</ul>
     </div>`,
       'top',
@@ -601,6 +611,8 @@ function renderPanel(now: Date) {
     now,
   )
   dueIds = new Set(rows.flatMap((row) => (row.vehicleId ? [row.vehicleId] : [])))
+  // Same polylines as selecting each of these buses, so the roads they still cover stay visible.
+  showRoutes(rows.map((row) => row.lineId))
 
   const serving = lines.filter(({ line }) =>
     servesStop(line, stop.name, stop.lat, stop.lon),
