@@ -1,7 +1,14 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import rawLines from './data/lines.json'
-import { arrivalsAtStop, dayType, itinerary, servesStop, shapeDistances, vehiclesAt } from './simulate.ts'
+import {
+  arrivalsAtStop,
+  dayType,
+  itinerary,
+  servesStop,
+  shapeDistances,
+  vehiclesAt,
+} from './simulate.ts'
 import './style.css'
 import type { DayType, Line, Vehicle } from './types.ts'
 
@@ -252,6 +259,8 @@ type SelectedStop = {
 
 let selected: SelectedStop | null = null
 let selectedBusId: string | null = null
+/** Line of the selected bus, so its stops can be marked without hiding the rest. */
+let selectedBusLineId: string | null = null
 let selectedLineId: string | null = null
 /** Line whose panel was last painted, so a newly chosen line starts scrolled to the top. */
 let linePanelKey = ''
@@ -260,6 +269,8 @@ let lineSheet: 'live' | 'timetable' = 'live'
 /** Timetable day. Null follows the clock, and a picked day stays when flipping direction. */
 let timetableDay: DayType | null = null
 let dueIds = new Set<string>()
+/** Poles on lines through the selected stop, ringed in that line's color. */
+let stopRingColors = new Map<string, string>()
 
 function clock(date: Date): string {
   return date.toLocaleTimeString('sr-RS', { hour: '2-digit', minute: '2-digit' })
@@ -546,6 +557,7 @@ function renderLine(now: Date): boolean {
 }
 
 function renderPanel(now: Date) {
+  stopRingColors = new Map()
   if (selectedBusId) {
     const found = vehicleById(selectedBusId, now)
     if (!found) {
@@ -617,6 +629,14 @@ function renderPanel(now: Date) {
   const serving = lines.filter(({ line }) =>
     servesStop(line, stop.name, stop.lat, stop.lon),
   )
+  const rings = new Map<string, string>()
+  for (const { line, color } of serving) {
+    for (const call of line.stops) {
+      const key = stopKey(call.lat, call.lon)
+      if (!rings.has(key)) rings.set(key, color)
+    }
+  }
+  stopRingColors = rings
   const lineList = serving.length
     ? `<ul class="serving">${serving
         .map(({ line, color }) => `<li>${lineChip(line.id, color)}</li>`)
@@ -665,10 +685,12 @@ function clearStop() {
   selected.marker.setRadius(stopRadius(map.getZoom()))
   selected = null
   dueIds = new Set()
+  stopRingColors = new Map()
 }
 
 function clearBus() {
   selectedBusId = null
+  selectedBusLineId = null
   followKey = ''
   hideRoutes()
 }
@@ -682,13 +704,30 @@ function clearLine() {
   hideRoutes()
 }
 
-/** Line mode draws this direction's poles larger, in the line color, and hides the rest. */
+function lineStopStyle(color: string) {
+  return {
+    color,
+    weight: 3,
+    fillColor: '#fff',
+    fillOpacity: 1,
+  }
+}
+
+/**
+ * Line mode draws this direction's poles larger, in the line color, and hides the rest.
+ * Bus mode and stop mode keep every pole, and ring the ones on the relevant lines.
+ */
 function paintPoles() {
   const row = selectedLineId
     ? lines.find((r) => r.line.id === selectedLineId)
     : undefined
+  const busRow =
+    !row && selectedBusLineId
+      ? lines.find((r) => r.line.id === selectedBusLineId)
+      : undefined
+  const marked = row ?? busRow
   const onLine = new Set(
-    row ? row.line.stops.map((stop) => stopKey(stop.lat, stop.lon)) : [],
+    marked ? marked.line.stops.map((stop) => stopKey(stop.lat, stop.lon)) : [],
   )
   const radius = stopRadius(map.getZoom())
   for (const [key, pole] of poles) {
@@ -698,22 +737,24 @@ function paintPoles() {
     }
     // remove() takes the marker off the map but leaves it in the group, so check the map.
     if (!map.hasLayer(pole.marker)) pole.marker.addTo(stopLayer)
+    const ring = stopRingColors.get(key)
     if (selected?.marker === pole.marker) {
       pole.marker.setStyle(selectedStopStyle)
       pole.marker.setRadius(Math.max(radius, 8))
-    } else if (row) {
-      pole.marker.setStyle({
-        color: row.color,
-        weight: 3,
-        fillColor: '#fff',
-        fillOpacity: 1,
-      })
+    } else if (ring) {
+      pole.marker.setStyle(lineStopStyle(ring))
       pole.marker.setRadius(Math.max(radius, 6))
+      pole.marker.bringToFront()
+    } else if (marked && onLine.has(key)) {
+      pole.marker.setStyle(lineStopStyle(marked.color))
+      pole.marker.setRadius(Math.max(radius, 6))
+      if (busRow) pole.marker.bringToFront()
     } else {
       pole.marker.setStyle(stopStyle)
       pole.marker.setRadius(radius)
     }
   }
+  selected?.marker.bringToFront()
 }
 
 function toggleStop(
@@ -751,6 +792,7 @@ function selectBus(vehicleId: string, lineId: string) {
     clearLine()
   }
   selectedBusId = vehicleId
+  selectedBusLineId = lineId
   showOnlyRoute(lineId)
   tick()
 }
