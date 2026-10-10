@@ -846,13 +846,16 @@ function tick() {
       seen.add(v.id)
       count++
       const marker = markers.get(v.id)
+      const minutes =
+        v.secondsLeft == null ? '' : ` · ${Math.max(1, Math.round(v.secondsLeft / 60))} min`
+      const tip = `${v.line}${minutes}${v.stopName ? ` · ${v.stopName}` : ''}`
       if (marker) {
         marker.setLatLng([v.lat, v.lng])
+        marker.setIcon(liveIcon(v.line))
+        marker.setTooltipContent(tip)
       } else {
         const created = L.marker([v.lat, v.lng], { icon: liveIcon(v.line) }).addTo(map)
-        const minutes =
-          v.secondsLeft == null ? '' : ` · ${Math.max(1, Math.round(v.secondsLeft / 60))} min`
-        created.bindTooltip(`${v.line}${minutes}${v.stopName ? ` · ${v.stopName}` : ''}`)
+        created.bindTooltip(tip)
         created.on('click', (event) => {
           L.DomEvent.stopPropagation(event)
         })

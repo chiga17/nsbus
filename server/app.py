@@ -79,9 +79,41 @@ def as_float(value: object) -> float | None:
     return number
 
 
+# Variants that share both polled stops with the plain direction.
+DIRECTION_ALIASES = {
+    "6AB": "6A",
+    "5NA": "5B",
+}
+
+
+def line_number(line: str) -> str:
+    number = []
+    for ch in line:
+        if not ch.isdigit():
+            break
+        number.append(ch)
+    return "".join(number)
+
+
+def direction_candidates(nsmart_line: str, stop_lines: list[str]) -> set[str]:
+    """Local directions this stop can prove for an NSmart line number.
+
+    "6" at Smederevska matches 6A and 6AB, which both squash to 6A.
+    "6" at Filipa Višnjića matches only 6B.
+    """
+    number = line_number(nsmart_line.upper())
+    if not number:
+        return set()
+    found = set()
+    for line in stop_lines:
+        if line_number(line) == number:
+            found.add(DIRECTION_ALIASES.get(line, line))
+    return found
+
+
 def buses_from(rows: list, stop: dict) -> list[dict]:
-    # NSmart line numbers are not our direction ids (a 5B terminus often reports "5"),
-    # so the line filter chooses which stops to ask, and every bus in the answer is kept.
+    # NSmart line numbers are not our direction ids (a 5B terminus often reports "5").
+    # The stop we asked narrows that number to a direction such as 5B or 6A.
     found = []
     for row in rows:
         if not isinstance(row, dict):
@@ -111,6 +143,7 @@ def buses_from(rows: list, stop: dict) -> list[dict]:
                 {
                     "garageNo": garage,
                     "line": line,
+                    "candidates": direction_candidates(line, stop["lines"]),
                     "lat": lat,
                     "lng": lng,
                     "secondsLeft": seconds_left,
@@ -121,22 +154,51 @@ def buses_from(rows: list, stop: dict) -> list[dict]:
     return found
 
 
+def closer(left: dict, right: dict) -> dict:
+    left_seconds = left["secondsLeft"]
+    right_seconds = right["secondsLeft"]
+    if left_seconds is None:
+        return right
+    if right_seconds is None or left_seconds <= right_seconds:
+        return left
+    return right
+
+
 def dedupe(buses: list[dict]) -> list[dict]:
-    best: dict[str, dict] = {}
-    dropped = 0
+    grouped: dict[str, dict] = {}
     for bus in buses:
-        previous = best.get(bus["garageNo"])
-        if previous is None:
-            best[bus["garageNo"]] = bus
+        group = grouped.get(bus["garageNo"])
+        incoming = set(bus["candidates"])
+        if group is None:
+            grouped[bus["garageNo"]] = {"best": bus, "candidates": incoming}
             continue
-        dropped += 1
-        previous_seconds = previous["secondsLeft"]
-        seconds = bus["secondsLeft"]
-        if previous_seconds is None or (seconds is not None and seconds < previous_seconds):
-            best[bus["garageNo"]] = bus
+        group["best"] = closer(group["best"], bus)
+        if not incoming:
+            continue
+        if group["candidates"]:
+            group["candidates"] &= incoming
+        else:
+            group["candidates"] = incoming
+    merged = []
+    dropped = len(buses) - len(grouped)
+    for garage, group in grouped.items():
+        best = group["best"]
+        candidates = group["candidates"]
+        line = next(iter(candidates)) if len(candidates) == 1 else best["line"]
+        merged.append(
+            {
+                "garageNo": garage,
+                "line": line,
+                "lat": best["lat"],
+                "lng": best["lng"],
+                "secondsLeft": best["secondsLeft"],
+                "stopUid": best["stopUid"],
+                "stopName": best["stopName"],
+            }
+        )
     if dropped:
         logger.info("dropped {} duplicate garage records", dropped)
-    return sorted(best.values(), key=lambda bus: (bus["line"], bus["garageNo"]))
+    return sorted(merged, key=lambda bus: (bus["line"], bus["garageNo"]))
 
 
 def poll_once(stops: list[dict], lines: set[str] | None) -> None:
