@@ -5,5 +5,7 @@ scratch
 .DS_Store
 tmp/
 .env
+.env.droplet
+.env.cloudflare
 __pycache__/
 *.py[cod]
