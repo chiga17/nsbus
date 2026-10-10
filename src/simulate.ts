@@ -27,6 +27,36 @@ export function shapeDistances(line: Line): number[] {
   return out
 }
 
+/** Metres along the shape of the point on the route closest to this GPS fix. */
+export function nearestAlong(
+  line: Line,
+  cumulative: number[],
+  lat: number,
+  lon: number,
+): number {
+  let bestAlong = 0
+  let bestDist = Infinity
+  for (let i = 1; i < line.shape.length; i++) {
+    const a = line.shape[i - 1]
+    const b = line.shape[i]
+    const abLat = b[0] - a[0]
+    const abLon = b[1] - a[1]
+    const len2 = abLat * abLat + abLon * abLon
+    let u = 0
+    if (len2 > 0) {
+      u = ((lat - a[0]) * abLat + (lon - a[1]) * abLon) / len2
+      if (u < 0) u = 0
+      else if (u > 1) u = 1
+    }
+    const distance = metres([lat, lon], [a[0] + abLat * u, a[1] + abLon * u])
+    if (distance < bestDist) {
+      bestDist = distance
+      bestAlong = cumulative[i - 1] + (cumulative[i] - cumulative[i - 1]) * u
+    }
+  }
+  return bestAlong
+}
+
 function pointAt(
   line: Line,
   cumulative: number[],
@@ -123,6 +153,27 @@ export function itinerary(line: Line, departedAt: string, along: number, now: Da
     if (next) markedNext = true
     const at = new Date(mps > 0 ? t0 + ((stop.along - first) / mps) * 1000 : t0)
     return { name: stop.name, at, passed, next }
+  })
+}
+
+/**
+ * Same stop list as a followed timetable bus, timed from where this bus is now
+ * and the line's usual trip length.
+ */
+export function itineraryFromAlong(line: Line, along: number, now: Date): Call[] {
+  const stops = line.stops
+  const first = stops[0]?.along ?? 0
+  const last = stops[stops.length - 1]?.along ?? first
+  const span = last - first
+  const mps = span > 0 && line.tripSeconds > 0 ? span / line.tripSeconds : 0
+  let markedNext = false
+
+  return stops.map((stop) => {
+    const passed = stop.along <= along
+    const next = !passed && !markedNext
+    if (next) markedNext = true
+    const seconds = mps > 0 ? (stop.along - along) / mps : 0
+    return { name: stop.name, at: new Date(now.getTime() + seconds * 1000), passed, next }
   })
 }
 

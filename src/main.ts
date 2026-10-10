@@ -5,9 +5,12 @@ import {
   arrivalsAtStop,
   dayType,
   itinerary,
+  itineraryFromAlong,
+  nearestAlong,
   servesStop,
   shapeDistances,
   vehiclesAt,
+  type Call,
 } from './simulate.ts'
 import './style.css'
 import type { DayType, Line, Vehicle } from './types.ts'
@@ -561,8 +564,56 @@ function renderLine(now: Date): boolean {
   return true
 }
 
+function paintBusFollow(line: Line, color: string, calls: Call[], note: string) {
+  const nextAt = calls.findIndex((call) => call.next)
+  const key = `${selectedBusId}:${nextAt}`
+  const scroll = key === followKey ? 'keep' : 'next'
+  followKey = key
+  const rows = calls
+    .map((call, i) => {
+      const stop = line.stops[i]
+      const cls = call.passed ? ' class="passed"' : call.next ? ' class="next"' : ''
+      return `<li${cls}><button type="button" data-stop="${stopKey(stop.lat, stop.lon)}"><span class="stop">${esc(call.name)}</span><span class="when">${clock(call.at)}</span></button></li>`
+    })
+    .join('')
+  paintPanel(
+    `<div class="arrivals">
+        <div class="sheet-head">
+          <h3><i class="chip" style="background:${color}"></i>${esc(line.id)}</h3>
+          <p class="route">${esc(line.route)}</p>
+        </div>
+        <ul>${rows}</ul>
+        <p class="empty">${esc(note)}</p>
+        <button type="button" id="clear-panel">clear</button>
+      </div>`,
+    scroll,
+  )
+}
+
 function renderPanel(now: Date) {
   stopRingColors = new Map()
+  if (usingLive && selectedBusId) {
+    const live = liveBuses.find((bus) => bus.id === selectedBusId)
+    const row = live ? lines.find((item) => item.line.id === live.line) : undefined
+    if (!live || !row) {
+      clearBus()
+    } else {
+      if (selectedBusLineId !== row.line.id) {
+        selectedBusLineId = row.line.id
+        showOnlyRoute(row.line.id)
+      }
+      dueIds = new Set()
+      const along = nearestAlong(row.line, row.cumulative, live.lat, live.lng)
+      paintBusFollow(
+        row.line,
+        row.color,
+        itineraryFromAlong(row.line, along, now),
+        'live GPS · gray stops are already passed',
+      )
+      return
+    }
+  }
+
   if (selectedBusId) {
     const found = vehicleById(selectedBusId, now)
     if (!found) {
@@ -570,29 +621,11 @@ function renderPanel(now: Date) {
     } else {
       dueIds = new Set()
       const { vehicle, line, color } = found
-      const calls = itinerary(line, vehicle.departedAt, vehicle.along, now)
-      const nextAt = calls.findIndex((call) => call.next)
-      const key = `${selectedBusId}:${nextAt}`
-      const scroll = key === followKey ? 'keep' : 'next'
-      followKey = key
-      const rows = calls
-        .map((call, i) => {
-          const stop = line.stops[i]
-          const cls = call.passed ? ' class="passed"' : call.next ? ' class="next"' : ''
-          return `<li${cls}><button type="button" data-stop="${stopKey(stop.lat, stop.lon)}"><span class="stop">${esc(call.name)}</span><span class="when">${clock(call.at)}</span></button></li>`
-        })
-        .join('')
-      paintPanel(
-        `<div class="arrivals">
-        <div class="sheet-head">
-          <h3><i class="chip" style="background:${color}"></i>${esc(vehicle.lineId)}</h3>
-          <p class="route">${esc(line.route)}</p>
-        </div>
-        <ul>${rows}</ul>
-        <p class="empty">simulated from timetable · gray stops are already passed</p>
-        <button type="button" id="clear-panel">clear</button>
-      </div>`,
-        scroll,
+      paintBusFollow(
+        line,
+        color,
+        itinerary(line, vehicle.departedAt, vehicle.along, now),
+        'simulated from timetable · gray stops are already passed',
       )
       return
     }
@@ -851,15 +884,21 @@ function tick() {
       const tip = `${v.line}${minutes}${v.stopName ? ` · ${v.stopName}` : ''}`
       if (marker) {
         marker.setLatLng([v.lat, v.lng])
-        marker.setIcon(liveIcon(v.line))
+        const icon = liveIcon(v.line)
+        if (marker.getIcon() !== icon) marker.setIcon(icon)
         marker.setTooltipContent(tip)
+        markDue(v.id, marker)
       } else {
         const created = L.marker([v.lat, v.lng], { icon: liveIcon(v.line) }).addTo(map)
         created.bindTooltip(tip)
         created.on('click', (event) => {
           L.DomEvent.stopPropagation(event)
+          const current = liveBuses.find((bus) => bus.id === v.id)
+          if (!current || !lines.some((row) => row.line.id === current.line)) return
+          selectBus(current.id, current.line)
         })
         markers.set(v.id, created)
+        markDue(v.id, created)
       }
     }
   } else {
