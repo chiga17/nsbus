@@ -91,6 +91,35 @@ body,
   }
 }
 
+.locate-control button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: #fff;
+  color: #41505f;
+  cursor: pointer;
+}
+
+.locate-control button:hover {
+  background: #fff8f1;
+}
+
+.locate-control button.on {
+  color: #2d6a8e;
+}
+
+.locate-control button.pending {
+  color: #c45c26;
+}
+
+.locate-control button.denied {
+  color: #b91c1c;
+}
+
 .bus-marker {
   background: none;
   border: none;

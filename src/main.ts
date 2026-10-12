@@ -64,6 +64,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
 /** Starting view. Shift [lat, lon] to move the center; raise zoom to move closer. */
 const INITIAL_VIEW = { center: [45.25, 19.83] as [number, number], zoom: 14 }
+/** Two steps closer than the city view, so stops around the user stay readable. */
+const USER_ZOOM = 16
 
 const map = L.map('map', INITIAL_VIEW)
 
@@ -75,6 +77,157 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; OpenStreetMap · JGSP Novi Sad',
 }).addTo(map)
+
+const LOCATE_ICON = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+  <circle cx="12" cy="12" r="3.2" fill="currentColor"></circle>
+  <circle cx="12" cy="12" r="7.2" fill="none" stroke="currentColor" stroke-width="2"></circle>
+  <path d="M12 1.8v3.1M12 19.1v3.1M1.8 12h3.1M19.1 12h3.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+</svg>`
+
+let locateButton: HTMLButtonElement | null = null
+let userDot: L.CircleMarker | null = null
+let userAccuracy: L.Circle | null = null
+let userWatch: number | null = null
+let userFix: { lat: number; lon: number } | null = null
+/** The next GPS fix should move the map. Later fixes only move the dot. */
+let centerOnFix = false
+
+function zoomForUser(): number {
+  return Math.max(map.getZoom(), USER_ZOOM)
+}
+
+function showUser(lat: number, lon: number, accuracy: number) {
+  const at: L.LatLngExpression = [lat, lon]
+  if (!userAccuracy) {
+    userAccuracy = L.circle(at, {
+      radius: Math.max(accuracy, 1),
+      color: '#2d6a8e',
+      weight: 1,
+      opacity: 0.4,
+      fillColor: '#2d6a8e',
+      fillOpacity: 0.12,
+      interactive: false,
+    }).addTo(map)
+  } else {
+    userAccuracy.setLatLng(at)
+    userAccuracy.setRadius(Math.max(accuracy, 1))
+  }
+  userAccuracy.bringToBack()
+
+  if (!userDot) {
+    userDot = L.circleMarker(at, {
+      radius: 8,
+      color: '#fff',
+      weight: 3,
+      fillColor: '#2d6a8e',
+      fillOpacity: 1,
+      interactive: false,
+      className: 'user-dot',
+    }).addTo(map)
+  } else {
+    userDot.setLatLng(at)
+  }
+  userDot.bringToFront()
+}
+
+function stopUserWatch() {
+  if (userWatch == null) return
+  navigator.geolocation.clearWatch(userWatch)
+  userWatch = null
+}
+
+function onUserFix(pos: GeolocationPosition) {
+  const { latitude, longitude, accuracy } = pos.coords
+  userFix = { lat: latitude, lon: longitude }
+  showUser(latitude, longitude, accuracy)
+  locateButton?.classList.remove('pending', 'denied')
+  locateButton?.classList.add('on')
+  locateButton?.setAttribute('aria-pressed', 'true')
+  if (locateButton) locateButton.title = 'Center on my location'
+  if (!centerOnFix) return
+  centerOnFix = false
+  map.setView([latitude, longitude], zoomForUser())
+}
+
+function onUserFixError(err: GeolocationPositionError) {
+  locateButton?.classList.remove('pending', 'on')
+  locateButton?.classList.add('denied')
+  locateButton?.setAttribute('aria-pressed', 'false')
+  if (err.code === err.PERMISSION_DENIED) {
+    if (locateButton) {
+      locateButton.title = 'Location blocked. Allow it in the browser, then try again.'
+    }
+    stopUserWatch()
+    return
+  }
+  if (locateButton && !userFix) locateButton.title = 'Could not read your location'
+}
+
+/** Ask for GPS. `center` moves the map onto the user once a fix arrives. */
+function requestUserLocation(center: boolean) {
+  if (!navigator.geolocation) {
+    locateButton?.classList.add('denied')
+    if (locateButton) locateButton.title = 'Location is not available in this browser'
+    return
+  }
+  if (center && userFix) {
+    map.setView([userFix.lat, userFix.lon], zoomForUser())
+  } else {
+    centerOnFix = center
+  }
+  locateButton?.classList.remove('denied')
+  if (userWatch != null) return
+  locateButton?.classList.add('pending')
+  userWatch = navigator.geolocation.watchPosition(onUserFix, onUserFixError, {
+    enableHighAccuracy: true,
+    maximumAge: 5_000,
+    timeout: 12_000,
+  })
+}
+
+/**
+ * Center on the user when location is already allowed, or when the browser is
+ * still willing to ask. A previous denial stays quiet until the button is used.
+ */
+function bootUserLocation() {
+  if (!('geolocation' in navigator)) return
+  const query = navigator.permissions?.query?.bind(navigator.permissions)
+  if (!query) {
+    requestUserLocation(true)
+    return
+  }
+  query({ name: 'geolocation' })
+    .then((status) => {
+      if (status.state === 'denied') return
+      requestUserLocation(true)
+    })
+    .catch(() => {
+      requestUserLocation(true)
+    })
+}
+
+const LocateControl = L.Control.extend({
+  options: { position: 'topright' },
+  onAdd() {
+    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control locate-control')
+    const button = L.DomUtil.create('button', 'locate-btn', container) as HTMLButtonElement
+    button.type = 'button'
+    button.title = 'Center on my location'
+    button.setAttribute('aria-label', 'Center on my location')
+    button.innerHTML = LOCATE_ICON
+    L.DomEvent.disableClickPropagation(container)
+    L.DomEvent.disableScrollPropagation(container)
+    L.DomEvent.on(button, 'click', (event: Event) => {
+      L.DomEvent.preventDefault(event)
+      L.DomEvent.stopPropagation(event)
+      requestUserLocation(true)
+    })
+    locateButton = button
+    return container
+  },
+})
+
+new LocateControl().addTo(map)
 
 // Every stop of every line, drawn once even when several lines share it.
 const stopLayer = L.layerGroup().addTo(map)
@@ -794,6 +947,7 @@ function paintPoles() {
     }
   }
   selected?.marker.bringToFront()
+  userDot?.bringToFront()
 }
 
 function toggleStop(
@@ -945,3 +1099,4 @@ function tick() {
 
 tick()
 setInterval(tick, 1000)
+bootUserLocation()
