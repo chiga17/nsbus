@@ -177,14 +177,104 @@ export function itineraryFromAlong(line: Line, along: number, now: Date): Call[]
   })
 }
 
+/** Same curb recorded twice can sit this far apart (Uspenska - Šafarikova is 47 m). */
+const SAME_NAME_METRES = 80
+/** A pole drawn from coordinates is only about a metre wide. */
+const SAME_MARKER_METRES = 4
 /**
- * Both directions of a street have their own pole, sometimes under 60 m apart
- * (Žarka Zrenjanina: "Opština" and "Izvršno Veće" are 58 m). Distance alone would
- * merge them and list buses going the other way, so the name has to agree too.
+ * Other side of the street. Same-name pairs that are really one stop differ by
+ * under 100°; opposite curbs (Cara Dušana - Medicinska Škola, 73 m and 179°)
+ * differ by at least ~140°.
  */
-function samePole(stop: Stop, name: string, lat: number, lon: number): boolean {
-  if (stop.name.trim().toLowerCase() !== name.trim().toLowerCase()) return false
-  return metres([stop.lat, stop.lon], [lat, lon]) < 80
+const OPPOSITE_TURN = 120
+
+function stopName(name: string): string {
+  return name.trim().toLowerCase()
+}
+
+function bearingDegrees(a: [number, number], b: [number, number]): number {
+  const p1 = (a[0] * Math.PI) / 180
+  const p2 = (b[0] * Math.PI) / 180
+  const dl = ((b[1] - a[1]) * Math.PI) / 180
+  const y = Math.sin(dl) * Math.cos(p2)
+  const x = Math.cos(p1) * Math.sin(p2) - Math.sin(p1) * Math.cos(p2) * Math.cos(dl)
+  return (Math.atan2(y, x) * 180) / Math.PI
+}
+
+function turnDegrees(a: number, b: number): number {
+  const d = Math.abs(a - b) % 360
+  return d > 180 ? 360 - d : d
+}
+
+/** Direction the bus is traveling where this route passes closest to the point. */
+function travelBearing(line: Line, lat: number, lon: number): number | null {
+  let best = Infinity
+  let bearing: number | null = null
+  const shape = line.shape
+  for (let i = 1; i < shape.length; i++) {
+    const a = shape[i - 1]
+    const b = shape[i]
+    const abLat = b[0] - a[0]
+    const abLon = b[1] - a[1]
+    const len2 = abLat * abLat + abLon * abLon
+    if (len2 === 0) continue
+    let u = ((lat - a[0]) * abLat + (lon - a[1]) * abLon) / len2
+    if (u < 0) u = 0
+    else if (u > 1) u = 1
+    const distance = metres([lat, lon], [a[0] + abLat * u, a[1] + abLon * u])
+    if (distance >= best) continue
+    best = distance
+    bearing = bearingDegrees(a, b)
+  }
+  return best < 150 ? bearing : null
+}
+
+/**
+ * Travel direction at the clicked pole. Averaged from the lines whose stop
+ * actually sits on that marker, so a stop across the street does not cancel it.
+ */
+export function poleBearing(lines: Line[], name: string, lat: number, lon: number): number | null {
+  const wanted = stopName(name)
+  let x = 0
+  let y = 0
+  let n = 0
+  for (const line of lines) {
+    for (const stop of line.stops) {
+      if (stopName(stop.name) !== wanted) continue
+      if (metres([stop.lat, stop.lon], [lat, lon]) > SAME_MARKER_METRES) continue
+      const bearing = travelBearing(line, stop.lat, stop.lon)
+      if (bearing == null) continue
+      const rad = (bearing * Math.PI) / 180
+      x += Math.cos(rad)
+      y += Math.sin(rad)
+      n++
+    }
+  }
+  if (n === 0 || Math.hypot(x, y) < n * 0.25) return null
+  return (Math.atan2(y, x) * 180) / Math.PI
+}
+
+/**
+ * Same name within 80 m, and not the opposite curb. Different names stay apart
+ * even when the poles are close (Žarka Zrenjanina: "Opština" and "Izvršno Veće"
+ * are 58 m). The same name on both sides of Cara Dušana is 73 m apart, so the
+ * distance check alone lists buses that never call at the pole you clicked.
+ */
+function samePole(
+  stop: Stop,
+  line: Line,
+  name: string,
+  lat: number,
+  lon: number,
+  bearing: number | null,
+): boolean {
+  if (stopName(stop.name) !== stopName(name)) return false
+  const distance = metres([stop.lat, stop.lon], [lat, lon])
+  if (distance >= SAME_NAME_METRES) return false
+  if (distance < SAME_MARKER_METRES || bearing == null) return true
+  const heading = travelBearing(line, stop.lat, stop.lon)
+  if (heading == null) return true
+  return turnDegrees(heading, bearing) < OPPOSITE_TURN
 }
 
 function timesFor(line: Line, now: Date): string[] {
@@ -192,8 +282,14 @@ function timesFor(line: Line, now: Date): string[] {
 }
 
 /** True when this line's timetable includes the selected pole. */
-export function servesStop(line: Line, name: string, lat: number, lon: number): boolean {
-  return line.stops.some((stop) => samePole(stop, name, lat, lon))
+export function servesStop(
+  line: Line,
+  name: string,
+  lat: number,
+  lon: number,
+  bearing: number | null = null,
+): boolean {
+  return line.stops.some((stop) => samePole(stop, line, name, lat, lon, bearing))
 }
 
 /**
@@ -207,11 +303,12 @@ export function arrivalsAtStop(
   lon: number,
   now: Date,
   limit = 12,
+  bearing: number | null = null,
 ): Arrival[] {
   const out: Arrival[] = []
 
   for (const line of lines) {
-    const served = line.stops.filter((s) => samePole(s, name, lat, lon))
+    const served = line.stops.filter((s) => samePole(s, line, name, lat, lon, bearing))
     if (!served.length) continue
 
     const first = line.stops[0].along

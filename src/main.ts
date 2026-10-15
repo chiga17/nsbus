@@ -7,6 +7,7 @@ import {
   itinerary,
   itineraryFromAlong,
   nearestAlong,
+  poleBearing,
   servesStop,
   shapeDistances,
   vehiclesAt,
@@ -806,19 +807,15 @@ function renderPanel(now: Date) {
   }
 
   const stop = selected
-  const rows = arrivalsAtStop(
-    lines.map((row) => row.line),
-    stop.name,
-    stop.lat,
-    stop.lon,
-    now,
-  )
+  const network = lines.map((row) => row.line)
+  const bearing = poleBearing(network, stop.name, stop.lat, stop.lon)
+  const rows = arrivalsAtStop(network, stop.name, stop.lat, stop.lon, now, 12, bearing)
   dueIds = new Set(rows.flatMap((row) => (row.vehicleId ? [row.vehicleId] : [])))
   // Same polylines as selecting each of these buses, so the roads they still cover stay visible.
   showRoutes(rows.map((row) => row.lineId))
 
   const serving = lines.filter(({ line }) =>
-    servesStop(line, stop.name, stop.lat, stop.lon),
+    servesStop(line, stop.name, stop.lat, stop.lon, bearing),
   )
   const rings = new Map<string, string>()
   for (const { line, color } of serving) {
