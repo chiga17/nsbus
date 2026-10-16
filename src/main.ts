@@ -2,19 +2,20 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import rawLines from './data/lines.json'
 import {
-  arrivalsAtStop,
+  arrivalsFor,
   dayType,
-  itinerary,
   itineraryFromAlong,
-  nearestAlong,
+  placeLive,
   poleBearing,
   servesStop,
   shapeDistances,
-  vehiclesAt,
+  timetableBuses,
   type Call,
+  type GpsFix,
+  type RoadBus,
 } from './simulate.ts'
 import './style.css'
-import type { DayType, Line, Vehicle } from './types.ts'
+import type { DayType, Line } from './types.ts'
 
 const PALETTE = [
   '#c45c26',
@@ -351,6 +352,9 @@ export type LiveBus = {
 let usingLive = false
 let liveBuses: LiveBus[] = []
 let liveStatus = 'live'
+/** Buses the open mode can predict from. Timetable departures, or GPS snaps. */
+let placedBuses: RoadBus[] = []
+let unresolvedFixes: GpsFix[] = []
 
 function liveIcon(line: string): L.DivIcon {
   const cached = liveIcons.get(line)
@@ -517,18 +521,6 @@ function paintPanel(html: string, scroll: 'keep' | 'next' | 'top' = 'keep') {
   panelEl.scrollTop = Math.max(0, delta - cover - 8)
 }
 
-function vehicleById(
-  id: string,
-  now: Date,
-): { vehicle: Vehicle; line: Line; color: string } | null {
-  for (const row of lines) {
-    if (!id.startsWith(`${row.line.id}-`)) continue
-    const vehicle = vehiclesAt(row.line, row.cumulative, now).find((v) => v.id === id)
-    if (vehicle) return { vehicle, line: row.line, color: row.color }
-  }
-  return null
-}
-
 function lineChip(id: string, color: string): string {
   return `<button type="button" class="badge" data-line="${esc(id)}" style="background:${color}">${esc(id)}</button>`
 }
@@ -656,23 +648,25 @@ function renderLine(now: Date): boolean {
     selectedLineId = null
     return false
   }
-  const { line, cumulative, color } = row
-  const running = vehiclesAt(line, cumulative, now)
-    .map((vehicle) => ({
-      vehicle,
-      next: itinerary(line, vehicle.departedAt, vehicle.along, now).find((call) => call.next),
+  const { line, color } = row
+  const running = placedBuses
+    .filter((bus) => bus.lineId === line.id)
+    .map((bus) => ({
+      bus,
+      next: itineraryFromAlong(line, bus.along, now).find((call) => call.next),
     }))
     .sort((a, b) => (a.next?.at.getTime() ?? 0) - (b.next?.at.getTime() ?? 0))
 
   const road = running.length
     ? `<ul>${running
-        .map(({ vehicle, next }) => {
+        .map(({ bus, next }) => {
           const name = next?.name ?? line.stops.at(-1)?.name ?? ''
           const mins = next
             ? Math.max(0, Math.round((next.at.getTime() - now.getTime()) / 60000))
             : 0
           const eta = !next ? 'at last stop' : mins === 0 ? 'now' : `in ${mins} min`
-          return `<li><button type="button" class="road" data-bus="${esc(vehicle.id)}" data-line="${esc(line.id)}"><span class="stop">${esc(name)}</span><span class="when">left ${esc(vehicle.departedAt)} · ${eta}</span></button></li>`
+          const when = bus.departedAt ? `left ${esc(bus.departedAt)} · ${eta}` : eta
+          return `<li><button type="button" class="road" data-bus="${esc(bus.id)}" data-line="${esc(line.id)}"><span class="stop">${esc(name)}</span><span class="when">${when}</span></button></li>`
         })
         .join('')}</ul>`
     : `<p class="empty">None on the road right now.</p>`
@@ -710,7 +704,7 @@ function renderLine(now: Date): boolean {
     `<div class="arrivals">
       ${lineHead(line, color, now)}
       ${body}
-      <p class="empty">simulated from timetable</p>
+      <p class="empty">${usingLive ? 'live GPS' : 'simulated from timetable'}</p>
       <button type="button" id="clear-panel">clear</button>
     </div>`,
     scroll,
@@ -746,10 +740,10 @@ function paintBusFollow(line: Line, color: string, calls: Call[], note: string) 
 
 function renderPanel(now: Date) {
   stopRingColors = new Map()
-  if (usingLive && selectedBusId) {
-    const live = liveBuses.find((bus) => bus.id === selectedBusId)
-    const row = live ? lines.find((item) => item.line.id === live.line) : undefined
-    if (!live || !row) {
+  if (selectedBusId) {
+    const bus = placedBuses.find((item) => item.id === selectedBusId)
+    const row = bus ? lines.find((item) => item.line.id === bus.lineId) : undefined
+    if (!bus || !row) {
       clearBus()
     } else {
       if (selectedBusLineId !== row.line.id) {
@@ -757,29 +751,13 @@ function renderPanel(now: Date) {
         showOnlyRoute(row.line.id)
       }
       dueIds = new Set()
-      const along = nearestAlong(row.line, row.cumulative, live.lat, live.lng)
       paintBusFollow(
         row.line,
         row.color,
-        itineraryFromAlong(row.line, along, now),
-        'live GPS · gray stops are already passed',
-      )
-      return
-    }
-  }
-
-  if (selectedBusId) {
-    const found = vehicleById(selectedBusId, now)
-    if (!found) {
-      clearBus()
-    } else {
-      dueIds = new Set()
-      const { vehicle, line, color } = found
-      paintBusFollow(
-        line,
-        color,
-        itinerary(line, vehicle.departedAt, vehicle.along, now),
-        'simulated from timetable · gray stops are already passed',
+        itineraryFromAlong(row.line, bus.along, now),
+        usingLive
+          ? 'live GPS · gray stops are already passed'
+          : 'simulated from timetable · gray stops are already passed',
       )
       return
     }
@@ -809,7 +787,16 @@ function renderPanel(now: Date) {
   const stop = selected
   const network = lines.map((row) => row.line)
   const bearing = poleBearing(network, stop.name, stop.lat, stop.lon)
-  const rows = arrivalsAtStop(network, stop.name, stop.lat, stop.lon, now, 12, bearing)
+  const rows = arrivalsFor(
+    network,
+    placedBuses,
+    stop.name,
+    stop.lat,
+    stop.lon,
+    now,
+    12,
+    bearing,
+  )
   dueIds = new Set(rows.flatMap((row) => (row.vehicleId ? [row.vehicleId] : [])))
   // Same polylines as selecting each of these buses, so the roads they still cover stay visible.
   showRoutes(rows.map((row) => row.lineId))
@@ -860,7 +847,7 @@ function renderPanel(now: Date) {
     ${lineList}
     <h4>Next</h4>
     ${body}
-    <p class="empty">simulated from timetable</p>
+    <p class="empty">${usingLive ? 'live GPS' : 'simulated from timetable'}</p>
     <p class="empty legend"><i class="live"></i> already on the map</p>
     <button type="button" id="clear-panel">clear</button>
   </div>`,
@@ -1019,60 +1006,77 @@ function markDue(id: string, marker: L.Marker) {
   el.classList.toggle('is-selected', selectedBusId === id)
 }
 
+function refreshBuses(now: Date) {
+  if (!usingLive) {
+    placedBuses = timetableBuses(lines, now)
+    unresolvedFixes = []
+    return
+  }
+  const placed = placeLive(lines, liveBuses)
+  placedBuses = placed.buses
+  unresolvedFixes = placed.unresolved
+}
+
+function drawBus(
+  id: string,
+  lat: number,
+  lon: number,
+  lineId: string,
+  tip: string | null,
+  seen: Set<string>,
+) {
+  const icon = usingLive ? liveIcon(lineId) : icons.get(lineId)
+  if (!icon) return
+  seen.add(id)
+  const marker = markers.get(id)
+  if (marker) {
+    marker.setLatLng([lat, lon])
+    if (marker.getIcon() !== icon) marker.setIcon(icon)
+    if (tip) {
+      if (marker.getTooltip()) marker.setTooltipContent(tip)
+      else marker.bindTooltip(tip)
+    }
+    markDue(id, marker)
+    return
+  }
+  const created = L.marker([lat, lon], { icon }).addTo(map)
+  if (tip) created.bindTooltip(tip)
+  created.on('click', (event) => {
+    L.DomEvent.stopPropagation(event)
+    const current = placedBuses.find((bus) => bus.id === id)
+    if (!current) return
+    selectBus(current.id, current.lineId)
+  })
+  markers.set(id, created)
+  markDue(id, created)
+}
+
 function tick() {
   const now = new Date()
+  refreshBuses(now)
   renderPanel(now)
   const seen = new Set<string>()
   let count = 0
 
-  if (usingLive) {
-    for (const v of liveBuses) {
-      seen.add(v.id)
-      count++
-      const marker = markers.get(v.id)
+  const visible = selectedLineId
+    ? placedBuses.filter((bus) => bus.lineId === selectedLineId)
+    : placedBuses
+  for (const bus of visible) {
+    count++
+    let tip = null
+    if (usingLive) {
+      const fix = liveBuses.find((item) => item.id === bus.id)
       const minutes =
-        v.secondsLeft == null ? '' : ` · ${Math.max(1, Math.round(v.secondsLeft / 60))} min`
-      const tip = `${v.line}${minutes}${v.stopName ? ` · ${v.stopName}` : ''}`
-      if (marker) {
-        marker.setLatLng([v.lat, v.lng])
-        const icon = liveIcon(v.line)
-        if (marker.getIcon() !== icon) marker.setIcon(icon)
-        marker.setTooltipContent(tip)
-        markDue(v.id, marker)
-      } else {
-        const created = L.marker([v.lat, v.lng], { icon: liveIcon(v.line) }).addTo(map)
-        created.bindTooltip(tip)
-        created.on('click', (event) => {
-          L.DomEvent.stopPropagation(event)
-          const current = liveBuses.find((bus) => bus.id === v.id)
-          if (!current || !lines.some((row) => row.line.id === current.line)) return
-          selectBus(current.id, current.line)
-        })
-        markers.set(v.id, created)
-        markDue(v.id, created)
-      }
+        fix?.secondsLeft == null ? '' : ` · ${Math.max(1, Math.round(fix.secondsLeft / 60))} min`
+      tip = `${bus.lineId}${minutes}${fix?.stopName ? ` · ${fix.stopName}` : ''}`
     }
-  } else {
-    for (const { line, cumulative } of lines) {
-      if (selectedLineId && line.id !== selectedLineId) continue
-      for (const v of vehiclesAt(line, cumulative, now)) {
-        seen.add(v.id)
-        count++
-
-        const marker = markers.get(v.id)
-        if (marker) {
-          marker.setLatLng([v.lat, v.lon])
-          markDue(v.id, marker)
-        } else {
-          const created = L.marker([v.lat, v.lon], { icon: icons.get(v.lineId) }).addTo(map)
-          created.on('click', (event) => {
-            L.DomEvent.stopPropagation(event)
-            selectBus(v.id, v.lineId)
-          })
-          markers.set(v.id, created)
-          markDue(v.id, created)
-        }
-      }
+    drawBus(bus.id, bus.lat, bus.lon, bus.lineId, tip, seen)
+  }
+  if (usingLive && !selectedLineId) {
+    for (const fix of unresolvedFixes) {
+      count++
+      const tip = `${fix.line} · direction unclear`
+      drawBus(fix.id, fix.lat, fix.lng, fix.line, tip, seen)
     }
   }
 
