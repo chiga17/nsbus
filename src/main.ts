@@ -402,7 +402,7 @@ export function enableLive(
     clearBus()
     if (usingLive) {
       void refresh()
-      timer = window.setInterval(() => void refresh(), 15_000)
+      timer = window.setInterval(() => void refresh(), 10_000)
     } else {
       window.clearInterval(timer)
       liveBuses = []
