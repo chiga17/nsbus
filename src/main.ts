@@ -1097,3 +1097,8 @@ function tick() {
 tick()
 setInterval(tick, 1000)
 bootUserLocation()
+
+// Production only. A dev worker would cache Vite's rewritten modules.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {})
+}
