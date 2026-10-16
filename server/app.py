@@ -201,11 +201,30 @@ def dedupe(buses: list[dict]) -> list[dict]:
     return sorted(merged, key=lambda bus: (bus["line"], bus["garageNo"]))
 
 
+def publish(stops: list[dict], lines: set[str] | None, ok: int, failed: int) -> list[dict]:
+    """Replace the served list from whatever each stop last returned.
+
+    Stops that this pass has not reached yet keep their previous buses, so a
+    reader sees fresh positions without waiting for the rest of the loop.
+    """
+    merged = dedupe([bus for group in previous_by_stop.values() for bus in group])
+    body = {
+        "ready": True,
+        "updatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "lines": sorted(lines) if lines is not None else sorted({line for stop in stops for line in stop["lines"]}),
+        "stops": {"ok": ok, "failed": failed},
+        "buses": merged,
+    }
+    with snapshot_lock:
+        snapshot.clear()
+        snapshot.update(body)
+    return merged
+
+
 def poll_once(stops: list[dict], lines: set[str] | None) -> None:
     started = time.perf_counter()
     ok = 0
     failed = 0
-    collected: list[dict] = []
     for stop in stops:
         uid = int(stop["stationUid"])
         tracked = sorted(set(stop["lines"]) if lines is None else set(stop["lines"]) & lines)
@@ -226,20 +245,19 @@ def poll_once(stops: list[dict], lines: set[str] | None) -> None:
             kept = previous_by_stop.get(uid)
             if kept is not None:
                 logger.warning("keeping {} previous buses for {}", len(kept), stop["name"])
-                collected.extend(kept)
             continue
-        buses = buses_from(rows, stop)
-        previous_by_stop[uid] = buses
-        collected.extend(buses)
+        previous_by_stop[uid] = buses_from(rows, stop)
         ok += 1
+        merged = publish(stops, lines, ok, failed)
         logger.info(
-            "nsmart stop={} lines={} uid={} status=200 ms={} rows={} buses={}",
+            "nsmart stop={} lines={} uid={} status=200 ms={} rows={} buses={} snapshot={}",
             stop["name"],
             line_list,
             uid,
             int((time.perf_counter() - request_started) * 1000),
             len(rows),
-            len(buses),
+            len(previous_by_stop[uid]),
+            len(merged),
         )
 
     if ok == 0:
@@ -252,20 +270,10 @@ def poll_once(stops: list[dict], lines: set[str] | None) -> None:
             snapshot["stops"] = {"ok": 0, "failed": failed}
         return
 
-    merged = dedupe(collected)
+    merged = publish(stops, lines, ok, failed)
     seen = sorted({bus["line"] for bus in merged if bus["line"]})
     if seen:
         logger.info("nsmart lines {}", ", ".join(seen))
-    body = {
-        "ready": True,
-        "updatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "lines": sorted(lines) if lines is not None else sorted({line for stop in stops for line in stop["lines"]}),
-        "stops": {"ok": ok, "failed": failed},
-        "buses": merged,
-    }
-    with snapshot_lock:
-        snapshot.clear()
-        snapshot.update(body)
     logger.info(
         "poll done ms={} stops_ok={} stops_failed={} buses={}",
         int((time.perf_counter() - started) * 1000),
