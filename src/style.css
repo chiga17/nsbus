@@ -107,7 +107,7 @@ body,
     flex: none;
     align-items: center;
     justify-content: center;
-    height: 44px;
+    height: 28px;
     touch-action: none;
     cursor: ns-resize;
   }
