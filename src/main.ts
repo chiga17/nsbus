@@ -60,7 +60,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </header>
   <div class="content">
     <div id="map"></div>
-    <aside id="panel" class="panel"></aside>
+    <aside id="panel" class="panel">
+      <div id="panel-handle" class="panel-handle" role="separator" aria-orientation="horizontal" aria-label="Resize panel" tabindex="0"></div>
+      <div id="panel-body"></div>
+    </aside>
   </div>
 `
 
@@ -442,7 +445,66 @@ function googleMapsUrl(lat: number, lon: number): string {
   return `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`
 }
 
-const panelEl = document.querySelector<HTMLElement>('#panel')!
+const sheetEl = document.querySelector<HTMLElement>('#panel')!
+const panelEl = document.querySelector<HTMLElement>('#panel-body')!
+const panelHandle = document.querySelector<HTMLElement>('#panel-handle')!
+
+/** Shortest the list can be and still leave the grabber to pull it back up. */
+const MIN_PANEL = 72
+/** Map that stays visible so the list cannot cover the whole screen. */
+const MAP_SLIVER = 96
+
+function clampPanel(px: number): number {
+  const room = sheetEl.parentElement?.clientHeight ?? px
+  const max = Math.max(MIN_PANEL, room - MAP_SLIVER)
+  return Math.round(Math.min(max, Math.max(MIN_PANEL, px)))
+}
+
+function setPanelHeight(px: number) {
+  const next = clampPanel(px)
+  sheetEl.style.setProperty('--panel-height', `${next}px`)
+  const room = sheetEl.parentElement?.clientHeight ?? next
+  panelHandle.setAttribute('aria-valuemin', '0')
+  panelHandle.setAttribute('aria-valuemax', '100')
+  panelHandle.setAttribute('aria-valuenow', String(Math.round((next / room) * 100)))
+  map.invalidateSize()
+}
+
+/** The phone layout stacks the list under the map. Drag the grabber to resize it. */
+let panelDrag: { y: number; height: number } | null = null
+
+panelHandle.addEventListener('pointerdown', (event) => {
+  if (event.button !== 0) return
+  if (window.matchMedia('(min-width: 721px)').matches) return
+  panelDrag = { y: event.clientY, height: sheetEl.getBoundingClientRect().height }
+  panelHandle.classList.add('is-dragging')
+  panelHandle.setPointerCapture(event.pointerId)
+})
+
+panelHandle.addEventListener('pointermove', (event) => {
+  if (!panelDrag) return
+  setPanelHeight(panelDrag.height + (panelDrag.y - event.clientY))
+})
+
+function endPanelDrag(event: PointerEvent) {
+  if (!panelDrag) return
+  panelDrag = null
+  panelHandle.classList.remove('is-dragging')
+  if (panelHandle.hasPointerCapture(event.pointerId)) panelHandle.releasePointerCapture(event.pointerId)
+}
+
+panelHandle.addEventListener('pointerup', endPanelDrag)
+panelHandle.addEventListener('pointercancel', endPanelDrag)
+
+panelHandle.addEventListener('keydown', (event) => {
+  if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return
+  if (window.matchMedia('(min-width: 721px)').matches) return
+  event.preventDefault()
+  const step = event.shiftKey ? 96 : 40
+  const current = sheetEl.getBoundingClientRect().height
+  setPanelHeight(current + (event.key === 'ArrowUp' ? step : -step))
+})
+
 panelEl.addEventListener('click', (event) => {
   const target = event.target
   if (!(target instanceof Element)) return
