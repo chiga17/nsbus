@@ -50,13 +50,11 @@ const lines = (rawLines as unknown as Line[]).map((line) => ({
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header class="bar">
-    <div>
-      <strong>nsbus</strong>
-      <span class="muted">JGSP Novi Sad · gradski</span>
+    <strong class="brand">nsbus</strong>
+    <div class="mode" role="group" aria-label="Position source">
+      <button type="button" id="mode-sim" class="on" aria-pressed="true">simulated</button>
+      <button type="button" id="mode-gps" aria-pressed="false" disabled>gps</button>
     </div>
-    <div id="status" class="muted"></div>
-    <span id="source-note" class="muted warn">simulated from timetable, not GPS</span>
-    <span id="admin-slot"></span>
   </header>
   <div class="content">
     <div id="map"></div>
@@ -337,8 +335,8 @@ const icons = new Map(
 
 const markers = new Map<string, L.Marker>()
 const liveIcons = new Map<string, L.DivIcon>()
-const statusEl = document.querySelector('#status')!
-const sourceNote = document.querySelector<HTMLElement>('#source-note')!
+const simButton = document.querySelector<HTMLButtonElement>('#mode-sim')!
+const gpsButton = document.querySelector<HTMLButtonElement>('#mode-gps')!
 
 export type LiveBus = {
   id: string
@@ -351,10 +349,12 @@ export type LiveBus = {
 
 let usingLive = false
 let liveBuses: LiveBus[] = []
-let liveStatus = 'live'
 /** Buses the open mode can predict from. Timetable departures, or GPS snaps. */
 let placedBuses: RoadBus[] = []
 let unresolvedFixes: GpsFix[] = []
+let pollLive: (() => Promise<{ ready: boolean; updatedAt: string | null; buses: LiveBus[] }>) | null =
+  null
+let liveTimer = 0
 
 function liveIcon(line: string): L.DivIcon {
   const cached = liveIcons.get(line)
@@ -370,45 +370,52 @@ function liveIcon(line: string): L.DivIcon {
   return icon
 }
 
+function paintMode() {
+  simButton.classList.toggle('on', !usingLive)
+  gpsButton.classList.toggle('on', usingLive)
+  simButton.setAttribute('aria-pressed', String(!usingLive))
+  gpsButton.setAttribute('aria-pressed', String(usingLive))
+}
+
+async function refreshLive() {
+  if (!pollLive) return
+  try {
+    const snap = await pollLive()
+    liveBuses = snap.buses
+  } catch {
+    // Keep the last positions. The header no longer reports a failed poll.
+  }
+  tick()
+}
+
+function useSimulated() {
+  if (!usingLive) return
+  usingLive = false
+  paintMode()
+  window.clearInterval(liveTimer)
+  liveBuses = []
+  clearBus()
+  tick()
+}
+
+function useGps() {
+  if (usingLive || !pollLive) return
+  usingLive = true
+  paintMode()
+  clearBus()
+  void refreshLive()
+  liveTimer = window.setInterval(() => void refreshLive(), 10_000)
+}
+
+simButton.addEventListener('click', useSimulated)
+gpsButton.addEventListener('click', useGps)
+
 /** Admin page only. The public bundle never receives the backend address or token. */
 export function enableLive(
   poll: () => Promise<{ ready: boolean; updatedAt: string | null; buses: LiveBus[] }>,
 ): void {
-  const slot = document.querySelector('#admin-slot')
-  if (!slot) return
-  slot.innerHTML = `<button type="button" id="live-switch" class="live-switch">Live GPS</button>`
-  const button = document.querySelector<HTMLButtonElement>('#live-switch')!
-  let timer = 0
-
-  async function refresh() {
-    try {
-      const snap = await poll()
-      liveBuses = snap.buses
-      const when = snap.updatedAt ? new Date(snap.updatedAt) : null
-      const clock =
-        when && !Number.isNaN(when.getTime()) ? when.toLocaleTimeString('sr-RS') : ''
-      liveStatus = clock ? `live ${clock}` : 'live'
-      if (!snap.ready) liveStatus += ' · stale'
-    } catch {
-      liveStatus = 'live · update failed'
-    }
-    tick()
-  }
-
-  button.addEventListener('click', () => {
-    usingLive = !usingLive
-    button.classList.toggle('on', usingLive)
-    button.textContent = usingLive ? 'Live GPS on' : 'Live GPS'
-    clearBus()
-    if (usingLive) {
-      void refresh()
-      timer = window.setInterval(() => void refresh(), 10_000)
-    } else {
-      window.clearInterval(timer)
-      liveBuses = []
-      tick()
-    }
-  })
+  pollLive = poll
+  gpsButton.disabled = false
 }
 
 type SelectedStop = {
@@ -1056,13 +1063,11 @@ function tick() {
   refreshBuses(now)
   renderPanel(now)
   const seen = new Set<string>()
-  let count = 0
 
   const visible = selectedLineId
     ? placedBuses.filter((bus) => bus.lineId === selectedLineId)
     : placedBuses
   for (const bus of visible) {
-    count++
     let tip = null
     if (usingLive) {
       const fix = liveBuses.find((item) => item.id === bus.id)
@@ -1074,7 +1079,6 @@ function tick() {
   }
   if (usingLive && !selectedLineId) {
     for (const fix of unresolvedFixes) {
-      count++
       const tip = `${fix.line} · direction unclear`
       drawBus(fix.id, fix.lat, fix.lng, fix.line, tip, seen)
     }
@@ -1088,14 +1092,6 @@ function tick() {
   }
 
   paintPoles()
-
-  if (usingLive) {
-    sourceNote.textContent = 'live GPS'
-    statusEl.textContent = `${liveStatus} · ${count} bus(es) · ${now.toLocaleTimeString('sr-RS')}`
-  } else {
-    sourceNote.textContent = 'simulated from timetable, not GPS'
-    statusEl.textContent = `${dayType(now)} · ${count} bus(es) · ${shown.size} line(s) shown · ${now.toLocaleTimeString('sr-RS')}`
-  }
 }
 
 tick()

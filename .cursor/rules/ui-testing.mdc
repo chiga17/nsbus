@@ -1,0 +1,6 @@
+---
+description: Do not UI-test with a subagent unless the user asks
+alwaysApply: true
+---
+
+Do not launch a subagent to test the UI, and do not drive a browser or computer-use check of interface changes, unless the user explicitly asks for that testing. Simple UI changes are checked by hand. Typecheck and other non-UI checks are fine.

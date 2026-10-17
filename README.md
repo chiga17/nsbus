@@ -4,10 +4,10 @@ Novi Sad city bus map (Leaflet + Vite). Positions come from one of two modes. Th
 
 ## Modes
 
-Where the buses on the map come from. The header says which one is on.
+Where the buses on the map come from. The header switch says which one is on.
 
-- **Simulated** is the public map. Buses are placed from the city timetable (`timetableBuses` in `src/simulate.ts`). The note reads "simulated from timetable, not GPS".
-- **GPS** is the admin page only (`admin.html`, behind `ADMIN_PATH`). A Live GPS switch polls the backend and snaps each fix onto a route (`placeLive`). The note reads "live GPS". The public bundle never receives the backend address or token.
+- **Simulated** is the public map. Buses are placed from the city timetable (`timetableBuses` in `src/simulate.ts`).
+- **GPS** is the admin page only (`admin.html`, behind `ADMIN_PATH`). Choosing it polls the backend and snaps each fix onto a route (`placeLive`). The public bundle never receives the backend address or token, so that side of the switch stays off.
 
 ## Selections
 
@@ -37,3 +37,9 @@ npm run data
 This downloads the city timetable for workday, Saturday, and Sunday, then regenerates `src/data/lines.json` and `src/data/stop-orders.json`. Geometry responses are cached under `scratch/` (gitignored).
 
 See [LINKS.md](LINKS.md) for data sources.
+
+## Agents
+
+Do not launch a subagent to test the UI, and do not drive a browser to check interface changes, unless that testing was explicitly requested. Simple UI changes are checked by hand. Same rule: `.cursor/rules/ui-testing.mdc`.
+
+After opening or updating a pull request, put the Cloudflare Pages branch preview link in the chat. It is in the `cloudflare-workers-and-pages` comment on the PR. Same rule: `.cursor/rules/preview-link.mdc`.

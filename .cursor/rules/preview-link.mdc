@@ -1,0 +1,10 @@
+---
+description: Put the Cloudflare Pages preview link in chat after a PR
+alwaysApply: true
+---
+
+After you create or update a pull request, put the Cloudflare Pages preview link in the chat so the user can open the site without opening the PR.
+
+The link is in the pull request comment from `cloudflare-workers-and-pages`. Read that comment with `gh`. Share the **Branch Preview URL** (`https://<branch>.nsbus.pages.dev`). It tracks the branch. Also share the commit **Preview URL** when the comment includes one.
+
+If the comment is not there yet, the deploy is still running. Check again before you finish. Do not tell the user to open the PR to find the link. If it still has not appeared, say the preview is still deploying.
