@@ -41,3 +41,5 @@ See [LINKS.md](LINKS.md) for data sources.
 ## Agents
 
 Do not launch a subagent to test the UI, and do not drive a browser to check interface changes, unless that testing was explicitly requested. Simple UI changes are checked by hand. Same rule: `.cursor/rules/ui-testing.mdc`.
+
+After opening or updating a pull request, put the Cloudflare Pages branch preview link in the chat. It is in the `cloudflare-workers-and-pages` comment on the PR. Same rule: `.cursor/rules/preview-link.mdc`.
