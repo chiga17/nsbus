@@ -61,7 +61,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="content">
     <div id="map"></div>
     <aside id="panel" class="panel">
-      <div id="panel-handle" class="panel-handle" role="separator" aria-orientation="horizontal" aria-label="Resize panel" tabindex="0"></div>
+      <div id="panel-handle" class="panel-handle" role="separator" aria-orientation="horizontal" aria-label="Resize panel. Click to switch between a quarter and half of the screen." tabindex="0"></div>
       <div id="panel-body"></div>
     </aside>
   </div>
@@ -470,35 +470,62 @@ function setPanelHeight(px: number) {
   map.invalidateSize()
 }
 
-/** The phone layout stacks the list under the map. Drag the grabber to resize it. */
-let panelDrag: { y: number; height: number } | null = null
+/** A click jumps between these two shares of the screen. A drag can stop anywhere. */
+const PANEL_SHORT = 0.25
+const PANEL_TALL = 0.5
+/** Movement below this is still a click, not a drag. */
+const PANEL_CLICK_SLOP = 8
+
+function screenHeight(): number {
+  return window.visualViewport?.height ?? window.innerHeight
+}
+
+/** The phone layout stacks the list under the map. Drag the grabber, or click it to jump. */
+let panelDrag: { y: number; height: number; moved: boolean } | null = null
+
+function jumpPanel() {
+  const screen = screenHeight()
+  const short = screen * PANEL_SHORT
+  const tall = screen * PANEL_TALL
+  const current = sheetEl.getBoundingClientRect().height
+  setPanelHeight(current < (short + tall) / 2 ? tall : short)
+}
 
 panelHandle.addEventListener('pointerdown', (event) => {
   if (event.button !== 0) return
   if (window.matchMedia('(min-width: 721px)').matches) return
-  panelDrag = { y: event.clientY, height: sheetEl.getBoundingClientRect().height }
-  panelHandle.classList.add('is-dragging')
+  panelDrag = { y: event.clientY, height: sheetEl.getBoundingClientRect().height, moved: false }
   panelHandle.setPointerCapture(event.pointerId)
 })
 
 panelHandle.addEventListener('pointermove', (event) => {
   if (!panelDrag) return
+  if (!panelDrag.moved && Math.abs(event.clientY - panelDrag.y) <= PANEL_CLICK_SLOP) return
+  panelDrag.moved = true
+  panelHandle.classList.add('is-dragging')
   setPanelHeight(panelDrag.height + (panelDrag.y - event.clientY))
 })
 
-function endPanelDrag(event: PointerEvent) {
+function endPanelDrag(event: PointerEvent, jump: boolean) {
   if (!panelDrag) return
+  const clicked = jump && !panelDrag.moved
   panelDrag = null
   panelHandle.classList.remove('is-dragging')
   if (panelHandle.hasPointerCapture(event.pointerId)) panelHandle.releasePointerCapture(event.pointerId)
+  if (clicked) jumpPanel()
 }
 
-panelHandle.addEventListener('pointerup', endPanelDrag)
-panelHandle.addEventListener('pointercancel', endPanelDrag)
+panelHandle.addEventListener('pointerup', (event) => endPanelDrag(event, true))
+panelHandle.addEventListener('pointercancel', (event) => endPanelDrag(event, false))
 
 panelHandle.addEventListener('keydown', (event) => {
-  if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return
   if (window.matchMedia('(min-width: 721px)').matches) return
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault()
+    jumpPanel()
+    return
+  }
+  if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return
   event.preventDefault()
   const step = event.shiftKey ? 96 : 40
   const current = sheetEl.getBoundingClientRect().height
