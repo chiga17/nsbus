@@ -13,6 +13,19 @@ function adminPath(env: Record<string, string>): string | null {
   return value
 }
 
+function livePage(): Plugin {
+  return {
+    name: 'live-page',
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        const url = req.url?.split('?')[0] ?? ''
+        if (url === '/live' || url === '/live/') req.url = '/live.html'
+        next()
+      })
+    },
+  }
+}
+
 function hideAdmin(secret: string): Plugin {
   const page = `/${secret}`
   return {
@@ -42,19 +55,21 @@ function hideAdmin(secret: string): Plugin {
 export default defineConfig(({ mode }) => {
   const secret = adminPath(loadEnv(mode, process.cwd(), ''))
   return {
-    plugins: secret ? [hideAdmin(secret)] : [],
+    plugins: [livePage(), ...(secret ? [hideAdmin(secret)] : [])],
     server: {
       proxy: {
         '/buses': { target: 'http://127.0.0.1:8082', changeOrigin: true },
       },
     },
-    build: secret
-      ? {
-          rollupOptions: {
-            input: { main: path.resolve('index.html'), admin: path.resolve('admin.html') },
-            output: { entryFileNames: 'assets/[hash].js' },
-          },
-        }
-      : undefined,
+    build: {
+      rollupOptions: {
+        input: {
+          main: path.resolve('index.html'),
+          live: path.resolve('live.html'),
+          ...(secret ? { admin: path.resolve('admin.html') } : {}),
+        },
+        output: secret ? { entryFileNames: 'assets/[hash].js' } : undefined,
+      },
+    },
   }
 })

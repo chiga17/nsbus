@@ -51,6 +51,7 @@ const lines = (rawLines as unknown as Line[]).map((line) => ({
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header class="bar">
     <strong class="brand">nsbus</strong>
+    <div id="account-slot"></div>
     <div class="mode" role="group" aria-label="Position source">
       <button type="button" id="mode-sim" class="on" aria-pressed="true">simulated</button>
       <button type="button" id="mode-gps" aria-pressed="false" disabled>gps</button>
@@ -354,6 +355,8 @@ let placedBuses: RoadBus[] = []
 let unresolvedFixes: GpsFix[] = []
 let pollLive: (() => Promise<{ ready: boolean; updatedAt: string | null; buses: LiveBus[] }>) | null =
   null
+/** Where the simulated side of the switch goes. Set on the guarded live page. */
+let exitLiveTo: string | null = null
 let liveTimer = 0
 
 function liveIcon(line: string): L.DivIcon {
@@ -389,6 +392,10 @@ async function refreshLive() {
 }
 
 function useSimulated() {
+  if (exitLiveTo) {
+    location.assign(exitLiveTo)
+    return
+  }
   if (!usingLive) return
   usingLive = false
   paintMode()
@@ -410,12 +417,23 @@ function useGps() {
 simButton.addEventListener('click', useSimulated)
 gpsButton.addEventListener('click', useGps)
 
-/** Admin page only. The public bundle never receives the backend address or token. */
+// The public map has no poll. Its gps button only opens the guarded page.
+if (document.body.dataset.page === 'map') {
+  gpsButton.disabled = false
+  gpsButton.addEventListener('click', () => {
+    if (!pollLive) location.assign('/live')
+  })
+}
+
+/** Admin turns GPS on in place. The live page starts on and leaves through `exitTo`. */
 export function enableLive(
   poll: () => Promise<{ ready: boolean; updatedAt: string | null; buses: LiveBus[] }>,
+  opts?: { startOn?: boolean; exitTo?: string },
 ): void {
   pollLive = poll
   gpsButton.disabled = false
+  if (opts?.exitTo) exitLiveTo = opts.exitTo
+  if (opts?.startOn) useGps()
 }
 
 type SelectedStop = {

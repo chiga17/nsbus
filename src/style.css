@@ -21,7 +21,6 @@ body,
 
 .bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 8px;
   padding: 4px 12px;
@@ -31,8 +30,31 @@ body,
 }
 
 .brand {
+  flex: none;
   font-size: 14px;
   line-height: 1;
+}
+
+#account-slot {
+  margin-left: auto;
+  min-width: 0;
+}
+
+.account {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 46vw;
+  color: #3d7a4a;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.account-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .mode {

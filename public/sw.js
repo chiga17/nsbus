@@ -1,4 +1,4 @@
-const CACHE = 'nsbus-shell-v1'
+const CACHE = 'nsbus-shell-v2'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -43,6 +43,7 @@ self.addEventListener('fetch', (event) => {
   if (request.headers.has('authorization')) return
   const url = new URL(request.url)
   if (url.origin !== self.location.origin) return
-  if (url.pathname.startsWith('/buses')) return
+  if (url.pathname.startsWith('/buses') || url.pathname.startsWith('/cdn-cgi/')) return
+  if (url.pathname === '/live' || url.pathname === '/live.html') return
   event.respondWith(networkFirst(request))
 })
