@@ -1,4 +1,4 @@
-const CACHE = 'nsbus-shell-v2'
+const CACHE = 'nsbus-shell-v3'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
