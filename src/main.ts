@@ -1047,7 +1047,6 @@ function drawBus(
   lat: number,
   lon: number,
   lineId: string,
-  tip: string | null,
   seen: Set<string>,
 ) {
   const icon = usingLive ? liveIcon(lineId) : icons.get(lineId)
@@ -1057,15 +1056,10 @@ function drawBus(
   if (marker) {
     marker.setLatLng([lat, lon])
     if (marker.getIcon() !== icon) marker.setIcon(icon)
-    if (tip) {
-      if (marker.getTooltip()) marker.setTooltipContent(tip)
-      else marker.bindTooltip(tip)
-    }
     markDue(id, marker)
     return
   }
   const created = L.marker([lat, lon], { icon }).addTo(map)
-  if (tip) created.bindTooltip(tip)
   created.on('click', (event) => {
     L.DomEvent.stopPropagation(event)
     const current = placedBuses.find((bus) => bus.id === id)
@@ -1086,19 +1080,11 @@ function tick() {
     ? placedBuses.filter((bus) => bus.lineId === selectedLineId)
     : placedBuses
   for (const bus of visible) {
-    let tip = null
-    if (usingLive) {
-      const fix = liveBuses.find((item) => item.id === bus.id)
-      const minutes =
-        fix?.secondsLeft == null ? '' : ` · ${Math.max(1, Math.round(fix.secondsLeft / 60))} min`
-      tip = `${bus.lineId}${minutes}${fix?.stopName ? ` · ${fix.stopName}` : ''}`
-    }
-    drawBus(bus.id, bus.lat, bus.lon, bus.lineId, tip, seen)
+    drawBus(bus.id, bus.lat, bus.lon, bus.lineId, seen)
   }
   if (usingLive && !selectedLineId) {
     for (const fix of unresolvedFixes) {
-      const tip = `${fix.line} · direction unclear`
-      drawBus(fix.id, fix.lat, fix.lng, fix.line, tip, seen)
+      drawBus(fix.id, fix.lat, fix.lng, fix.line, seen)
     }
   }
 
