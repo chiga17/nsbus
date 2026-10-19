@@ -173,6 +173,10 @@ body,
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
+.bus-marker span.is-low-floor {
+  border-bottom: 3px solid #17803d;
+}
+
 .bus-marker.is-dim {
   opacity: 0.28;
 }
@@ -382,6 +386,29 @@ body,
   border-radius: 4px;
   padding: 0 3px;
   font-weight: 700;
+}
+
+.arrivals .min.low-floor,
+.arrivals .line.low-floor {
+  color: #17803d;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.arrivals .timetable .min.low-floor.passed {
+  color: #8fb59a;
+}
+
+.arrivals li button.road.low-floor,
+.arrivals li.low-floor {
+  box-shadow: inset 3px 0 0 #17803d;
+}
+
+.arrivals .chip.low-floor {
+  outline: 2px solid #17803d;
+  outline-offset: 1px;
 }
 
 .arrivals .sheet-head {

@@ -1,6 +1,7 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import rawLines from './data/lines.json'
+import lowFloorRaw from './data/low-floor.json'
 import {
   arrivalsFor,
   dayType,
@@ -42,8 +43,17 @@ function colorFor(id: string): string {
   return PALETTE[h % PALETTE.length]
 }
 
+const lowFloorByLine = lowFloorRaw as Record<string, Partial<Record<DayType, string[]>>>
+
 const lines = (rawLines as unknown as Line[]).map((line) => ({
-  line,
+  line: {
+    ...line,
+    lowFloor: {
+      workday: lowFloorByLine[line.id]?.workday ?? [],
+      saturday: lowFloorByLine[line.id]?.saturday ?? [],
+      sunday: lowFloorByLine[line.id]?.sunday ?? [],
+    },
+  },
   cumulative: shapeDistances(line),
   color: colorFor(line.id),
 }))
@@ -322,16 +332,19 @@ function showOnlyRoute(id: string) {
   showRoutes([id])
 }
 
-const icons = new Map(
-  lines.map(({ line, color }) => [
-    line.id,
-    L.divIcon({
-      className: 'bus-marker',
-      html: `<span style="background:${color}">${line.id}</span>`,
-      iconSize: [40, 28],
-      iconAnchor: [20, 14],
-    }),
-  ]),
+function lineIcon(id: string, color: string, lowFloor: boolean): L.DivIcon {
+  const mark = lowFloor ? ' class="is-low-floor"' : ''
+  return L.divIcon({
+    className: 'bus-marker',
+    html: `<span${mark} style="background:${color}">${id}</span>`,
+    iconSize: [40, 28],
+    iconAnchor: [20, 14],
+  })
+}
+
+const icons = new Map(lines.map(({ line, color }) => [line.id, lineIcon(line.id, color, false)]))
+const lowFloorIcons = new Map(
+  lines.map(({ line, color }) => [line.id, lineIcon(line.id, color, true)]),
 )
 
 const markers = new Map<string, L.Marker>()
@@ -593,6 +606,10 @@ function scheduleMarks(
 }
 
 /** Departures that have not left the first stop yet. */
+function rampTimes(line: Line, day: DayType): Set<string> {
+  return new Set(line.lowFloor?.[day] ?? [])
+}
+
 function upcomingDepartures(line: Line, now: Date, limit = 8): string[] {
   const nowMin = now.getHours() * 60 + now.getMinutes()
   const times = line.departures[dayType(now)] ?? line.departures.workday
@@ -643,6 +660,7 @@ function lineHead(line: Line, color: string, now: Date): string {
 function timetableHtml(line: Line, now: Date): string {
   const shown = timetableDay ?? dayType(now)
   const times = line.departures[shown] ?? []
+  const ramp = rampTimes(line, shown)
   const marks =
     shown === dayType(now)
       ? scheduleMarks(times, now)
@@ -651,7 +669,9 @@ function timetableHtml(line: Line, now: Date): string {
   const hours: { hour: string; mins: { mm: string; cls: string }[] }[] = []
   for (const mark of marks) {
     const [hour, mm] = mark.hhmm.split(':')
-    const cls = mark.passed ? 'passed' : mark.next ? 'next' : ''
+    const cls = [mark.passed ? 'passed' : mark.next ? 'next' : '', ramp.has(mark.hhmm) ? 'low-floor' : '']
+      .filter(Boolean)
+      .join(' ')
     const last = hours.at(-1)
     if (!last || last.hour !== hour) hours.push({ hour, mins: [{ mm, cls }] })
     else last.mins.push({ mm, cls })
@@ -664,7 +684,8 @@ function timetableHtml(line: Line, now: Date): string {
       return `<li><span class="hour">${esc(row.hour)}</span><span class="mins">${chips}</span></li>`
     })
     .join('')
-  return `<ul class="timetable">${rows}</ul>`
+  return `<ul class="timetable">${rows}</ul>
+    <p class="empty legend"><span class="min low-floor">low-floor</span> with a ramp</p>`
 }
 
 function renderLine(now: Date): boolean {
@@ -691,15 +712,20 @@ function renderLine(now: Date): boolean {
             : 0
           const eta = !next ? 'at last stop' : mins === 0 ? 'now' : `in ${mins} min`
           const when = bus.departedAt ? `left ${esc(bus.departedAt)} · ${eta}` : eta
-          return `<li><button type="button" class="road" data-bus="${esc(bus.id)}" data-line="${esc(line.id)}"><span class="stop">${esc(name)}</span><span class="when">${when}</span></button></li>`
+          const ramp = bus.lowFloor ? ' low-floor' : ''
+          return `<li><button type="button" class="road${ramp}" data-bus="${esc(bus.id)}" data-line="${esc(line.id)}"><span class="stop">${esc(name)}</span><span class="when">${when}</span></button></li>`
         })
         .join('')}</ul>`
     : `<p class="empty">None on the road right now.</p>`
 
   const upcoming = upcomingDepartures(line, now)
+  const ramp = rampTimes(line, dayType(now))
   const departures = upcoming.length
     ? `<ul>${upcoming
-        .map((hhmm) => `<li><span class="line">departs ${esc(hhmm)}</span></li>`)
+        .map((hhmm) => {
+          const mark = ramp.has(hhmm) ? ' low-floor' : ''
+          return `<li><span class="line${mark}">departs ${esc(hhmm)}</span></li>`
+        })
         .join('')}</ul>`
     : `<p class="empty">No more departures today.</p>`
 
@@ -737,7 +763,7 @@ function renderLine(now: Date): boolean {
   return true
 }
 
-function paintBusFollow(line: Line, color: string, calls: Call[], note: string) {
+function paintBusFollow(line: Line, color: string, calls: Call[], note: string, lowFloor = false) {
   const nextAt = calls.findIndex((call) => call.next)
   const key = `${selectedBusId}:${nextAt}`
   const scroll = key === followKey ? 'keep' : 'next'
@@ -752,7 +778,7 @@ function paintBusFollow(line: Line, color: string, calls: Call[], note: string) 
   paintPanel(
     `<div class="arrivals">
         <div class="sheet-head">
-          <h3><i class="chip" style="background:${color}"></i>${esc(line.id)}</h3>
+          <h3><i class="chip${lowFloor ? ' low-floor' : ''}" style="background:${color}"></i>${esc(line.id)}</h3>
           <p class="route">${esc(line.route)}</p>
         </div>
         <ul>${rows}</ul>
@@ -782,7 +808,10 @@ function renderPanel(now: Date) {
         itineraryFromAlong(row.line, bus.along, now),
         usingLive
           ? 'live GPS · gray stops are already passed'
-          : 'simulated from timetable · gray stops are already passed',
+          : bus.lowFloor
+            ? 'low-floor with a ramp · simulated from timetable · gray stops are already passed'
+            : 'simulated from timetable · gray stops are already passed',
+        !usingLive && bus.lowFloor === true,
       )
       return
     }
@@ -855,11 +884,14 @@ function renderPanel(now: Date) {
                 ? 'now'
                 : `in ${row.minutes} min`
           const when = `<span class="when">${label} · ${clock(row.arrivesAt)}</span>`
+          const lineRow = lines.find((item) => item.line.id === row.lineId)
+          const ramp =
+            lineRow && rampTimes(lineRow.line, dayType(now)).has(row.departedAt) ? ' class="low-floor"' : ''
           if (row.onMap && row.vehicleId) {
             const color = colorFor(row.lineId)
-            return `<li><button type="button" class="bus" data-bus="${esc(row.vehicleId)}" data-line="${esc(row.lineId)}"><span class="line"><i class="live"></i><span class="badge" style="background:${color}">${esc(row.lineId)}</span></span>${when}</button></li>`
+            return `<li${ramp}><button type="button" class="bus" data-bus="${esc(row.vehicleId)}" data-line="${esc(row.lineId)}"><span class="line"><i class="live"></i><span class="badge" style="background:${color}">${esc(row.lineId)}</span></span>${when}</button></li>`
           }
-          return `<li><span class="line">${esc(row.lineId)}</span>${when}</li>`
+          return `<li${ramp}><span class="line">${esc(row.lineId)}</span>${when}</li>`
         })
         .join('')}</ul>`
     : `<p class="empty">No more buses to this stop today.</p>`
@@ -1048,8 +1080,9 @@ function drawBus(
   lon: number,
   lineId: string,
   seen: Set<string>,
+  lowFloor = false,
 ) {
-  const icon = usingLive ? liveIcon(lineId) : icons.get(lineId)
+  const icon = usingLive ? liveIcon(lineId) : lowFloor ? lowFloorIcons.get(lineId) : icons.get(lineId)
   if (!icon) return
   seen.add(id)
   const marker = markers.get(id)
@@ -1080,7 +1113,7 @@ function tick() {
     ? placedBuses.filter((bus) => bus.lineId === selectedLineId)
     : placedBuses
   for (const bus of visible) {
-    drawBus(bus.id, bus.lat, bus.lon, bus.lineId, seen)
+    drawBus(bus.id, bus.lat, bus.lon, bus.lineId, seen, !usingLive && bus.lowFloor === true)
   }
   if (usingLive && !selectedLineId) {
     for (const fix of unresolvedFixes) {

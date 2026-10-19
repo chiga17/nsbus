@@ -14,6 +14,7 @@ import json
 import math
 import re
 import ssl
+import sys
 import time
 import unicodedata
 import urllib.parse
@@ -24,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "src" / "data"
 CACHE = ROOT / "scratch" / "mreza"
 OUT_PATH = DATA / "lines.json"
+LOW_FLOOR_PATH = DATA / "low-floor.json"
 STOP_ORDERS_PATH = DATA / "stop-orders.json"
 STOP_ORDERS_MD_PATH = ROOT / "STOP_ORDERS.md"
 
@@ -119,14 +121,23 @@ def haversine(a: tuple[float, float], b: tuple[float, float]) -> float:
     return 2 * r * math.asin(math.sqrt(h))
 
 
-def parse_times(cell: str) -> list[str]:
-    times, hour = [], None
-    for tag, minute in re.findall(r"<b>(\d{2})</b>|<span[^>]*>\s*(\d{2})", cell):
-        if tag:
-            hour = tag
-        elif hour is not None:
-            times.append(f"{hour}:{minute}")
-    return times
+def parse_times(cell: str) -> tuple[list[str], list[str]]:
+    """Departure times, and the subset marked niskopodni-rampa (low-floor with a ramp)."""
+    times: list[str] = []
+    low_floor: list[str] = []
+    hour = None
+    for hour_tag, span_class, minute in re.findall(
+        r"<b>(\d{2})</b>|<span class=['\"]([^'\"]*)['\"]>\s*(\d{2})",
+        cell,
+    ):
+        if hour_tag:
+            hour = hour_tag
+        elif hour is not None and minute:
+            hhmm = f"{hour}:{minute}"
+            times.append(hhmm)
+            if "niskopodni-rampa" in span_class:
+                low_floor.append(hhmm)
+    return times, low_floor
 
 
 def parse_timetable(html: str) -> list[dict]:
@@ -143,12 +154,18 @@ def parse_timetable(html: str) -> list[dict]:
             block,
             re.S,
         )
-        cells = re.findall(r"<td[^>]*width='50%'>(.*?)</td>", block, re.S)
+        cells = re.findall(r"<td[^>]*width=['\"]50%['\"]>(.*?)</td>", block, re.S)
         directions = []
         for (smer, route), cell in zip(headers, cells):
             route = html_lib.unescape(re.sub(r"\s+", " ", route).strip())
+            times, low_floor = parse_times(cell)
             directions.append(
-                {"smer": smer, "route": route, "times": parse_times(cell)}
+                {
+                    "smer": smer,
+                    "route": route,
+                    "times": times,
+                    "lowFloor": low_floor,
+                }
             )
         out.append({"code": code, "name": name.strip(), "directions": directions})
     return out
@@ -386,6 +403,7 @@ def index_directions(tables: list[dict]) -> dict[tuple[str, str], dict]:
                 "smer": direction["smer"],
                 "route": direction["route"],
                 "times": direction["times"],
+                "lowFloor": direction["lowFloor"],
             }
     return indexed
 
@@ -507,6 +525,7 @@ def main() -> None:
     print(f"mreža city routes: {len(catalog)}")
 
     lines = []
+    low_floor: dict[str, dict[str, list[str]]] = {}
     used: set[str] = set()
     for key in order:
         row = (
@@ -516,6 +535,10 @@ def main() -> None:
         )
         departures = {
             day: by_day[day].get(key, {}).get("times", [])
+            for day in ("workday", "saturday", "sunday")
+        }
+        marked = {
+            day: by_day[day].get(key, {}).get("lowFloor", [])
             for day in ("workday", "saturday", "sunday")
         }
         mreza = pick_mreza(row["route"], catalog, used, row["code"], row["smer"])
@@ -529,13 +552,68 @@ def main() -> None:
         built = build_line(lid, row["name"], row["route"], departures, mreza)
         if built:
             lines.append(built)
+            if any(marked.values()):
+                low_floor[lid] = marked
 
     OUT_PATH.write_text(json.dumps(lines, ensure_ascii=False), encoding="utf-8")
     print(f"wrote {OUT_PATH.relative_to(ROOT)} ({len(lines)} directions)")
+    write_low_floor(low_floor)
     write_stop_orders(lines)
     print(f"wrote {STOP_ORDERS_PATH.relative_to(ROOT)}")
     print(f"wrote {STOP_ORDERS_MD_PATH.relative_to(ROOT)}")
 
 
+def write_low_floor(low_floor: dict[str, dict[str, list[str]]]) -> None:
+    ordered = {lid: low_floor[lid] for lid in sorted(low_floor)}
+    LOW_FLOOR_PATH.write_text(
+        json.dumps(ordered, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    marked = sum(len(times) for days in ordered.values() for times in days.values())
+    print(f"wrote {LOW_FLOOR_PATH.relative_to(ROOT)} ({len(ordered)} lines, {marked} departures)")
+
+
+def refresh_low_floor() -> None:
+    """Attach the ramp mark to the lines we already have, without rebuilding geometry."""
+    by_day = {
+        day: index_directions(tables) for day, tables in fetch_timetables().items()
+    }
+    existing = json.loads(OUT_PATH.read_text(encoding="utf-8"))
+    by_route: dict[str, list[str]] = {}
+    departures = {}
+    for line in existing:
+        by_route.setdefault(fold(line["route"]), []).append(line["id"])
+        departures[line["id"]] = line["departures"]
+
+    low_floor: dict[str, dict[str, list[str]]] = {}
+    missed = 0
+    for day, indexed in by_day.items():
+        for direction in indexed.values():
+            ids = by_route.get(fold(direction["route"]), [])
+            if len(ids) != 1:
+                missed += 1
+                print(f"  no single line for {direction['route']!r} -> {ids}")
+                continue
+            lid = ids[0]
+            known = set(departures[lid].get(day, []))
+            times = [hhmm for hhmm in direction["lowFloor"] if hhmm in known]
+            dropped = len(direction["lowFloor"]) - len(times)
+            if dropped:
+                print(f"  {lid} {day}: {dropped} ramp times are not in the stored timetable")
+            row = low_floor.setdefault(lid, {"workday": [], "saturday": [], "sunday": []})
+            row[day] = times
+    kept = {
+        lid: days
+        for lid, days in low_floor.items()
+        if any(days.values())
+    }
+    if missed:
+        raise SystemExit(f"{missed} timetable directions did not match a line")
+    write_low_floor(kept)
+
+
 if __name__ == "__main__":
-    main()
+    if "--low-floor" in sys.argv:
+        refresh_low_floor()
+    else:
+        main()

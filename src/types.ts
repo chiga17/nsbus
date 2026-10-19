@@ -17,6 +17,8 @@ export type Line = {
   shape: [number, number][]
   stops: Stop[]
   departures: Record<DayType, string[]>
+  /** Departure times the timetable marks as low-floor with a ramp. */
+  lowFloor?: Record<DayType, string[]>
 }
 
 export type Vehicle = {
@@ -29,6 +31,8 @@ export type Vehicle = {
   departedAt: string
   progress: number
   along: number
+  /** This departure is marked low-floor with a ramp. */
+  lowFloor: boolean
 }
 
 export type Arrival = {
