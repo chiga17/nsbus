@@ -656,8 +656,19 @@ function lineHead(line: Line, color: string, now: Date): string {
       </div>`
 }
 
-/** One day's departures, one row per hour. Today grays past minutes and marks the next one. */
-function timetableHtml(line: Line, now: Date): string {
+/** White text is a low-floor departure. Black text is not. Same reading as the map badges. */
+function floorLegend(color: string): string {
+  return `<p class="empty legend"><span class="tick" style="background:${color}">28</span> low-floor with a ramp <span class="tick is-high-floor" style="background:${color}">40</span> no ramp</p>`
+}
+
+function timeTick(hhmm: string, color: string, ramp: boolean, extra = ''): string {
+  const floor = ramp ? '' : ' is-high-floor'
+  const more = extra ? ` ${extra}` : ''
+  return `<span class="tick${floor}${more}" style="background:${color}">${esc(hhmm)}</span>`
+}
+
+/** One day's departures, one row per hour. Today fades past minutes and rings the next one. */
+function timetableHtml(line: Line, color: string, now: Date): string {
   const shown = timetableDay ?? dayType(now)
   const times = line.departures[shown] ?? []
   const ramp = rampTimes(line, shown)
@@ -669,9 +680,7 @@ function timetableHtml(line: Line, now: Date): string {
   const hours: { hour: string; mins: { mm: string; cls: string }[] }[] = []
   for (const mark of marks) {
     const [hour, mm] = mark.hhmm.split(':')
-    const cls = [mark.passed ? 'passed' : mark.next ? 'next' : '', ramp.has(mark.hhmm) ? 'low-floor' : '']
-      .filter(Boolean)
-      .join(' ')
+    const cls = [mark.passed ? 'passed' : mark.next ? 'next' : ''].filter(Boolean).join(' ')
     const last = hours.at(-1)
     if (!last || last.hour !== hour) hours.push({ hour, mins: [{ mm, cls }] })
     else last.mins.push({ mm, cls })
@@ -679,13 +688,13 @@ function timetableHtml(line: Line, now: Date): string {
   const rows = hours
     .map((row) => {
       const chips = row.mins
-        .map((min) => `<span class="min${min.cls ? ` ${min.cls}` : ''}">${esc(min.mm)}</span>`)
+        .map((min) => timeTick(min.mm, color, ramp.has(`${row.hour}:${min.mm}`), min.cls))
         .join('')
       return `<li><span class="hour">${esc(row.hour)}</span><span class="mins">${chips}</span></li>`
     })
     .join('')
   return `<ul class="timetable">${rows}</ul>
-    <p class="empty legend"><span class="min low-floor">low-floor</span> with a ramp</p>`
+    ${floorLegend(color)}`
 }
 
 function renderLine(now: Date): boolean {
@@ -721,11 +730,8 @@ function renderLine(now: Date): boolean {
   const ramp = rampTimes(line, dayType(now))
   const departures = upcoming.length
     ? `<ul>${upcoming
-        .map((hhmm) => {
-          const mark = ramp.has(hhmm) ? ' low-floor' : ''
-          return `<li><span class="line${mark}">departs ${esc(hhmm)}</span></li>`
-        })
-        .join('')}</ul>`
+        .map((hhmm) => `<li><span class="line">departs ${timeTick(hhmm, color, ramp.has(hhmm))}</span></li>`)
+        .join('')}</ul>${floorLegend(color)}`
     : `<p class="empty">No more departures today.</p>`
 
   const stops = `<ul>${line.stops
@@ -743,7 +749,7 @@ function renderLine(now: Date): boolean {
   linePanelKey = viewKey
   const body =
     lineSheet === 'timetable'
-      ? timetableHtml(line, now)
+      ? timetableHtml(line, color, now)
       : `<h4>On the road</h4>
       ${road}
       <h4>Next departures</h4>
