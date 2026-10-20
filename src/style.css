@@ -108,9 +108,21 @@ body,
 .panel {
   width: 280px;
   flex: none;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   background: #fffdfb;
   border-left: 1px solid #e8d5c4;
+}
+
+#panel-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.panel-handle {
+  display: none;
 }
 
 @media (max-width: 720px) {
@@ -120,9 +132,31 @@ body,
 
   .panel {
     width: auto;
-    max-height: 40%;
+    height: var(--panel-height, 40%);
     border-left: none;
     border-top: 1px solid #e8d5c4;
+  }
+
+  .panel-handle {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    touch-action: none;
+    cursor: ns-resize;
+  }
+
+  .panel-handle::before {
+    content: '';
+    width: 40px;
+    height: 4px;
+    border-radius: 999px;
+    background: #c9b5a4;
+  }
+
+  .panel-handle.is-dragging::before {
+    background: #c45c26;
   }
 }
 
