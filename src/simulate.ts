@@ -83,6 +83,8 @@ export type RoadBus = {
   lon: number
   speed: number
   departedAt: string | null
+  /** Set for a simulated departure the timetable marks as low-floor with a ramp. */
+  lowFloor?: boolean
 }
 
 /** Leading route number, so 7A, 7B and a raw "7" from NSmart share a family. */
@@ -246,6 +248,7 @@ export function timetableBuses(
         lon: vehicle.lon,
         speed,
         departedAt: vehicle.departedAt,
+        lowFloor: vehicle.lowFloor,
       })
     }
   }
@@ -293,7 +296,9 @@ export function vehiclesAt(
   const tripMs = line.tripSeconds * 1000
   const out: Vehicle[] = []
 
-  for (const hhmm of line.departures[dayType(now)] ?? line.departures.workday) {
+  const day = dayType(now)
+  const ramp = new Set(line.lowFloor?.[day] ?? [])
+  for (const hhmm of line.departures[day] ?? line.departures.workday) {
     const elapsed = now.getTime() - parseToday(hhmm, now).getTime()
     if (elapsed < 0 || elapsed >= tripMs) continue
 
@@ -314,6 +319,7 @@ export function vehiclesAt(
       departedAt: hhmm,
       progress,
       along,
+      lowFloor: ramp.has(hhmm),
     })
   }
 
