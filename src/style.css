@@ -253,6 +253,18 @@ body,
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
+.arrivals .badge.is-high-floor {
+  color: #1b1b1b;
+}
+
+.arrivals .badge.later {
+  opacity: 0.5;
+}
+
+.arrivals li.ahead {
+  align-items: center;
+}
+
 .arrivals li button.bus {
   align-items: center;
 }
@@ -356,7 +368,7 @@ body,
 
 .arrivals .timetable li {
   justify-content: flex-start;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
 }
 
@@ -370,40 +382,34 @@ body,
 .arrivals .timetable .mins {
   display: flex;
   flex-wrap: wrap;
-  gap: 2px 6px;
+  gap: 4px;
 }
 
-.arrivals .timetable .min {
+.arrivals .tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
+  line-height: 1;
 }
 
-.arrivals .timetable .min.passed {
-  color: #b7ada4;
+.arrivals .tick.is-high-floor {
+  color: #1b1b1b;
 }
 
-.arrivals .timetable .min.next {
-  background: #fff1e4;
-  border-radius: 4px;
-  padding: 0 3px;
-  font-weight: 700;
+.arrivals .timetable .tick.passed {
+  opacity: 0.4;
 }
 
-.arrivals .min.low-floor,
-.arrivals .line.low-floor {
-  color: #17803d;
-  font-weight: 700;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
-}
-
-.arrivals .timetable .min.low-floor.passed {
-  color: #8fb59a;
-}
-
-.arrivals li button.road.low-floor,
-.arrivals li.low-floor {
-  box-shadow: inset 3px 0 0 #17803d;
+.arrivals .timetable .tick.next {
+  box-shadow: 0 0 0 2px #c45c26;
 }
 
 .arrivals .sheet-head {
@@ -509,6 +515,7 @@ body,
 
 .arrivals .empty.legend {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 6px;
   margin-top: 2px;
