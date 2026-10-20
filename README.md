@@ -6,7 +6,7 @@ Novi Sad city bus map (Leaflet + Vite). Positions come from one of two modes. Th
 
 Where the buses on the map come from. The header switch says which one is on.
 
-- **Simulated** is the public map. Buses are placed from the city timetable (`timetableBuses` in `src/simulate.ts`). The public site always opens in this mode, including for someone already signed in with Google. A departure the timetable marks as low-floor with a ramp keeps white text on the map. The few buses that are not low-floor use black text. The timetable still underlines the low-floor minutes in green.
+- **Simulated** is the public map. Buses are placed from the city timetable (`timetableBuses` in `src/simulate.ts`). The public site always opens in this mode, including for someone already signed in with Google. A departure the timetable marks as low-floor with a ramp keeps white text on the map. The few buses that are not low-floor use black text. A stop lists the same badge: full color with the orange dot when that bus is already on the map, and faded when it has not left yet. The timetable still underlines the low-floor minutes in green.
 - **GPS** polls the backend and snaps each fix onto a route (`placeLive`). On the public map the gps side of the switch opens `/live`. That page starts in GPS, and choosing simulated returns to the public map. `/live` is guarded by the same Cloudflare Access application as the admin page. After that Google login, the page shows a green account mark and the email. The admin page can still turn GPS on in place. The public bundle never receives the backend address or token.
 
 ## Selections

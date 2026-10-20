@@ -712,8 +712,7 @@ function renderLine(now: Date): boolean {
             : 0
           const eta = !next ? 'at last stop' : mins === 0 ? 'now' : `in ${mins} min`
           const when = bus.departedAt ? `left ${esc(bus.departedAt)} · ${eta}` : eta
-          const ramp = bus.lowFloor ? ' low-floor' : ''
-          return `<li><button type="button" class="road${ramp}" data-bus="${esc(bus.id)}" data-line="${esc(line.id)}"><span class="stop">${esc(name)}</span><span class="when">${when}</span></button></li>`
+          return `<li><button type="button" class="road" data-bus="${esc(bus.id)}" data-line="${esc(line.id)}"><span class="stop">${esc(name)}</span><span class="when">${when}</span></button></li>`
         })
         .join('')}</ul>`
     : `<p class="empty">None on the road right now.</p>`
@@ -884,13 +883,18 @@ function renderPanel(now: Date) {
                 : `in ${row.minutes} min`
           const when = `<span class="when">${label} · ${clock(row.arrivesAt)}</span>`
           const lineRow = lines.find((item) => item.line.id === row.lineId)
+          // A GPS bus has no timetable departure, so its badge stays white, same as on the map.
+          const known = Boolean(row.departedAt)
           const ramp =
-            lineRow && rampTimes(lineRow.line, dayType(now)).has(row.departedAt) ? ' class="low-floor"' : ''
+            known && !!lineRow && rampTimes(lineRow.line, dayType(now)).has(row.departedAt)
+          const floor = known && !ramp ? ' is-high-floor' : ''
+          const color = colorFor(row.lineId)
+          const faded = row.onMap ? '' : ' later'
+          const badge = `<span class="badge${faded}${floor}" style="background:${color}">${esc(row.lineId)}</span>`
           if (row.onMap && row.vehicleId) {
-            const color = colorFor(row.lineId)
-            return `<li${ramp}><button type="button" class="bus" data-bus="${esc(row.vehicleId)}" data-line="${esc(row.lineId)}"><span class="line"><i class="live"></i><span class="badge" style="background:${color}">${esc(row.lineId)}</span></span>${when}</button></li>`
+            return `<li><button type="button" class="bus" data-bus="${esc(row.vehicleId)}" data-line="${esc(row.lineId)}"><span class="line"><i class="live"></i>${badge}</span>${when}</button></li>`
           }
-          return `<li${ramp}><span class="line">${esc(row.lineId)}</span>${when}</li>`
+          return `<li class="ahead"><span class="line">${badge}</span>${when}</li>`
         })
         .join('')}</ul>`
     : `<p class="empty">No more buses to this stop today.</p>`
@@ -904,7 +908,7 @@ function renderPanel(now: Date) {
     <h4>Next</h4>
     ${body}
     <p class="empty">${usingLive ? 'live GPS' : 'simulated from timetable'}</p>
-    <p class="empty legend"><i class="live"></i> already on the map</p>
+    <p class="empty legend"><i class="live"></i> already on the map · a faded badge has not left yet</p>
     <button type="button" id="clear-panel">clear</button>
   </div>`,
     'top',
