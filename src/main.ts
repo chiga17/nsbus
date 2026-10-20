@@ -333,7 +333,7 @@ function showOnlyRoute(id: string) {
 }
 
 function lineIcon(id: string, color: string, lowFloor: boolean): L.DivIcon {
-  const mark = lowFloor ? ' class="is-low-floor"' : ''
+  const mark = lowFloor ? '' : ' class="is-high-floor"'
   return L.divIcon({
     className: 'bus-marker',
     html: `<span${mark} style="background:${color}">${id}</span>`,
@@ -763,7 +763,7 @@ function renderLine(now: Date): boolean {
   return true
 }
 
-function paintBusFollow(line: Line, color: string, calls: Call[], note: string, lowFloor = false) {
+function paintBusFollow(line: Line, color: string, calls: Call[], note: string) {
   const nextAt = calls.findIndex((call) => call.next)
   const key = `${selectedBusId}:${nextAt}`
   const scroll = key === followKey ? 'keep' : 'next'
@@ -778,7 +778,7 @@ function paintBusFollow(line: Line, color: string, calls: Call[], note: string, 
   paintPanel(
     `<div class="arrivals">
         <div class="sheet-head">
-          <h3><i class="chip${lowFloor ? ' low-floor' : ''}" style="background:${color}"></i>${esc(line.id)}</h3>
+          <h3><i class="chip" style="background:${color}"></i>${esc(line.id)}</h3>
           <p class="route">${esc(line.route)}</p>
         </div>
         <ul>${rows}</ul>
@@ -811,7 +811,6 @@ function renderPanel(now: Date) {
           : bus.lowFloor
             ? 'low-floor with a ramp · simulated from timetable · gray stops are already passed'
             : 'simulated from timetable · gray stops are already passed',
-        !usingLive && bus.lowFloor === true,
       )
       return
     }
