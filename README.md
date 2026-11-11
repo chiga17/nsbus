@@ -13,7 +13,7 @@ Where the buses on the map come from. The header switch says which one is on.
 
 One of these is open at a time. Choosing another clears the previous one. Clicking the map clears all of them. Clicking the same bus, stop, or line again clears it.
 
-- **Bus** follows one vehicle: its route, and the stops still ahead with times. Stops already passed are gray. Every stop stays on the map; stops on this line are ringed in the line color.
+- **Bus** follows one vehicle: its route, and the stops still ahead with times. Stops already passed are gray. Every stop stays on the map; stops on this line are ringed in the line color. The line-number button at the top opens that line.
 - **Bus stop** lists the lines that serve that pole and the buses coming there, and draws the roads those buses still cover. Every stop stays on the map; stops on the serving lines are ringed.
 - **Bus line** draws that direction's route and fits it in view. Stops on the line are drawn larger in the line color; the rest are hidden. The panel switches between live buses on the road and the day's timetable.
 

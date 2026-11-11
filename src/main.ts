@@ -783,7 +783,7 @@ function paintBusFollow(line: Line, color: string, calls: Call[], note: string) 
   paintPanel(
     `<div class="arrivals">
         <div class="sheet-head">
-          <h3><i class="chip" style="background:${color}"></i>${esc(line.id)}</h3>
+          <h3>${lineChip(line.id, color)}</h3>
           <p class="route">${esc(line.route)}</p>
         </div>
         <ul>${rows}</ul>
