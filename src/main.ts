@@ -404,8 +404,19 @@ async function refreshLive() {
   tick()
 }
 
+const MODE_KEY = 'nsbus-mode'
+
+function rememberMode(mode: 'simulated' | 'gps') {
+  try {
+    localStorage.setItem(MODE_KEY, mode)
+  } catch {
+    // Private mode can reject storage. The switch still works for this visit.
+  }
+}
+
 function useSimulated() {
   if (exitLiveTo) {
+    rememberMode('simulated')
     location.assign(exitLiveTo)
     return
   }
@@ -420,6 +431,7 @@ function useSimulated() {
 
 function useGps() {
   if (usingLive || !pollLive) return
+  if (document.body.dataset.page === 'live') rememberMode('gps')
   usingLive = true
   paintMode()
   clearBus()
@@ -434,7 +446,10 @@ gpsButton.addEventListener('click', useGps)
 if (document.body.dataset.page === 'map') {
   gpsButton.disabled = false
   gpsButton.addEventListener('click', () => {
-    if (!pollLive) location.assign('/live')
+    if (!pollLive) {
+      rememberMode('gps')
+      location.assign('/live')
+    }
   })
 }
 

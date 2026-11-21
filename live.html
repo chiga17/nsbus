@@ -14,6 +14,11 @@
   </head>
   <body data-page="live">
     <div id="app"></div>
+    <script>
+      try {
+        if (localStorage.getItem('nsbus-mode') === 'simulated') location.replace('/')
+      } catch (e) {}
+    </script>
     <script type="module" src="/src/gps.ts"></script>
   </body>
 </html>
